@@ -4,15 +4,12 @@
  * Class Repository
  * Object for accessing the Database
  *
- * User Input is cleaned up with mysqli_real_escape_string
+ * SQL injections should not be possible due to prepared statements
+ * Please remind that isPositive has to be handled as an int [1/0]
  * @author Albers
  */
-class Repository
-{
+class Repository {
 
-    /**
-     * @var string
-     */
     private $pass = "";
     private $user = "root";
     private $db = "accounting";
@@ -27,12 +24,10 @@ class Repository
     function init() {
 
         $this->con = new mysqli($this->host, $this->user, $this->pass, $this->db);
-
         if ($this->con->connect_error) {
-            die("DB Connection failed: " . $this->con->connect_error);
+            die("DB connection failed: " . $this->con->connect_error);
             return false;
         }
-
         return true;
     }
 
@@ -40,12 +35,12 @@ class Repository
      * @param $userID
      * @return mixed
      */
-    function getAllAccountingsByUser($userID) {
+    function getAccountingsByUser($userID) {
 
-        $SQL = "SELECT * FROM Accounting WHERE UserID = '" . $userID . "'";
-
-        $result = mysqli_query($this->con, $SQL)->fetch_all(MYSQLI_ASSOC);
-        return $result;
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ?;");
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
     /** Returns an array that contains accounting data arrays
@@ -55,12 +50,24 @@ class Repository
      * @param $endDate
      * @return mixed
      */
-    function getAllAccountingsByUserBetweenDates($userID, $startDate, $endDate) {
+    function getAccountingsByUserBetweenDates($userID, $startDate, $endDate) {
 
-        $SQL = "SELECT * FROM Accounting WHERE UserID = " . $userID . " AND Date BETWEEN '" . $startDate . "' AND '" . $endDate . "';";
+        $stmt = mysqli_prepare($this->con,"SELECT * FROM Accounting WHERE UserID = ? AND Date BETWEEN ? AND ? ;");
+        $stmt->bind_param("iss", $userID, $startDate, $endDate);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
 
-        $result = mysqli_query($this->con, $SQL)->fetch_all(MYSQLI_ASSOC);
-        return $result;
+    /** Returns an array that contains accounting data arrays
+     * @param $categoryID
+     * @return mixed
+     */
+    function getAccountingsByCategory($categoryID) {
+
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE CategoryID = ?;");
+        $stmt->bind_param("i", $categoryID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
     /** Creates a new Accounting
@@ -75,34 +82,58 @@ class Repository
      */
     function createAccountingForUser($userID, $name, $value, $isPositive, $date, $categoryID) {
 
-        $SQL = "INSERT INTO Accounting (Value, IsPositive, Date, Name, UserID, CategoryID) 
-                VALUES (" . $value . ", " . $isPositive . ", " . $date . ", '" . mysqli_real_escape_string($this->con, $name) . "', " . $userID . ", " . $categoryID . ");";
-        echo $SQL . "<br7>";
-
-        if (!mysqli_query($this->con, $SQL)) {
+        $stmt = mysqli_prepare($this->con, "INSERT INTO Accounting (Value, isPositive, Date, Name, UserID, CategoryID) VALUES(?,?,?,?,?,?);");
+        $stmt->bind_param("dissii", $value, $isPositive, $date, $name, $userID, $categoryID);
+        if (!$stmt->execute()) {
 
             echo "Insert failed: " . mysqli_error($this->con);
             return false;
         }
-
         return true;
     }
 
     /**Deletes an Accounting
-     * Returns true on success, false on failure
      * @param $accountingID
-     * @return bool
      */
     function deleteAccounting($accountingID) {
 
-        $SQL = "DELETE FROM Accounting WHERE AccountingID = '" . $accountingID . "'";
+        $stmt = mysqli_prepare($this->con, "DELETE FROM Accounting WHERE AccountingID = ?;");
+        $stmt->bind_param("i", $accountingID);
+        $stmt->execute();
+    }
 
-        if (!mysqli_query($this->con, $SQL)) {
 
-            return false;
-        }
+    /** Changes the date of an accounting
+     * @param $accountingID
+     * @param $date
+     */
+    function alterAccountingDate($accountingID, $date) {
 
-        return true;
+        $stmt = mysqli_prepare($this->con, "UPDATE Accounting SET Date = ? WHERE AccountingID = ?");
+        $stmt->bind_param("si", $date, $accountingID);
+        $stmt->execute();
+    }
+
+    /** Changes the value of an accounting
+     * @param $accountingID
+     * @param $value
+     */
+    function alterAccountingValue($accountingID, $value) {
+
+        $stmt = mysqli_prepare($this->con, "UPDATE Accounting SET Value = ? WHERE AccountingID = ?");
+        $stmt->bind_param("di", $value, $accountingID);
+        $stmt->execute();
+    }
+
+    /** Change the name of an accounting
+     * @param $accountingID
+     * @param $name
+     */
+    function alterAccountingName($accountingID, $name) {
+
+        $stmt = mysqli_prepare($this->con, "UPDATE Accounting SET Name = ? WHERE AccountingID = ?;");
+        $stmt->bind_param("si", $name, $accountingID);
+        $stmt->execute();
     }
 
     /** Returns an array that contains category data arrays
@@ -111,66 +142,42 @@ class Repository
      */
     function getAllCategoriesByUser($userID) {
 
-        $SQL = "SELECT * FROM Category WHERE UserID ='" . $userID . "';";
-
-        $result = mysqli_query($this->con, $SQL)->fetch_all(MYSQLI_ASSOC);
-        return $result;
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Category WHERE UserID = ?;");
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
     /**Creates a new category for an user
-     * Returns true on success, false on failure
      * @param $userID
      * @param $categoryName
-     * @return bool
      */
     function createCategoryForUser($userID, $categoryName) {
 
-        $SQL = "INSERT INTO Category (Name, UserID) 
-                VALUES ('" . mysqli_real_escape_string($this->con, $categoryName) . "', " . $userID . ");";
-
-        if (!mysqli_query($this->con, $SQL)) {
-
-            echo "Insert failed: " . mysqli_error($this->con);
-            return false;
-        }
-
-        return true;
+        $stmt = mysqli_prepare($this->con, "INSERT INTO Category (Name, UserID) VALUES (?,?);");
+        $stmt->bind_param("si", $categoryName, $userID);
+        $stmt->execute();
     }
 
     /** Alter the name of a category
-     * Returns true on success, false on failure
      * @param $categoryID
-     * @param $Name
-     * @return bool
+     * @param $name
      */
-    function alterCategoryName($categoryID, $Name){
+    function alterCategoryName($categoryID, $name) {
 
-        $SQL = "UPDATE Category SET Name = '" . mysqli_real_escape_string($this->con, $Name) . "' WHERE CategoryID = " . $categoryID . ";";
-
-        if(!mysqli_query($this->con, $SQL)) {
-
-            mysqli_error($this->con);
-            return false;
-        }
-
-        return true;
+        $stmt = mysqli_prepare($this->con, "UPDATE Category SET Name = ? WHERE CategoryID = ?;");
+        $stmt->bind_param("si", $name, $categoryID);
+        $stmt->execute();
     }
 
     /** Deletes a category
-     * Returns true on success, false on failure
      * @param $categoryID
-     * @return bool
      */
     function deleteCategory($categoryID) {
 
-        $SQL = "DELETE FROM Category WHERE CategoryID = '" . $categoryID . "'";
-
-        if (!mysqli_query($this->con, $SQL)) {
-
-            return false;
-        }
-
-        return true;
+        $stmt = mysqli_prepare($this->con, "DELETE FROM Category WHERE CategoryID = ?");
+        $stmt->bind_param("i", $categoryID);
+        $stmt->execute();
     }
 
     /** Returns an array that contains fixum data arrays
@@ -179,14 +186,14 @@ class Repository
      */
     function getAllFixaByUser($userID) {
 
-        $SQL = "SELECT * FROM Fixum WHERE UserID = '" . $userID . "'";
-
-        $result = mysqli_query($this->con, $SQL)->fetch_all(MYSQLI_ASSOC);
-        return result;
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Fixum WHERE UserID = ?");
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
     /** Creates a new fixum for an user
-     * Returns true on success, false on failure
+     * Returns false if frequency value is incorrect
      * Possible frequency values are: 'DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR'
      * @param $userID
      * @param $name
@@ -201,99 +208,73 @@ class Repository
 
         if ($frequency == "DAY" || $frequency == "WEEK" || $frequency == "MONTH" || $frequency == "QUARTER" || $frequency == "YEAR") {
 
-            $SQL = "INSERT INTO Fixum (Value, IsPositive, StartDate, Name, Frequency, UserID, CategoryID) 
-                    VALUES (" . $value . ", " . $isPositive . ", " . $startDate . ", '" . mysqli_real_escape_string($this->con, $name) . "','" . mysqli_real_escape_string($this->con, $frequency) . "'," . $userID . ", " . $categoryID . ");";
-
-            if (!mysqli_query($this->con, $SQL)) {
-
-                echo "Insert failed: " . mysqli_error($this->con);
-                return false;
-            }
+            $stmt = mysqli_prepare($this->con, "INSERT INTO Fixum (Value, IsPositive, StartDate, Name, Frequency, UserID, CategoryID) VALUES (?,?,?,?,?,?,?);");
+            $stmt->bind_param("disssii", $value, $isPositive, $startDate, $name, $frequency, $userID, $categoryID);
+            $stmt->execute();
         } else {
-            echo "<br/> Incorrect frequency Value<br/>";
+
             return false;
         }
-
         return true;
     }
 
-    /**Deletes a fixum
-     * Returns true on success, false on failure
+    /** Deletes a fixum
      * @param $fixumID
-     * @return bool
      */
     function deleteFixum($fixumID) {
 
-        $SQL = "DELETE FROM Accounting WHERE FixumID = '" . $fixumID . "'";
-
-        if (!mysqli_query($this->con, $SQL)) {
-
-            return false;
-        }
-
-        return true;
+        $stmt = mysqli_prepare($this->con, "DELETE FROM Fixum WHERE FixumID = ?;");
+        $stmt->bind_param("i", $fixumID);
+        $stmt->execute();
     }
 
     /** Changes the startdate of a fixum
-     * Returns true on success, false on failure
      * @param $fixumID
      * @param $startDate
-     * @return bool
      */
-    function alterFixumStartDate($fixumID, $startDate){
+    function alterFixumStartDate($fixumID, $startDate) {
 
-        $SQL = "UPDATE Fixum SET StartDate = '" . $startDate . "' WHERE FixumID = " . $fixumID . ";";
+        $stmt = mysqli_prepare($this->con, "UPDATE Fixum SET StartDate = ? WHERE FixumID = ?;");
+        $stmt->bind_param("si", $startDate, $fixumID);
+        $stmt->execute();
+    }
 
-        if (!mysqli_query($this->con, $SQL)) {
+    /** Changes the LastUsedDate of a fixum
+     * @param $fixumID
+     * @param $lastUsedDate
+     */
+    function alterFixumLastUsedDate($fixumID, $lastUsedDate) {
 
-            echo mysqli_error($this->con);
-            return false;
-        }
-
-        return true;
+        $stmt = mysqli_prepare($this->con, "UPDATE Fixum SET LastUsedDate = ? WHERE FixumID = ?;");
+        $stmt->bind_param("si", $lastUsedDate, $fixumID);
+        $stmt->execute();
     }
 
     /** Changes the value of a fixum
-     * Returns true on success, false on failure
      * @param $fixumID
      * @param $value
-     * @return bool
      */
     function alterFixumValue($fixumID, $value) {
 
-        $SQL = "UPDATE Fixum SET Value = " . $value . " WHERE FixumID = " . $fixumID . ";";
-
-        if (!mysqli_query($this->con, $SQL)) {
-
-            echo mysqli_error($this->con);
-            return false;
-        }
-
-        return true;
+        $stmt = mysqli_prepare($this->con, "UPDATE Fixum SET Value = ? WHERE FixumID = ?;");
+        $stmt->bind_param("si", $value, $fixumID);
+        $stmt->execute();
     }
 
     /** Changes the name of a fixum
-     * Returns true on success, false on failure
      * @param $fixumID
      * @param $name
-     * @return bool
      */
     function alterFixumName($fixumID, $name) {
 
-        $SQL = "UPDATE Fixum SET Name = '" . mysqli_real_escape_string($this->con, $name) . "' WHERE FixumID = " . $fixumID . ";";
-
-        if (!mysqli_query($this->con, $SQL)) {
-
-            echo mysqli_error($this->con);
-            return false;
-        }
-
-        return true;
+        $stmt = mysqli_prepare($this->con, "UPDATE Fixum SET Name = ? WHERE FixumID = ?;");
+        $stmt->bind_param("si", $name, $fixumID);
+        $stmt->execute();
     }
 
     /** Creates new user
      * Auto hashes password
-     * Returns true on success, false on failure
+     * Returns true on success, false if user with mail already exists
      * @param $firstname
      * @param $lastname
      * @param $mail
@@ -302,39 +283,30 @@ class Repository
      */
     function createUser($firstname, $lastname, $mail, $pass) {
 
-        $SQL = "INSERT INTO User (Firstname, Lastname, Mail, Password) 
-                VALUES ('" . mysqli_real_escape_string($this->con, $firstname) . "','" . mysqli_real_escape_string($this->con, $lastname) . "', '" . mysqli_real_escape_string($this->con, $mail) . "', '" . password_hash($pass, PASSWORD_DEFAULT) . "');";
+        $stmt = mysqli_prepare($this->con, "SELECT COUNT(Mail) FROM USER WHERE Mail = ?");
+        $ml = mb_strtolower($mail);
+        $stmt->bind_param("s", $ml);
+        $stmt->execute();
+        if (!($stmt->get_result()->fetch_all(MYSQLI_NUM)[0][0] > 0)) {
 
-        if (!$this->getUserWithMail($mail)) {
-            if (!mysqli_query($this->con, $SQL)) {
-
-                echo "Insert failed: " . mysqli_error($this->con);
-                return false;
-            }
+            $stmt = mysqli_prepare($this->con, "INSERT INTO User (Firstname, Lastname, Mail, Password) VALUES (?,?,?,?);");
+            $password = password_hash($pass, PASSWORD_DEFAULT);
+            $stmt->bind_param("ssss", $firstname, $lastname, $ml, $password);
+            $stmt->execute();
         } else {
-
-            echo "Mail ist already registered";
             return false;
         }
-
         return true;
     }
 
     /** Deletes an user
-     * Returns true on success, false on failure
      * @param $userID
-     * @return bool
      */
     function deleteUser($userID) {
 
-        $SQL = "DELETE FROM User WHERE UserID = '" . $userID . "'";
-
-        if (!mysqli_query($this->con, $SQL)) {
-
-            return false;
-        }
-
-        return true;
+        $stmt = mysqli_prepare($this->con, "DELETE FROM User WHERE UserID = ?;");
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
     }
 
     /**Checks if the password assigned to the mail is correct.
@@ -347,25 +319,17 @@ class Repository
     function checkPassword($mail, $pass) {
 
         if ($this->getUserWithMail($mail)) {
+            $stmt = mysqli_prepare($this->con, "SELECT Password FROM USER WHERE Mail = ?;");
+            $stmt->bind_param("s", $mail);
+            $stmt->execute();
 
-            $SQL = "SELECT Password FROM USER WHERE Mail = '" . mysqli_real_escape_string($this->con, $mail) . "'";
-
-            $result = mysqli_query($this->con, $SQL)->fetch_array();
-
-            if (password_verify($pass, $result['Password'])) {
-
-                return true;
-            }
-            else {
-
+            $hash = $stmt->get_result()->fetch_array(MYSQLI_ASSOC)['Password'];
+            if (!password_verify($pass, $hash)) {
                 return false;
             }
+            return true;
         }
-        else {
-
-            echo "<br/>User not found";
-            return false;
-        }
+        return false;
     }
 
     /**Returns an array with user data if user Exits
@@ -375,13 +339,64 @@ class Repository
      */
     function getUserWithMail($mail) {
 
-        $SQL = "SELECT * FROM USER WHERE Mail = '" . mysqli_real_escape_string($this->con, $mail) . "'";
+        $ml = mb_strtolower($mail);
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM User WHERE Mail = ?;");
+        $stmt->bind_param("s", $ml);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
+    }
 
-        $result = mysqli_query($this->con, $SQL)->fetch_all(MYSQLI_ASSOC);
-        return $result;
+    /** Changes the password for an user
+     * @param $userID
+     * @param $pass
+     */
+    function alterUserPassword($userID, $pass) {
+
+        $password = password_hash($pass, PASSWORD_DEFAULT);
+        $stmt = mysqli_prepare($this->con, "UPDATE User SET Password = ? WHERE UserID = ?;");
+        $stmt->bind_param("si", $password, $userID);
+        $stmt->execute();
+    }
+
+    /** Changes the Mail of an user
+     * @param $userID
+     * @param $mail
+     */
+    function alterUserMail($userID, $mail) {
+
+        $ml = mb_strtolower($mail);
+        $stmt = mysqli_prepare($this->con, "UPDATE User SET Mail = ? WHERE UseriD = ?;");
+        $stmt->bind_param("si", $ml, $userID);
+        $stmt->execute();
     }
 }
 
-//Tests
-$Repo = new Repository();
-$Repo->init();
+//-----------Tests----------------
+//$Repo = new Repository();
+//$Repo->init();
+
+//var_dump($Repo->getAccountingsByUser(1));
+//var_dump($Repo->getAccountingsByUserBetweenDates(1, '2018-11-11', '2018-11-18'));
+//var_dump($Repo->getAccountingsByCategory(4));
+//$Repo->createAccountingForUser(1, 'Shampoo', 3.5, 0, '2018-11-19', 3);
+//$Repo->alterAccountingDate(5, '2018-11-20');
+//$Repo->deleteAccounting(5);
+//$Repo->alterAccountingValue(5, 5.5);
+//$Repo->alterAccountingName(5, 'Backfisch');
+//var_dump($Repo->getAllCategoriesByUser(1));
+//$Repo->createCategoryForUser(1, 'Pflege');
+//$Repo->alterCategoryName(7, 'Medikamente');
+//$Repo->deleteCategory(7);
+//var_dump($Repo->getAllFixaByUser(1));
+//var_dump($Repo->createFixumForUser(1, "Taschengeld", 150, 1, '2018-11-20', 'MONTH', 1));
+//$Repo->deleteFixum(2);
+//$Repo->alterFixumStartDate(1, '2018-12-6');
+//$Repo->alterFixumLastUsedDate(1, '2018-12-06');
+//$Repo->alterFixumValue(1, 50);
+//$Repo->alterFixumName(1, 'Spielo');
+//var_dump($Repo->getUserWithMail('derFlo@mail.de'));
+//var_dump($Repo->checkPassword("derflo@mail.de", 'pass'));
+//var_dump($Repo->createUser('Der', 'Typ', 'DerFo@mail.de', 'pass'));
+//$Repo->deleteUser(1);
+//$Repo->alterUserPassword(1, 'pass');
+//$Repo->alterUserMail(1, 'derFlo@mail.de');
