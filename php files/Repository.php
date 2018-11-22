@@ -369,6 +369,17 @@ class Repository {
         $stmt->bind_param("si", $ml, $userID);
         $stmt->execute();
     }
+
+    /** Insertes a relation dataset into matching table
+     * @param $accountingID
+     * @param $fixumID
+     */
+    function relateFixumAccounting ($accountingID, $fixumID) {
+
+        $stmt = mysqli_prepare($this->con, "INSERT INTO Accounting_Fixum VALUES (?,?);");
+        $stmt->bind_param("ii", $accountingID, $fixumID);
+        $stmt->execute();
+    }
 }
 
 //-----------Tests----------------
@@ -400,3 +411,4 @@ class Repository {
 //$Repo->deleteUser(1);
 //$Repo->alterUserPassword(1, 'pass');
 //$Repo->alterUserMail(1, 'derFlo@mail.de');
+//$Repo->relateFixumAccounting(1, 1);
