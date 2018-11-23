@@ -61,6 +61,7 @@ class ContentService {
     }
 
 }
+/*
 $cs = new ContentService('derflo@mail.de');
 echo '<pre>';
 var_dump($cs->accountings);
@@ -74,3 +75,4 @@ echo '<br/>';
 echo '<pre>';
 var_dump($cs->categories);
 echo '<br/>';
+*/
