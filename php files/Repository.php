@@ -140,7 +140,7 @@ class Repository {
      * @param $userID
      * @return mixed
      */
-    function getAllCategoriesByUser($userID) {
+    function getCategoriesByUser($userID) {
 
         $stmt = mysqli_prepare($this->con, "SELECT * FROM Category WHERE UserID = ?;");
         $stmt->bind_param("i", $userID);
@@ -184,7 +184,7 @@ class Repository {
      * @param $userID
      * @return mixed
      */
-    function getAllFixaByUser($userID) {
+    function getFixaByUser($userID) {
 
         $stmt = mysqli_prepare($this->con, "SELECT * FROM Fixum WHERE UserID = ?");
         $stmt->bind_param("i", $userID);
@@ -394,11 +394,11 @@ class Repository {
 //$Repo->deleteAccounting(5);
 //$Repo->alterAccountingValue(5, 5.5);
 //$Repo->alterAccountingName(5, 'Backfisch');
-//var_dump($Repo->getAllCategoriesByUser(1));
+//var_dump($Repo->getCategoriesByUser(1));
 //$Repo->createCategoryForUser(1, 'Pflege');
 //$Repo->alterCategoryName(7, 'Medikamente');
 //$Repo->deleteCategory(7);
-//var_dump($Repo->getAllFixaByUser(1));
+//var_dump($Repo->getFixaByUser(1));
 //var_dump($Repo->createFixumForUser(1, "Taschengeld", 150, 1, '2018-11-20', 'MONTH', 1));
 //$Repo->deleteFixum(2);
 //$Repo->alterFixumStartDate(1, '2018-12-6');
