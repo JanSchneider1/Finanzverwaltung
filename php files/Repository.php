@@ -58,6 +58,18 @@ class Repository {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    /** Returns an array that contains accounting data of the latest Accounting a user has
+     * @param $userID
+     * @return mixed
+     */
+    function getLatestAccountingByUser($userID) {
+
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND AccountingID = ( SELECT MAX(AccountingID) FROM Accounting);");
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
+    }
+
     /** Returns an array that contains accounting data arrays
      * @param $categoryID
      * @return mixed
@@ -389,6 +401,7 @@ class Repository {
 //var_dump($Repo->getAccountingsByUser(1));
 //var_dump($Repo->getAccountingsByUserBetweenDates(1, '2018-11-11', '2018-11-18'));
 //var_dump($Repo->getAccountingsByCategory(4));
+//var_dump($Repo->getLatestAccountingByUser(1));
 //$Repo->createAccountingForUser(1, 'Shampoo', 3.5, 0, '2018-11-19', 3);
 //$Repo->alterAccountingDate(5, '2018-11-20');
 //$Repo->deleteAccounting(5);
