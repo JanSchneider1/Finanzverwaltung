@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>PHP-Projekt</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <!--My stylesheet-->
+    <link rel="stylesheet" href="../../../Dropbox/PHP-Project%20-%20Finanzen/HTML%20Templates/accounting.css">
+</head>
+<body>
+    <header th:replace="~{header :: header}"></header>
+    <!--Background-->
+    <div id="background">
+        <!--Header-->
+        <div id="sectHeader" style='text-align:center;'>
+            <!--Title-->
+            <h1 style='color: white;'>Abrechnungen Oktober - November 2018</h1>
+            <hr>
+        </div>
+
+        <!--Other referenced accountings-->
+        <div id="sectOtherAccountings">
+            <hr id="sectOtherAccountings_Hr_1">
+        </div>
+
+        <!--Bills-->
+        <div id="sectBills">
+            <div class="container">
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list_bills">
+                        <tr>
+                            <td class="billDate">ERROR: Displaying bill[date]</td>
+                            <td class="billDescription">ERROR: Displaying bill[description]</td>
+                            <td class="billTags">ERROR: Displaying bill[tags]</td>
+                            <td class="billValue_Positive">ERROR: Displaying bill[value]</td>
+                            <td class="billValue_Negative">ERROR: Displaying bill[value]</td>
+                            <td class="billRemove"><button class="btn btn-dark" }">X</button></td>
+                        </tr>
+                        <!-- Bill Template -->
+                        <tr id="billTemplate" style="display:none;">
+                            <td id="billDate" class="billDate">ERROR: Displaying bill[date]</td>
+                            <td id="billDescription" class="billDescription">ERROR: Displaying bill[description]</td>
+                            <td id="billTags" class="billTags">ERROR: Displaying bill[tags]</td>
+                            <td id="billValue" class="billValue_Positive">ERROR: Displaying bill[value]</td>
+                            <td id="billValue" class="billValue_Negative">ERROR: Displaying bill[value]</td>
+                            <td id="billRemove" class="billRemove"><button class="btn btn-dark">X</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr id="sectBills_Hr_1">
+        </div>
+
+        <!--Add new bills-->
+        <div id="setcAddNewBills">
+            <div class="container">
+                <form th:action="@{/accountings/{id}(id=${accounting.id})}" onsubmit="return addNewBill(this);" method="POST">
+                    <table class="table table-dark table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Tags</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody id="list_bills">
+                            <tr>
+                                <td><input id="addBillDate" value="2018-01-01" class="elementAddBill" type="date" name="billDate"></td>
+                                <td><input id="addBillDescription" class="elementAddBill" type="text" name="billDescription"></td>
+                                <td>
+                                    <fieldset>
+                                        <div th:if="${tags} != null" th:each="t : ${tags}">
+                                            <label><input type="checkbox" name="billTags" th:value="${t.name}"><span th:text="' ' + ${t.name}">ERROR: Displaying tag</span></label>
+                                        </div>
+                                    </fieldset>
+                                </td>
+                                <td><input id="addBillValue" class="elementAddBill" type="number" step="0.01" value="0" name="billValue"><br></td>
+                                <td><input id="addBillButton" class="btn btn-dark" type="submit" value="Add" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <hr id="sectAddNewBills_Hr_1">
+        </div>
+
+        <!--Balance-->
+        <div id="sectBalance">
+            <div class="container">
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th>Income</th>
+                            <th>Costs</th>
+                            <th>---->  Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="account_Positive" th:if="${accounting.getIncome()} >= 0" th:text="${accounting.getIncome()}">ERROR: Displaying income</td>
+                            <td class="account_Negative" th:if="${accounting.getIncome()} < 0" th:text="${accounting.getIncome()}">ERROR: Displaying income</td>
+                            <td class="account_Positive" th:if="${accounting.getCosts()} >= 0" th:text="${accounting.getCosts()}">ERROR: Displaying costs</td>
+                            <td class="account_Negative" th:if="${accounting.getCosts()} < 0" th:text="${accounting.getCosts()}">ERROR: Displaying costs</td>
+                            <td class="account_Positive" th:if="${accounting.getBalance()} >= 0" th:text="${accounting.getBalance()}">ERROR: Displaying balance</td>
+                            <td class="account_Negative" th:if="${accounting.getBalance()} < 0" th:text="${accounting.getBalance()}">ERROR: Displaying balance</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
