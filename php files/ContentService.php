@@ -41,6 +41,10 @@ class ContentService {
         }
     }
 
+    /** Returns true if the timespan of a fixum has passed
+     * @param $fixum
+     * @return bool
+     */
     function didFrequency($fixum) {
 
         $now = new DateTime();
@@ -74,6 +78,9 @@ class ContentService {
         return $bool;
     }
 
+    /**Generates accountings from all fixa
+     *
+     */
     function generateAccountingsFromFixa(){
 
         //wenn fixum da
