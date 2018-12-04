@@ -15,10 +15,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
     <!--My stylesheet-->
-    <link rel="stylesheet" href="../../../Dropbox/PHP-Project%20-%20Finanzen/HTML%20Templates/accounting.css">
+    <link rel="stylesheet" href="../css/accounting.css">
 </head>
 <body>
-    <header th:replace="~{header :: header}"></header>
+
+<div w3-include-html="header.html"></div>
+
     <!--Background-->
     <div id="background">
         <!--Header-->
@@ -128,5 +130,7 @@
             </div>
         </div>
     </div>
+<div w3-include-html="footer.html"></div>
+<script src="../js/include.js"></script>
 </body>
 </html>
