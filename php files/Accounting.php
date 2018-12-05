@@ -59,7 +59,7 @@ class Accounting {
     /**
      * @return mixed
      */
-    public function getisPositive()
+    public function getIsPositive()
     {
         return $this->isPositive;
     }

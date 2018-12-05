@@ -47,46 +47,46 @@ hr{
 	width: 25%;
 }
 
-.billDate{
+.accountingDate{
 		
 	height: 30px;
   	line-height: 30px;
   	text-align: left;
 }
 
-.billDescription{
+.accountingName{
 	
 	height: 30px;
   	line-height: 30px;
   	text-align: left;
 }
 
-.billTags{
+.accountingCategory{
 		
 	height: 30px;
   	line-height: 30px;
   	text-align: left;
 }
 
-.billValue_Positive{
+.accountingValue{
 	
 	font-size: 25px;	
 	height: 30px;
   	line-height: 30px;
-	background-color:green;
 	text-align: center
 }
 
-.billValue_Negative{
-	
-	font-size: 25px;
-	height: 30px;
-  	line-height: 30px;	
-	background-color:red;
-	text-align: center
+.positive{
+
+	background-color: green;
 }
 
-.billRemove{
+.negative{
+
+	background-color: red;
+}
+
+.accountingRemoveBt{
 	
 	text-align: center
 }

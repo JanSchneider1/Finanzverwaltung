@@ -66,12 +66,16 @@
             $category = $a->getCategoryId();
             $value = $a->getValue();
 
+            $isPositve = $a->getIsPositive();
+            $color = "negative";
+            if ($isPositve == 1) { $color = "positive"; }
+
             echo <<< Accounting
         <tr>
           <td class="accountingDate">$date</td>
           <td class="accountingName">$name</td>
           <td class="accountingCategory">$category</td>
-          <td class="accountingValue">$value</td>
+          <td class="accountingValue $color">$value €</td>
           <td class="accountingRemoveBt"><button class="btn btn-dark" }">X</button></td>
         </tr>
 Accounting;
@@ -140,15 +144,7 @@ Accounting;
           <td class="account_Positive" th:if="${accounting.getCosts()} >= 0" th:text="${accounting.getCosts()}">ERROR:
             Displaying costs
           </td>
-          <td class="account_Negative" th:if="${accounting.getCosts()} < 0" th:text="${accounting.getCosts()}">ERROR:
-            Displaying costs
-          </td>
-          <td class="account_Positive" th:if="${accounting.getBalance()} >= 0" th:text="${accounting.getBalance()}">
-            ERROR: Displaying balance
-          </td>
-          <td class="account_Negative" th:if="${accounting.getBalance()} < 0" th:text="${accounting.getBalance()}">
-            ERROR: Displaying balance
-          </td>
+
         </tr>
         </tbody>
       </table>
