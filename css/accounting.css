@@ -1,31 +1,32 @@
-hr{
-	border: 1px solid black;
-	color: black;
-}	
+.title {
+
+	text-align:center;
+	color: white;
+}
 
 .containerBalance{
-	
+
 	display: flex;
     flex-flow: row nowrap;
-    justify-content: space-around; 
+    justify-content: space-around;
 }
 
 .elementBalance{
-	
+
 	text-align: center;
 	/*border: 1px solid black;*/
 	width: 25%;
 }
 
 .containerAddBill{
-	
+
 	display: flex;
     flex-flow: row nowrap;
-    justify-content: space-around; 
+    justify-content: space-around;
 }
 
 .elementAddBill{
-	
+
 	text-align: center;
 	/*border: 1px solid black;*/
 	width: 25%;
@@ -34,102 +35,66 @@ hr{
 /*Bill*/
 
 .containerBill{
-	
+
 	display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between; 
+    justify-content: space-between;
 }
 
 .elementBill{
-	
+
 	text-align: center;
 	border: 1px solid black;
 	width: 25%;
 }
 
 .accountingDate{
-		
+
 	height: 30px;
   	line-height: 30px;
   	text-align: left;
 }
 
 .accountingName{
-	
+
 	height: 30px;
   	line-height: 30px;
   	text-align: left;
 }
 
 .accountingCategory{
-		
+
 	height: 30px;
   	line-height: 30px;
   	text-align: left;
 }
 
 .accountingValue{
-	
-	font-size: 25px;	
+
+	font-size: 25px;
 	height: 30px;
   	line-height: 30px;
 	text-align: center
-}
-
-.positive{
-
-	background-color: green;
-}
-
-.negative{
-
-	background-color: red;
 }
 
 .accountingRemoveBt{
-	
-	text-align: center
-}
 
-.account_Positive{
-
-	font-size: 25px;	
-	height: 30px;
-  	line-height: 30px;
-	background-color:green;
-	text-align: center
-}
-
-.account_Negative{
-	
-	font-size: 25px;
-	height: 30px;
-  	line-height: 30px;	
-	background-color:red;
 	text-align: center
 }
 
 #addBillDate{
-	
+
 	text-align: center;
 	width: 200px;
 	height: 200px;
 }
 
 #addBillDescription{
-	
-	width: 300px;	
+
+	width: 300px;
 }
 
 #addBillValue{
-	
-	width: 150px;	
-}
 
-#background{
-	background-color: #17191c;
-}
-
-hr{
-	border: 0; border-bottom: 3px dashed #ccc; background: white; background-color: #212529;; width: 60%
+	width: 150px;
 }

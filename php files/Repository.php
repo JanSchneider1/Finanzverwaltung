@@ -31,6 +31,14 @@ class Repository {
         return true;
     }
 
+    function getCategoryByID($categoryID){
+
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Category WHERE CategoryID = ?");
+        $stmt->bind_param("i", $categoryID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
     /**Returns an array that contains accounting data arrays
      * @param $userID
      * @return mixed

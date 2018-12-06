@@ -10,33 +10,35 @@ require_once __dir__."/Fixum.php";
  * Class ContentService
  * @author Albers
  */
-class ContentService {
+class ContentService
+{
 
     public $user;
     public $accountings;
     public $categories;
     public $fixa;
-    private $repo;
+    public $repo;
 
     /**
      * ContentService constructor.
      * @param $mail
      */
-    function  __construct($mail) {
+    function __construct($mail)
+    {
         $this->repo = new Repository();
         $this->repo->init();
         $tmp = $this->repo->getUserWithMail($mail);
         $this->user = new User($tmp['UserID'], $tmp['Firstname'], $tmp['Lastname'], $tmp['Mail']);
         $tmp = $this->repo->getAccountingsByUser($this->user->getUserID());
-        for($i = 0; $i < sizeof($tmp); $i ++) {
+        for ($i = 0; $i < sizeof($tmp); $i++) {
             $this->accountings[$i] = new Accounting($tmp[$i]['AccountingID'], $tmp[$i]['Value'], $tmp[$i]['IsPositive'], $tmp[$i]['Date'], $tmp[$i]['Name'], $tmp[$i]['CategoryID']);
         }
         $tmp = $this->repo->getFixaByUser($this->user->getUserID());
-        for($i = 0; $i < sizeof($tmp); $i ++) {
+        for ($i = 0; $i < sizeof($tmp); $i++) {
             $this->fixa[$i] = new Fixum($tmp[$i]['FixumID'], $tmp[$i]['Value'], $tmp[$i]['IsPositive'], $tmp[$i]['StartDate'], $tmp[$i]['LastUsedDate'], $tmp[$i]['Name'], $tmp[$i]['Frequency'], $tmp[$i]['CategoryID']);
         }
         $tmp = $this->repo->getCategoriesByUser($this->user->getUserID());
-        for($i = 0; $i < sizeof($tmp); $i ++) {
+        for ($i = 0; $i < sizeof($tmp); $i++) {
             $this->categories[$i] = new Category($tmp[$i]['CategoryID'], $tmp[$i]['Name']);
         }
     }
@@ -45,13 +47,14 @@ class ContentService {
      * @param $fixum
      * @return bool
      */
-    function didFrequency($fixum) {
+    function didFrequency($fixum)
+    {
 
         $now = new DateTime();
         $lastDT = null;
         $bool = false;
 
-        if($fixum->getLastUsedDate() == null){
+        if ($fixum->getLastUsedDate() == null) {
             $lastDT = new DateTime($fixum->getStartDate());;
         } else {
             $lastDT = new DateTime($fixum->getLastUsedDate());
@@ -60,19 +63,29 @@ class ContentService {
 
         switch ($fixum->getFrequency()) {
             case 'DAY':
-                if($diff->days > 0){ $bool = true;}
+                if ($diff->days > 0) {
+                    $bool = true;
+                }
                 break;
             case 'WEEK':
-                if($diff->days >= 7) { $bool = true;}
+                if ($diff->days >= 7) {
+                    $bool = true;
+                }
                 break;
             case 'MONTH':
-                if($diff->m > 0) { $bool = true;}
+                if ($diff->m > 0) {
+                    $bool = true;
+                }
                 break;
             case 'QUARTER':
-                if($diff->m >= 3) { $bool = true;}
+                if ($diff->m >= 3) {
+                    $bool = true;
+                }
                 break;
             case 'YEAR':
-                if($diff->y > 0) { $bool = true;}
+                if ($diff->y > 0) {
+                    $bool = true;
+                }
                 break;
         }
         return $bool;
@@ -81,10 +94,11 @@ class ContentService {
     /**Generates accountings from all fixa
      *
      */
-    function generateAccountingsFromFixa(){
+    function generateAccountingsFromFixa()
+    {
 
         //wenn fixum da
-        if($this->fixa != null) {
+        if ($this->fixa != null) {
 
             //für jedes fixum
             foreach ($this->fixa as $fixum) {
@@ -96,15 +110,15 @@ class ContentService {
                 $numGenerate = 0;
                 $datesGenerate = array();
 
-                if($fixum->getLastUsedDate() == null){
+                if ($fixum->getLastUsedDate() == null) {
                     $lastDT = $start;
-                    $numGenerate ++;
+                    $numGenerate++;
                     $datesGenerate[0] = $lastDT->format('y-m-d');
                 } else {
                     $lastDT = new DateTime($fixum->getLastUsedDate());
                 }
                 //wenn startdatum in der Vergangenheit & Frequenz des fixums durchlaufen ist
-                if(!date_diff($start, $now)->invert && $this->didFrequency($fixum)) {
+                if (!date_diff($start, $now)->invert && $this->didFrequency($fixum)) {
 
                     //liste aus zu erzeugenden datum generiern
                     switch ($fixum->getFrequency()) {
@@ -157,6 +171,60 @@ class ContentService {
         }
     }
 
+    function getIncomeFromAll()
+    {
+
+        $value = 0;
+        foreach ($this->accountings as $a) {
+            if ($a->getIsPositive() == 1) {
+                $value += $a->getValue();
+            }
+        }
+        return $value;
+    }
+
+    function getIncomeBetween($dateStart, $dateEnd)
+    {
+
+    }
+
+    function getCostsFromAll()
+    {
+
+        $value = 0;
+        foreach ($this->accountings as $a) {
+            if ($a->getIsPositive() == 0) {
+                $value += $a->getValue();
+            }
+        }
+        return $value;
+    }
+
+    function getCostsBetween($dateStart, $dateEnd)
+    {
+
+
+    }
+
+    function getBalanceFromAll()
+    {
+
+        $value = 0;
+        foreach ($this->accountings as $a) {
+            if ($a->getIsPositive() == 1) {
+                $value += $a->getValue();
+            } else {
+                $value -= $a->getValue();
+            }
+        }
+        return $value;
+    }
+
+    function getBalanceBetween($dateStart, $dateEnd)
+    {
+
+
+    }
 }
 //$cs = new ContentService('derflo@mail.de');
 //$cs->generateAccountingsFromFixa();
