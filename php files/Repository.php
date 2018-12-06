@@ -31,9 +31,9 @@ class Repository {
         return true;
     }
 
-    function getCategoryByID($categoryID){
+    function getCategoryByID($categoryID) {
 
-        $stmt = mysqli_prepare($this->con, "SELECT * FROM Category WHERE CategoryID = ?");
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Category WHERE CategoryID = ?;");
         $stmt->bind_param("i", $categoryID);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -91,65 +91,116 @@ class Repository {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    function getAccountingsBetweenValues($userID, $min, $max){
+    /** Returns an array that contains accounting data arrays
+     * @param $userID
+     * @param $min
+     * @param $max
+     * @return mixed
+     */
+    function getAccountingsBetweenValues($userID, $min, $max) {
 
-        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND Value BETWEEN ? AND ?");
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND Value BETWEEN ? AND ?;");
         $stmt->bind_param("idd", $userID, $min, $max);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    function getAccountingsBetweenDates($userID, $startDate, $endDate){
+    /** Returns an array that contains accounting data arrays
+     * @param $userID
+     * @param $startDate
+     * @param $endDate
+     * @return mixed
+     */
+    function getAccountingsBetweenDates($userID, $startDate, $endDate) {
 
-        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND Date BETWEEN ? AND ?");
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND Date BETWEEN ? AND ?;");
         $stmt->bind_param("iss", $userID, $startDate, $endDate);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    function getAccountingsByCategoryBetweenDates($userID, $categoryID, $startDate, $endDate){
+    /** Returns an array that contains accounting data arrays
+     * @param $userID
+     * @param $categoryID
+     * @param $startDate
+     * @param $endDate
+     * @return mixed
+     */
+    function getAccountingsByCategoryBetweenDates($userID, $categoryID, $startDate, $endDate) {
 
-        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND CategoryID = ? AND Date BETWEEN ? AND ?");
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND CategoryID = ? AND Date BETWEEN ? AND ?;");
         $stmt->bind_param("iiss", $userID,$categoryID, $startDate, $endDate);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    function getAccountingsByCategoryBetweenValues($userID, $categoryID, $min, $max){
+    /** Returns an array that contains accounting data arrays
+     * @param $userID
+     * @param $categoryID
+     * @param $min
+     * @param $max
+     * @return mixed
+     */
+    function getAccountingsByCategoryBetweenValues($userID, $categoryID, $min, $max) {
 
-        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND CategoryID = ? AND Value BETWEEN ? AND ?");
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND CategoryID = ? AND Value BETWEEN ? AND ?;");
         $stmt->bind_param("iidd", $userID,$categoryID, $min, $max);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    function getAccountingsBetweenValuesBetweenDates($userID, $min, $max, $startDate, $endDate){
+    /** Returns an array that contains accounting data arrays
+     * @param $userID
+     * @param $min
+     * @param $max
+     * @param $startDate
+     * @param $endDate
+     * @return mixed
+     */
+    function getAccountingsBetweenValuesBetweenDates($userID, $min, $max, $startDate, $endDate) {
 
-        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND Value BETWEEN ? AND ? AND Date BETWEEN ? AND ?");
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND Value BETWEEN ? AND ? AND Date BETWEEN ? AND ?;");
         $stmt->bind_param("iddss", $userID, $min, $max, $startDate, $endDate);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    function getAccountingsByCategoryBetweenValuesBetweenDates($userID, $categoryID, $min, $max, $startDate, $endDate){
+    /** Returns an array that contains accounting data arrays
+     * @param $userID
+     * @param $categoryID
+     * @param $min
+     * @param $max
+     * @param $startDate
+     * @param $endDate
+     * @return mixed
+     */
+    function getAccountingsByCategoryBetweenValuesBetweenDates($userID, $categoryID, $min, $max, $startDate, $endDate) {
 
-        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND Value BETWEEN ? AND ? AND Date BETWEEN ? AND ? AND CategoryID = ?");
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND Value BETWEEN ? AND ? AND Date BETWEEN ? AND ? AND CategoryID = ?;");
         $stmt->bind_param("iddssi", $userID, $min, $max, $startDate, $endDate, $categoryID);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    function getHighestAccountingValue($userID){
+    /** Returns the highest accounting value of an user
+     * @param $userID
+     * @return mixed
+     */
+    function getHighestAccountingValue($userID) {
 
-        $stmt = mysqli_prepare($this->con, "SELECT MAX(Value) as 'Max' FROM Accounting WHERE UserID = ?");
+        $stmt = mysqli_prepare($this->con, "SELECT MAX(Value) as 'Max' FROM Accounting WHERE UserID = ?;");
         $stmt->bind_param("i", $userID);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0]['Max'];
     }
 
-    function getLowestAccountingValue($userID){
+    /** Returns the lowest accounting value of an user
+     * @param $userID
+     * @return mixed
+     */
+    function getLowestAccountingValue($userID) {
 
-        $stmt = mysqli_prepare($this->con, "SELECT MIN(Value) as 'Min' FROM Accounting WHERE UserID = ?");
+        $stmt = mysqli_prepare($this->con, "SELECT MIN(Value) as 'Min' FROM Accounting WHERE UserID = ?;");
         $stmt->bind_param("i", $userID);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0]['Min'];
@@ -192,7 +243,7 @@ class Repository {
      */
     function alterAccountingDate($accountingID, $date) {
 
-        $stmt = mysqli_prepare($this->con, "UPDATE Accounting SET Date = ? WHERE AccountingID = ?");
+        $stmt = mysqli_prepare($this->con, "UPDATE Accounting SET Date = ? WHERE AccountingID = ?;");
         $stmt->bind_param("si", $date, $accountingID);
         $stmt->execute();
     }
@@ -203,7 +254,7 @@ class Repository {
      */
     function alterAccountingValue($accountingID, $value) {
 
-        $stmt = mysqli_prepare($this->con, "UPDATE Accounting SET Value = ? WHERE AccountingID = ?");
+        $stmt = mysqli_prepare($this->con, "UPDATE Accounting SET Value = ? WHERE AccountingID = ?;");
         $stmt->bind_param("di", $value, $accountingID);
         $stmt->execute();
     }
@@ -466,8 +517,8 @@ class Repository {
 }
 
 //-----------Tests----------------
-$Repo = new Repository();
-$Repo->init();
+//$Repo = new Repository();
+//$Repo->init();
 
 //var_dump($Repo->getAccountingsByUser(1));
 //var_dump($Repo->getAccountingsByUserBetweenDates(1, '2018-11-11', '2018-11-18'));
