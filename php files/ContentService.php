@@ -23,23 +23,43 @@ class ContentService
      * ContentService constructor.
      * @param $mail
      */
-    function __construct($mail)
-    {
+    function __construct($mail) {
         $this->repo = new Repository();
         $this->repo->init();
         $tmp = $this->repo->getUserWithMail($mail);
         $this->user = new User($tmp['UserID'], $tmp['Firstname'], $tmp['Lastname'], $tmp['Mail']);
-        $tmp = $this->repo->getAccountingsByUser($this->user->getUserID());
-        for ($i = 0; $i < sizeof($tmp); $i++) {
-            $this->accountings[$i] = new Accounting($tmp[$i]['AccountingID'], $tmp[$i]['Value'], $tmp[$i]['IsPositive'], $tmp[$i]['Date'], $tmp[$i]['Name'], $tmp[$i]['CategoryID']);
+        $this->reloadAccountings($this->repo->getAccountingsByUser($this->user->getUserID()));
+        $this->reloadFixa($this->repo->getFixaByUser($this->user->getUserID()));
+        $this->reloadCategories($this->repo->getCategoriesByUser($this->user->getUserID()));
+    }
+
+    /** Reloads the accountings array with the output of a repo get function
+     * @param $reloadFunction
+     */
+    function reloadAccountings($reloadFunction) {
+        $this->accountings = array();
+        for ($i = 0; $i < sizeof($reloadFunction); $i++) {
+            $this->accountings[$i] = new Accounting($reloadFunction[$i]['AccountingID'], $reloadFunction[$i]['Value'], $reloadFunction[$i]['IsPositive'], $reloadFunction[$i]['Date'], $reloadFunction[$i]['Name'], $reloadFunction[$i]['CategoryID']);
         }
-        $tmp = $this->repo->getFixaByUser($this->user->getUserID());
-        for ($i = 0; $i < sizeof($tmp); $i++) {
-            $this->fixa[$i] = new Fixum($tmp[$i]['FixumID'], $tmp[$i]['Value'], $tmp[$i]['IsPositive'], $tmp[$i]['StartDate'], $tmp[$i]['LastUsedDate'], $tmp[$i]['Name'], $tmp[$i]['Frequency'], $tmp[$i]['CategoryID']);
+    }
+
+    /** Reloads the fixa array with the output of a repo get function
+     * @param $reloadFunction
+     */
+    function reloadFixa($reloadFunction){
+        $this->fixa = array();
+        for ($i = 0; $i < sizeof($reloadFunction); $i++) {
+            $this->fixa[$i] = new Fixum($reloadFunction[$i]['FixumID'], $reloadFunction[$i]['Value'], $reloadFunction[$i]['IsPositive'], $reloadFunction[$i]['StartDate'], $reloadFunction[$i]['LastUsedDate'], $reloadFunction[$i]['Name'], $reloadFunction[$i]['Frequency'], $reloadFunction[$i]['CategoryID']);
         }
-        $tmp = $this->repo->getCategoriesByUser($this->user->getUserID());
-        for ($i = 0; $i < sizeof($tmp); $i++) {
-            $this->categories[$i] = new Category($tmp[$i]['CategoryID'], $tmp[$i]['Name']);
+    }
+
+    /** Reloads the categories array with the output of a repo get function
+     * @param $reloadFunction
+     */
+    function reloadCategories($reloadFunction){
+        $this->categories = array();
+        for ($i = 0; $i < sizeof($reloadFunction); $i++) {
+            $this->categories[$i] = new Category($reloadFunction[$i]['CategoryID'], $reloadFunction[$i]['Name']);
         }
     }
 
@@ -169,6 +189,7 @@ class ContentService
                 }
             }
         }
+        $this->reloadAccountings();
     }
 
     function getIncomeFromAll()
@@ -226,5 +247,11 @@ class ContentService
 
     }
 }
-//$cs = new ContentService('derflo@mail.de');
+/*$cs = new ContentService('derflo@mail.de');
 //$cs->generateAccountingsFromFixa();
+//$cs->reloadAccountings($cs->repo->getAccountingsByCategory(1, 5));
+//$cs->reloadCategories($cs->repo->getCategoryByID(5));
+foreach ($cs->categories as $a){
+    echo $a->getName() . '</br>';
+}
+*/
