@@ -219,7 +219,7 @@ class Repository {
     function createAccountingForUser($userID, $name, $value, $isPositive, $date, $categoryID) {
 
         $stmt = mysqli_prepare($this->con, "INSERT INTO Accounting (Value, isPositive, Date, Name, UserID, CategoryID) VALUES(?,?,?,?,?,?);");
-        $stmt->bind_param("isdisi", $value, $isPositive, $date, $name, $userID, $categoryID);
+        $stmt->bind_param("dissii", $value, $isPositive, $date, $name, $userID, $categoryID);
         if (!$stmt->execute()) {
             return false;
         }
