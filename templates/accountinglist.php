@@ -33,8 +33,8 @@
 <div class="background">
 
   <!-- Title -->
-  <h1 class="title">Your Accountings</h1>
-  <hr class="dashed_hr">
+  <h1 class="title">Ihre Finanzen</h1>
+  <br/>
 
   <!-- Filter -->
   <div class="container">
@@ -96,7 +96,7 @@ Categories;
       </tbody>
     </table>
   </div>
-  <hr class="dashed_hr">
+  <br/>
 
   <!--Bills-->
   <div class="container">
@@ -135,7 +135,7 @@ Categories;
           <td class="accountingName">$name</td>
           <td class="accountingCategory">$category</td>
           <td class="accountingValue $color">$value</td>
-          <td class="accountingRemoveBt"><button class="btn btn-dark"">X</button></td>
+          <td style="text-align: end" class="accountingRemoveBt"><button class="btn btn-dark"">X</button></td>
         </tr>
 Accounting;
       }
@@ -143,7 +143,7 @@ Accounting;
       </tbody>
     </table>
   </div>
-  <hr class="dashed_hr">
+  <br/>
 
   <!--Balance-->
   <div class="container">
@@ -185,7 +185,7 @@ balance;
     </table>
   </div>
 
-  <hr class="dashed_hr">
+  <br/>
 
   <!--Add accoutings-->
   <div class="container">

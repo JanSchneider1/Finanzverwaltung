@@ -1,6 +1,6 @@
 ﻿<?php
 echo <<< Header
-<nav class="navbar navbar-expand-sm bg-dark">
+<nav class="navbar navbar-expand-sm bg-dark" style="margin-top: -25px;">
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
