@@ -1,4 +1,5 @@
-﻿<!-- Navbar -->
+﻿<?php
+echo <<< Header
 <nav class="navbar navbar-expand-sm bg-dark">
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav mr-auto">
@@ -8,7 +9,7 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Buchungen</a>
       </li>
-      <a class="nav-link" href="../html/categories.php">Kategorien</a>
+      <a class="nav-link" href="/categories.php">Kategorien</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Fixa</a>
@@ -25,3 +26,6 @@
     </a>
   </ul>
 </nav>
+</div>
+Header;
+?>

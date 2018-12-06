@@ -10,7 +10,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-  s
 
   <!-- My stylesheets -->
   <link rel="stylesheet" href="../css/general.css">
@@ -28,7 +27,7 @@
 <body>
 
 <!-- Header -->
-<div w3-include-html="header.html"></div>
+<?php include __DIR__ . "/header.php"; ?>
 
 <!-- Background -->
 <div class="background">
@@ -56,7 +55,7 @@
       <td>
         <!-- Dropdown: Zeitraum -->
         <div class="dropdown">
-          <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" value="Alle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <button class="btn btn-dark dropdown-toggle" type="button" value="Alle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             Alle
             <span class="caret"></span>
           </button>
@@ -74,7 +73,7 @@
       <td>
         <!-- Dropdown: 'Kategorien' -->
         <div class="dropdown">
-          <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <button class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             Kategorien
             <span class="caret"></span>
           </button>
@@ -113,7 +112,6 @@ Categories;
       <tbody id="list_bills">
       <!-- Add accountings to table -->
       <?php
-
       function getValueColor($isPositive)
       {
           if ($isPositive == 1) {
@@ -137,7 +135,7 @@ Categories;
           <td class="accountingName">$name</td>
           <td class="accountingCategory">$category</td>
           <td class="accountingValue $color">$value</td>
-          <td class="accountingRemoveBt"><button class="btn btn-dark" }">X</button></td>
+          <td class="accountingRemoveBt"><button class="btn btn-dark"">X</button></td>
         </tr>
 Accounting;
       }
@@ -159,9 +157,7 @@ Accounting;
       </thead>
       <tbody>
       <tr>
-
           <?php
-
           $income = convertValue($service->getIncomeFromAll(), 1);
           $costs = convertValue($service->getCostsFromAll(), 0);
 
@@ -244,15 +240,15 @@ Categories;
           </td>
           <td><input id="addBillButton" class="btn btn-dark" type="submit" value="Add"/></td>
         </tr>
-
         </tbody>
       </table>
     </form>
   </div>
+  <!-- Footer -->
+    <?php include __DIR__ . "/footer.php"; ?>
+
 </div>
 
-<!-- Footer -->
-<div w3-include-html="footer.html"></div>
 <!-- JS: Include header and footer -->
 <script src="../js/include.js"></script>
 <!-- JS: Frontend utility -->
