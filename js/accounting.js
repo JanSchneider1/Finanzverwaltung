@@ -11,6 +11,7 @@ function addAccounting(accountingForm) {
     };
     xhttp.open("POST", "../php%20files/AccountingController.php", false);
     var formData = new FormData(accountingForm);
+    //alert(formData.get('addAccounting_categoryID'));
     xhttp.send(formData);
     return false;
 }

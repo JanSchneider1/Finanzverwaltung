@@ -11,19 +11,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $value = htmlspecialchars($_POST['addAccounting_value']);
     $name = htmlspecialchars($_POST['addAccounting_name']);
     $date = htmlspecialchars($_POST['addAccounting_date']);
-    $categoryName = htmlspecialchars($_POST['addAccounting_categoryName']);
-    $isPositive = htmlspecialchars($_POST['addAccounting_isPositive']);
+    $categoryID = htmlspecialchars($_POST['addAccounting_categoryID']);
+    $flag = htmlspecialchars($_POST['addAccounting_isPositive']);
 
     //Convert -> Get isPositive (0 or 1)
-    $_isPositive;
-    if ($isPositive == "Einnahmen") { $_isPositive = 1;}
-    else if ($isPositive == "Ausgaben") { $_isPositive = 0;}
-
-    //Convert -> Get CategoryID by Name from user
-    $categoryID = 1;
+    $isPositive = -1;
+    if (strcmp($flag,'Einnahmen') == 0) { $isPositive = 1;}
+    else if (strcmp($flag,'Ausgaben') == 0) { $isPositive = 0;}
+    if ($isPositive == -1) { return; }
 
     //Try to add accounting with specific values
-    echo var_dump($service->repo->createAccountingForUser(1, "Essen", $value, 1, "27-01-12", 1));
+    echo var_dump($service->repo->createAccountingForUser(1, $name, $value, $isPositive, $date, $categoryID));
 
 }
 

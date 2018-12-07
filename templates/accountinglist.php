@@ -190,7 +190,7 @@ balance;
 
   <!--Add accoutings-->
   <div class="container">
-    <form>
+    <form method="POST">
       <table class="table table-dark table-hover">
         <thead>
         <tr>
@@ -210,7 +210,7 @@ balance;
             <fieldset>
               <!-- Dropdown: 'Kategorien' -->
               <div class="dropdown">
-                <input class="input" style="display: none" value="/" type="text" name="addAccounting_categoryName">
+                <input class="input" style="display: none" value="/" type="text" name="addAccounting_categoryID">
                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   Kategorien
                   <span class="caret"></span>
@@ -219,8 +219,9 @@ balance;
                     <?php
                     foreach ($service->categories as $c) {
                         $categoryName = $c->getName();
+                        $categoryID = $c->getId();
                         echo <<< Categories
-                  <li><a href="#" data-value=$categoryName>$categoryName</li>
+                  <li><a href="#" data-value=$categoryID>$categoryName</li>
 Categories;
                     }
                     ?>
@@ -242,7 +243,7 @@ Categories;
               </ul>
             </div>
           </td>
-          <td><input type="number" name="addAccounting_value" step="0.01" value="0" style="width:100px"></td>
+          <td><input type="number" name="addAccounting_value" min="0" step="0.01" value="0" style="width:100px"></td>
           <td><input class="btn btn-dark" onclick="addAccounting(this.form)" type="submit" value="Add"/></td>
         </tr>
         </tbody>
