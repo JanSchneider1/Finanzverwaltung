@@ -123,6 +123,7 @@ Categories;
 
       foreach ($service->accountings as $a) {
 
+          $id = $a->getAccountingID();
           $name = $a->getName();
           $date = $a->getDate();
           $category = $service->repo->getCategoryByID($a->getCategoryID())[0]["Name"];
@@ -130,12 +131,12 @@ Categories;
           $color = getValueColor($a->getIsPositive());
 
           echo <<< Accounting
-        <tr>
+        <tr id="$id">
           <td class="accountingDate">$date</td>
           <td class="accountingName">$name</td>
           <td class="accountingCategory">$category</td>
-          <td class="accountingValue $color">$value</td>
-          <td style="text-align: end" class="accountingRemoveBt"><button class="btn btn-dark"">X</button></td>
+          <td class="accountingValue value $color">$value</td>
+          <td style="text-align: end" class="accountingRemoveBt"><button onclick="deleteAccounting($id)" class="btn btn-dark"">X</button></td>
         </tr>
 Accounting;
       }
@@ -174,9 +175,9 @@ Accounting;
           }
 
           echo <<< balance
-            <td class="positive">$income</td>
-            <td class="negative">$costs</td>
-            <td class="$color">$balance</td>
+            <td class="positive value">$income</td>
+            <td class="negative value">$costs</td>
+            <td class="$color value">$balance</td>
 balance;
           ?>
 
@@ -189,7 +190,7 @@ balance;
 
   <!--Add accoutings-->
   <div class="container">
-    <form action="#" onsubmit="return addAccounting(this);" method="POST">
+    <form>
       <table class="table table-dark table-hover">
         <thead>
         <tr>
@@ -198,16 +199,18 @@ balance;
           <th>Kategorien</th>
           <th>+/-</th>
           <th>Wert</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
         <tr>
-          <td><input value="2018-01-01" type="date"></td>
-          <td><input id="addBillDescription" class="elementAddBill" type="text" name="billDescription"></td>
+          <td><input type=date value="2018-01-01" onsubmit="addAccounting()" name="addAccounting_date"></td>
+          <td><input type="text" name="addAccounting_name"></td>
           <td>
             <fieldset>
               <!-- Dropdown: 'Kategorien' -->
               <div class="dropdown">
+                <input class="input" style="display: none" value="/" type="text" name="addAccounting_categoryName">
                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   Kategorien
                   <span class="caret"></span>
@@ -228,17 +231,19 @@ Categories;
           <td>
             <!-- Dropdown: -/+ -->
             <div class="dropdown">
-              <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" value="Ausgaben" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <input class="input" style="display: none" value="Ausgaben" type="text" name="addAccounting_isPositive">
+              <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 Ausgaben
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#" data-value="Ausgaben">Einnahmen</li>
-                <li><a href="#" data-value="Einnahmen">Ausgaben</li>
+                <li><a href="#" data-value="Einnahmen">Einnahmen</li>
+                <li><a href="#" data-value="Ausgaben">Ausgaben</li>
               </ul>
             </div>
           </td>
-          <td><input id="addBillButton" class="btn btn-dark" type="submit" value="Add"/></td>
+          <td><input type="number" name="addAccounting_value" step="0.01" value="0" style="width:100px"></td>
+          <td><input class="btn btn-dark" onclick="addAccounting(this.form)" type="submit" value="Add"/></td>
         </tr>
         </tbody>
       </table>
@@ -249,10 +254,10 @@ Categories;
 
 </div>
 
-<!-- JS: Include header and footer -->
-<script src="../js/include.js"></script>
 <!-- JS: Frontend utility -->
 <script src="../js/frontend.js"></script>
+<!-- JS: Accounting -->
+<script src="../js/accounting.js"></script>
 
 </body>
 </html>
