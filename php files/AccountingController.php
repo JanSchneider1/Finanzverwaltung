@@ -20,6 +20,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     else if (strcmp($flag,'Ausgaben') == 0) { $isPositive = 0;}
     if ($isPositive == -1) { return; }
 
+    if ($categoryID == '/'){ $categoryID = null;}
+
     //Try to add accounting with specific values
     echo var_dump($service->repo->createAccountingForUser(1, $name, $value, $isPositive, $date, $categoryID));
 

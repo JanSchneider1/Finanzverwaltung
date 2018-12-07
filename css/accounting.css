@@ -11,3 +11,12 @@
 .value {
 	font-size: 30px;
 }
+
+.input {
+
+	background-color: #31343b;
+	color: white;
+	border: none;
+	transition: none;
+	font-size: 20px;
+}

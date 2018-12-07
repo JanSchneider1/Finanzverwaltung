@@ -68,8 +68,8 @@
           </ul>
         </div>
       </td>
-      <td><input value="2018-01-01" type="date"></td>
-      <td><input value="2018-01-01" type="date"></td>
+      <td><input class="form-control input" id="date_1" value="" type="date"></td>
+      <td><input class="form-control input" id="date_2" value="" type="date"></td>
       <td>
         <!-- Dropdown: 'Kategorien' -->
         <div class="dropdown">
@@ -90,8 +90,8 @@ Categories;
         </div>
       </td>
       <td><!-- Empty --></td>
-      <td><input type="number" step="0.01" value="0" style="width:100px"></td>
-      <td><input type="number" step="0.01" value="0" style="width:100px"></td>
+      <td><input class="form-control input" type="number" step="0.01" value="0" style="width:100px"></td>
+      <td><input class="form-control input" type="number" step="0.01" value="0" style="width:100px"></td>
       <td><input class="btn btn-dark" value="Sortieren" style="width:100px"/></td>
       </tbody>
     </table>
@@ -126,15 +126,16 @@ Categories;
           $id = $a->getAccountingID();
           $name = $a->getName();
           $date = $a->getDate();
-          $category = $service->repo->getCategoryByID($a->getCategoryID())[0]["Name"];
+          $category = '/';
+          if ($a->getCategoryID() != null) { $category = $service->repo->getCategoryByID($a->getCategoryID())[0]["Name"]; }
           $value = convertValue($a->getValue(), $a->getIsPositive());
           $color = getValueColor($a->getIsPositive());
 
           echo <<< Accounting
         <tr id="$id">
-          <td class="accountingDate">$date</td>
-          <td class="accountingName">$name</td>
-          <td class="accountingCategory">$category</td>
+          <td class="accountingDate value">$date</td>
+          <td class="accountingName value">$name</td>
+          <td class="accountingCategory value">$category</td>
           <td class="accountingValue value $color">$value</td>
           <td style="text-align: end" class="accountingRemoveBt"><button onclick="deleteAccounting($id)" class="btn btn-dark"">X</button></td>
         </tr>
@@ -204,8 +205,8 @@ balance;
         </thead>
         <tbody>
         <tr>
-          <td><input type=date value="2018-01-01" onsubmit="addAccounting()" name="addAccounting_date"></td>
-          <td><input type="text" name="addAccounting_name"></td>
+          <td><input class="form-control input" id="date_3" type=date value="" onsubmit="addAccounting()" name="addAccounting_date"></td>
+          <td><input class="form-control input" type="text" value="Rechnung" name="addAccounting_name"></td>
           <td>
             <fieldset>
               <!-- Dropdown: 'Kategorien' -->
@@ -243,7 +244,7 @@ Categories;
               </ul>
             </div>
           </td>
-          <td><input type="number" name="addAccounting_value" min="0" step="0.01" value="0" style="width:100px"></td>
+          <td><input class="form-control input" type="number" name="addAccounting_value" min="0" step="0.01" value="0" style="width:100px"></td>
           <td><input class="btn btn-dark" onclick="addAccounting(this.form)" type="submit" value="Add"/></td>
         </tr>
         </tbody>
@@ -259,6 +260,13 @@ Categories;
 <script src="../js/frontend.js"></script>
 <!-- JS: Accounting -->
 <script src="../js/accounting.js"></script>
+
+<!-- Set dates to current -->
+<script language="JavaScript">
+    document.getElementById("date_1").valueAsDate = new Date();
+    document.getElementById("date_2").valueAsDate = new Date();
+    document.getElementById("date_3").valueAsDate = new Date();
+</script>
 
 </body>
 </html>
