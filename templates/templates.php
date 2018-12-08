@@ -19,7 +19,7 @@ Footer;
 function printHeader()
 {
     echo <<< Header
-        <nav class="navbar navbar-expand-sm bg-dark" style="margin-top: -25px;">
+        <nav class="navbar navbar-expand-sm bg-dark" style="margin-top: 0px;">
           <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
@@ -41,7 +41,7 @@ function printHeader()
           <ul class="nav navbar-nav navbar-right">
             <a class="nav-link" href="#"><span class="navbar-text" style="color: white">Eingeloggt als: Jan Schneider</span></a>
             <a class="nav-link" href="#">
-              <button class="nav-link bg-dark" style="color: white">Ausloggen</button>
+              <button class="nav-link bg-dark btn btn-primary" style="color: white">Ausloggen</button>
             </a>
           </ul>
         </nav>

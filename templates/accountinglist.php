@@ -253,7 +253,7 @@ Categories;
     </form>
   </div>
   <!-- Footer -->
-    <?php include __DIR__ . "/footer.php"; ?>
+    <?php printFooter(); ?>
 
 </div>
 
