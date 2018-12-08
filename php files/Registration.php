@@ -1,16 +1,18 @@
 <?php
-//Durch Require wird die gesamte php-Datei nicht mehr gelanden (Essentielle Bestandteile wie Funktionen sollten daher mit require geholt werden)
-//Require verhindert mehrfach inkludierung wodurch ein Fatal-Error ensteht. PHP merkt sich, dass die Datei bereits eingebunden wurde
-/// //Durch include kriegt man nur ein Error und die PHP-Datei wird weiter geladen.
+//Durch require wird die gesamte php-Datei nicht mehr geladen (Essentielle Bestandteile wie Funktionen sollten daher mit require eingebunden werden)
+//require_once verhindert mehrfach Inkludierung wodurch ein Fatal-Error enstehen würde . PHP merkt sich, dass die Datei bereits eingebunden wurde.
+//include kriegt man nur ein Error und die PHP-Datei wird weiter geladen.
 require_once __dir__."/Repository.php";
 $repository = new Repository();
 $repository->init();
-if (isset($_POST["register"])){
-    echo $repository->createUser($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password']);
-}
+if (isset($_POST["register"]))
+    if ($repository->createUser($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password'])){
+        echo "Hah";
+    }
+    else {
+        echo "profil wurde nicht erstellt";
+    }
 ?>
-
-
     <!DOCTYPE html>
     <html>
     <head>
@@ -18,20 +20,17 @@ if (isset($_POST["register"])){
         <meta charset="UTF-8">
         <title>Register</title>
         <script>
-            // Example starter JavaScript for disabling form submissions if there are invalid fields
             (function() {
-                'use strict';
-                window.addEventListener('load', function() {
-                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                    var forms = document.getElementsByClassName('needs-validation');
-                    // Loop over them and prevent submission
+                "use strict";
+                window.addEventListener("load", function() {
+                    var forms = document.getElementsByClassName("needs-validation");
                     var validation = Array.prototype.filter.call(forms, function(form) {
-                        form.addEventListener('submit', function(event) {
+                        form.addEventListener("submit", function(event) {
                             if (form.checkValidity() === false) {
                                 event.preventDefault();
                                 event.stopPropagation();
                             }
-                            form.classList.add('was-validated');
+                            form.classList.add("was-validated");
                         }, false);
                     });
                 }, false);
@@ -39,13 +38,42 @@ if (isset($_POST["register"])){
         </script>
 
         <script>
+            function hasUpperCase(string) {
+                return (/[A-Z]/.test(string));
+            }
+
+            function hasNumber(myString) {
+                return /\d/.test(myString);
+            }
+
+            function enoughChars(myString) {
+                return myString.length>=8;
+            }
+
+            function validPassword(password) {
+                return (hasUpperCase(password) && hasNumber(password) && enoughChars(password));
+            }
+        </script>
+        <script>
             var check = function() {
-                if (document.getElementById("password").value != document.getElementById("confirmPassword").value) {
-                    document.getElementById("checker").innerHTML = 'Bitte identische Passwörter';
+                var password = document.getElementById("password").value;
+                var confirmedPassword = document.getElementById("confirmPassword").value;
+                alert(password!="");
+                alert(confirmedPassword!="");
+                alert(password != "" && confirmedPassword != "");
+                if (password != "" && confirmedPassword != "") {
+                    if (password != confirmedPassword && !validPassword(password) && !validPassword(confirmedPassword)) {
+                        document.getElementById("checker").className = "alert alert-danger";
+                        document.getElementById("checker").innerHTML = "Bitte geben Sie identische Passwörter ein. Bitte mindestens 8 Zeichen lang, ein Großbuchstabe und eine Zahl.";
+                    }
+                    else{
+                        document.getElementById("checker").className = "alert alert-success";
+                        document.getElementById("checker").innerHTML = "Die Passwörter sind identisch und entsprechen den Vorgaben.";
+                    }
                 }
-                else {
-                    document.getElementById("checker").innerHTML = "Passwörter sind identisch";
-                }
+                alert(password); alert(confirmedPassword);
+                alert('Passwort ungleich Bestätigungspasswort ergibt: ' + password==confirmedPassword);
+                alert("Passwortcheck von beiden Passwörter ergibt: " + !validPassword(password) && !validPassword(confirmedPassword));
             }
         </script>
     </head>
@@ -84,20 +112,17 @@ if (isset($_POST["register"])){
                     <div class="row">
                         <span class="col">
                             <label for="password">Passwort</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Passwort" onkeyup='check();' required>
-
+                            <input type="text" class="form-control" id="password" name="password" placeholder="Passwort" onclick="check();" required>
                             <label for="confirmPassword">Passwort bestätigen</label>
-                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Selbes Passwort" onkeyup='check();' required>
+                            <input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Selbes Passwort"  required>
                             <div class="invalid-feedback">Bitte ein Passwort.</div>
-
-                             <div class="alert alert-danger" id="checker"></div>
-
-                        </div>
-
+                            <br>
+                            <div id="checker"></div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" name="register">Registrieren</button>
             </div>
+            <button type="submit" class="btn btn-primary" name="register">Registrieren</button>
+        </div>
         </div>
     </form>
     </body>
