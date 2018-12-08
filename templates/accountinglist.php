@@ -19,7 +19,7 @@
     <?php
     include __DIR__ . "/../Php files/ContentService.php";
     include __DIR__ . "/../Php files/StringUtil.php";
-
+    include __DIR__ . "/templates.php";
     $service = new ContentService('derflo@mail.de');
     ?>
 
@@ -27,7 +27,7 @@
 <body>
 
 <!-- Header -->
-<?php include __DIR__ . "/header.php"; ?>
+<?php printHeader(); ?>
 
 <!-- Background -->
 <div class="background">
@@ -252,7 +252,7 @@ Categories;
     </form>
   </div>
   <!-- Footer -->
-    <?php include __DIR__ . "/footer.php"; ?>
+    <?php printFooter(); ?>
 
 </div>
 
