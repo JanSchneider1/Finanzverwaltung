@@ -58,9 +58,9 @@ if (isset($_POST["register"]))
             var check = function() {
                 var password = document.getElementById("password").value;
                 var confirmedPassword = document.getElementById("confirmPassword").value;
-                alert(password!="");
-                alert(confirmedPassword!="");
-                alert(password != "" && confirmedPassword != "");
+                //alert(password!="");
+                //alert(confirmedPassword!="");
+                //alert(password != "" && confirmedPassword != "");
                 if (password != "" && confirmedPassword != "") {
                     if (password != confirmedPassword && !validPassword(password) && !validPassword(confirmedPassword)) {
                         document.getElementById("checker").className = "alert alert-danger";
@@ -71,7 +71,7 @@ if (isset($_POST["register"]))
                         document.getElementById("checker").innerHTML = "Die Passwörter sind identisch und entsprechen den Vorgaben.";
                     }
                 }
-                alert(password); alert(confirmedPassword);
+                //alert(password); alert(confirmedPassword);
                 alert('Passwort ungleich Bestätigungspasswort ergibt: ' + password==confirmedPassword);
                 alert("Passwortcheck von beiden Passwörter ergibt: " + !validPassword(password) && !validPassword(confirmedPassword));
             }
