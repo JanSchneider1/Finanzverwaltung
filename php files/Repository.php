@@ -28,6 +28,7 @@ class Repository {
             die("DB connection failed: " . $this->con->connect_error);
             return false;
         }
+        mysqli_set_charset($this, 'utf-8');
         return true;
     }
 
