@@ -1,10 +1,16 @@
 <?php
-include('Repository.php');
+session_start();
+require_once __dir__.'Repository.php';
 $repository = new Repository();
 $repository->init();
 
 if(isset($_POST["login"])){
-    echo $repository->checkPassword($_POST["email"], $_POST["password"]);
+    if ($repository->checkPassword($_POST["email"], $_POST["password"])){
+
+        $_SESSION["userId"];
+
+        $abfrage = "select UserID from User where mail=".$_POST["email"]." and password=".$_POST["password"];
+    }
 }
 
 ?>
