@@ -3,7 +3,8 @@
 <head>
   <title>PHP-Projekt</title>
   <!-- Required meta tags -->
-  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -20,8 +21,8 @@
     include __DIR__ . "/../Php files/ContentService.php";
     include __DIR__ . "/../Php files/StringUtil.php";
 
-    $service = new ContentService('derflo@mail.de');
-    ?>
+  $service = new ContentService('derflo@mail.de');
+  ?>
 
 </head>
 <body>
@@ -92,7 +93,7 @@ Categories;
       <td><!-- Empty --></td>
       <td><input class="form-control input" type="number" step="0.01" value="0" style="width:100px"></td>
       <td><input class="form-control input" type="number" step="0.01" value="0" style="width:100px"></td>
-      <td><input class="btn btn-dark" value="Sortieren" style="width:100px"/></td>
+      <td><button class="btn btn-dark" style="width:100px">Sortieren</button></td>
       </tbody>
     </table>
   </div>
