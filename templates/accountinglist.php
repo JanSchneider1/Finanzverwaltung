@@ -245,8 +245,8 @@ Categories;
               </ul>
             </div>
           </td>
-          <td><input class="form-control input" type="number" name="addAccounting_value" min="0" step="0.01" value="0" style="width:100px"></td>
-          <td><input class="btn btn-dark" onclick="addAccounting(this.form)" type="submit" value="Add"/></td>
+          <td><input class="form-control input" type="number" name="addAccounting_value" min="0.01" step="0.01" value="0.01" style="width:100px"></td>
+          <td><button type="button" class="btn btn-dark" onclick="addAccounting(this.form)">Add</button></td>
         </tr>
         </tbody>
       </table>

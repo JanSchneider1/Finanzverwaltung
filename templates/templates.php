@@ -9,7 +9,7 @@
 function printFooter(){
 
     echo <<< Footer
-            <div class="background title" style="text-align: center; margin-top: -25px;">
+            <div class="background title" style="text-align: center;">
               <a href="#">Impressum</a><br/>
               <span style="color:#969696">&copy;Copyright 2018 Florian Albers, Niklas Firnges, Cem Caylak, Jan Schneider</span>
             </div> 
@@ -19,7 +19,7 @@ Footer;
 function printHeader()
 {
     echo <<< Header
-        <nav class="navbar navbar-expand-sm bg-dark" style="margin-top: 0px;">
+        <nav class="navbar navbar-expand-sm bg-dark">
           <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">

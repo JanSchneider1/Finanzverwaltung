@@ -221,13 +221,6 @@ class Repository {
 
         $stmt = mysqli_prepare($this->con, "INSERT INTO Accounting (Value, isPositive, Date, Name, UserID, CategoryID) VALUES(?,?,?,?,?,?);");
         $stmt->bind_param("dissii", $value, $isPositive, $date, $name, $userID, $categoryID);
-        echo var_dump($userID);
-        echo var_dump($name);
-        echo var_dump($value);
-        echo var_dump($isPositive);
-        echo var_dump($date);
-        echo var_dump($categoryID);
-        echo var_dump($stmt);
         if (!$stmt->execute()) {
             return false;
         }
