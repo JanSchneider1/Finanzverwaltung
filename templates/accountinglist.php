@@ -61,11 +61,11 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="#" data-value="Alle">Alle</li>
-            <li><a href="#" data-value="Dieses Jahr">Dieses Jahr</li>
-            <li><a href="#" data-value="Diesen Monat">Diesen Monat</li>
-            <li><a href="#" data-value="Diese Woche">Diese Woche</li>
-            <li><a href="#" data-value="Heute">Heute</li>
+            <li><a data-value="Alle">Alle</li>
+            <li><a data-value="Dieses Jahr">Dieses Jahr</li>
+            <li><a data-value="Diesen Monat">Diesen Monat</li>
+            <li><a data-value="Diese Woche">Diese Woche</li>
+            <li><a data-value="Heute">Heute</li>
           </ul>
         </div>
       </td>
@@ -83,7 +83,7 @@
               foreach ($service->categories as $c) {
                   $categoryName = $c->getName();
                   echo <<< Categories
-                  <li><a href="#" data-value=$categoryName>$categoryName</li>
+                  <li><a data-value=$categoryName>$categoryName</li>
 Categories;
               }
               ?>
@@ -223,7 +223,7 @@ balance;
                         $categoryName = $c->getName();
                         $categoryID = $c->getId();
                         echo <<< Categories
-                  <li><a href="#" data-value=$categoryID>$categoryName</li>
+                  <li><a data-value=$categoryID>$categoryName</li>
 Categories;
                     }
                     ?>
@@ -240,8 +240,8 @@ Categories;
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#" data-value="Einnahmen">Einnahmen</li>
-                <li><a href="#" data-value="Ausgaben">Ausgaben</li>
+                <li><a data-value="Einnahmen">Einnahmen</li>
+                <li><a data-value="Ausgaben">Ausgaben</li>
               </ul>
             </div>
           </td>
