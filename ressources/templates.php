@@ -11,7 +11,7 @@ function printFooter(){
     echo <<< Footer
             <div class="background title" style="text-align: center;">
               <a href="#">Impressum</a><br/>
-              <span style="color:#969696">&copy;Copyright 2018 Florian Albers, Niklas Firnges, Cem Caylak, Jan Schneider</span>
+              <span style="color:#969696">&copy;Copyright 2018 Florian Albers, Cem Caylak, Jan Schneider, Niklas Firnges</span>
             </div> 
 Footer;
 }

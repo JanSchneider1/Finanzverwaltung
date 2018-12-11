@@ -2,7 +2,7 @@
 //Durch require wird die gesamte php-Datei nicht mehr geladen (Essentielle Bestandteile wie Funktionen sollten daher mit require eingebunden werden)
 //require_once verhindert mehrfach Inkludierung wodurch ein Fatal-Error enstehen würde . PHP merkt sich, dass die Datei bereits eingebunden wurde.
 //include kriegt man nur ein Error und die PHP-Datei wird weiter geladen.
-require_once __dir__."/Repository.php";
+require_once __dir__."/../ressources/Repository.php";
 $repository = new Repository();
 $repository->init();
 if (isset($_POST["register"]))

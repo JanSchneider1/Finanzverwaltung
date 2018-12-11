@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __dir__.'Repository.php';
+require_once __dir__.'/../ressources/Repository.php';
 $repository = new Repository();
 $repository->init();
 
@@ -66,11 +66,3 @@ if(isset($_POST["login"])){
 </body>
 
 </html>
-
-<?php
-/**
- * Created by IntelliJ IDEA.
- * User: caylak
- * Date: 16.11.2018
- * Time: 14:42
- */

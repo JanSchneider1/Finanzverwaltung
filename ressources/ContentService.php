@@ -1,10 +1,10 @@
 <?php
 
-require_once __dir__."/Repository.php";
-require_once __dir__."/User.php";
-require_once __dir__."/Accounting.php";
-require_once __dir__."/Category.php";
-require_once __dir__."/Fixum.php";
+require_once __dir__ . "/Repository.php";
+require_once __dir__."/../entities/User.php";
+require_once __dir__."/../entities/Accounting.php";
+require_once __dir__."/../entities/Category.php";
+require_once __dir__."/../entities/Fixum.php";
 
 /**
  * Class ContentService
@@ -203,10 +203,6 @@ class ContentService
         return $value;
     }
 
-    function getIncomeBetween($dateStart, $dateEnd) {
-
-    }
-
     function getCostsFromAll() {
 
         $value = 0;
@@ -218,11 +214,6 @@ class ContentService
         return $value;
     }
 
-    function getCostsBetween($dateStart, $dateEnd) {
-
-
-    }
-
     function getBalanceFromAll() {
 
         $value = 0;
@@ -230,11 +221,6 @@ class ContentService
             $value += $a->getValue();
         }
         return $value;
-    }
-
-    function getBalanceBetween($dateStart, $dateEnd) {
-
-
     }
 }
 /*$cs = new ContentService('derflo@mail.de');
