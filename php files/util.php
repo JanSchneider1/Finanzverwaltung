@@ -13,3 +13,12 @@ function convertValue($value, $isPositive){
     return $valueString;
 
 }
+
+function getValueColor($isPositive){
+
+    if ($isPositive == 1) {
+        return "positive";
+    } else {
+        return "negative";
+    }
+}

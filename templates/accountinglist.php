@@ -18,10 +18,30 @@
 
   <!-- PHP Includes -->
     <?php
-    include __DIR__ . "/../Php files/ContentService.php";
-    include __DIR__ . "/../Php files/StringUtil.php";
-    include __DIR__ . "/templates.php";
-    $service = new ContentService('derflo@mail.de');
+        include __DIR__ . "/../Php files/ContentService.php";
+        include __DIR__ . "/../Php files/util.php";
+        include __DIR__ . "/templates.php";
+        $service = new ContentService('derflo@mail.de');
+
+        $startDate = null;
+        $endDate = null;
+        $categoryID = null;
+        $minValue = null;
+        $maxValue = null;
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $startDate = htmlspecialchars($_POST['start_date']);
+            $endDate = htmlspecialchars($_POST['end_date']);
+            $categoryID = htmlspecialchars($_POST['category_filter']);
+            $minValue = htmlspecialchars($_POST['min_value']);
+            $maxValue = htmlspecialchars($_POST['max_value']);
+
+            if($categoryID == 'Alle'){
+                $service->reloadAccountings($service->repo->getAccountingsBetweenValuesBetweenDates($service->user->getUserID(), $minValue, $maxValue, $startDate, $endDate));
+            } else{
+                $service->reloadAccountings($service->repo->getAccountingsByCategoryBetweenValuesBetweenDates($service->user->getUserID(), $categoryID, $minValue, $maxValue, $startDate, $endDate));
+            }
+        }
     ?>
 
 </head>
@@ -57,43 +77,46 @@
         <!-- Dropdown: Zeitraum -->
         <div class="dropdown">
           <button class="btn btn-dark dropdown-toggle" type="button" value="Alle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Alle
+            <?php echo $startDate != null ? "Eigen" : "Dieser Monat";?>
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a data-value="Alle">Alle</li>
-            <li><a data-value="Dieses Jahr">Dieses Jahr</li>
-            <li><a data-value="Diesen Monat">Diesen Monat</li>
-            <li><a data-value="Diese Woche">Diese Woche</li>
-            <li><a data-value="Heute">Heute</li>
+            <li id="month"><a data-value="Dieser Monat">Diesen Monat</li>
+            <li id="day"><a data-value="Heute">Heute</li>
+            <li id="week"><a data-value="Diese Woche">Diese Woche</li>
+            <li id="year"><a data-value="Dieses Jahr">Dieses Jahr</li>
+            <li id="own"><a data-value="Eigen">Eigen</li>
           </ul>
         </div>
       </td>
-      <td><input class="form-control input" id="date_1" value="" type="date"></td>
-      <td><input class="form-control input" id="date_2" value="" type="date"></td>
-      <td>
-        <!-- Dropdown: 'Kategorien' -->
-        <div class="dropdown">
-          <button class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Kategorien
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              <?php
-              foreach ($service->categories as $c) {
-                  $categoryName = $c->getName();
-                  echo <<< Categories
-                  <li><a data-value=$categoryName>$categoryName</li>
-Categories;
-              }
-              ?>
-          </ul>
-        </div>
-      </td>
-      <td><!-- Empty --></td>
-      <td><input class="form-control input" type="number" step="0.01" value="0" style="width:100px"></td>
-      <td><input class="form-control input" type="number" step="0.01" value="0" style="width:100px"></td>
-      <td><button class="btn btn-dark" style="width:100px">Sortieren</button></td>
+      <form method="post" action="accountinglist.php">
+          <td><input class="form-control input" id="date_1" name="start_date" value="<?php if($startDate != null){echo $startDate;}?>" type="date"></td>
+          <td><input class="form-control input" id="date_2" name="end_date" value="<?php if($endDate != null){echo $endDate;}?>" type="date"></td>
+          <td>
+            <!-- Dropdown: 'Kategorien' -->
+            <div class="dropdown">
+                <input class="input" style="display: none" value="<?php if($categoryID != null){echo $categoryID;}?>" type="text" name="category_filter">
+                <button class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <?php echo $categoryID != null ? $service->repo->getCategoryByID($categoryID)[0]["Name"] : "Alle" ;?>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <li><a data-value="Alle">Alle</li>
+                  <?php
+                      foreach ($service->categories as $c) {
+                          $categoryName = $c->getName();
+                          $categoryID = $c->getId();
+                          echo "<li><a data-value=$categoryID>$categoryName</li>";
+                      }
+                  ?>
+              </ul>
+            </div>
+          </td>
+          <td><!-- Empty --></td>
+          <td><input class="form-control input" type="number" step="1" name="min_value" value="<?php echo $minValue != null ? $minValue : $service->repo->getLowestAccountingValue($service->user->getUserID())?>" style="width:100px"></td>
+          <td><input class="form-control input" type="number" step="1" name="max_value" value="<?php echo $maxValue != null ? $maxValue : $service->repo->getHighestAccountingValue($service->user->getUserID())?>" style="width:100px"></td>
+          <td><button class="btn btn-dark" id="btn_filter" type="submit" style="width:100px">Sortieren</button></td>
+      </form>
       </tbody>
     </table>
   </div>
@@ -113,14 +136,6 @@ Categories;
       <tbody id="list_bills">
       <!-- Add accountings to table -->
       <?php
-      function getValueColor($isPositive)
-      {
-          if ($isPositive == 1) {
-              return "positive";
-          } else {
-              return "negative";
-          }
-      }
 
       foreach ($service->accountings as $a) {
 
@@ -129,7 +144,7 @@ Categories;
           $date = $a->getDate();
           $category = '/';
           if ($a->getCategoryID() != null) { $category = $service->repo->getCategoryByID($a->getCategoryID())[0]["Name"]; }
-          $value = convertValue($a->getValue(), $a->getIsPositive());
+          $value = convertValue(abs($a->getValue()), $a->getIsPositive());
           $color = getValueColor($a->getIsPositive());
 
           echo <<< Accounting
@@ -155,21 +170,21 @@ Accounting;
       <tr>
         <th>Einnahmen</th>
         <th>Kosten</th>
-        <th>----> Differenz</th>
+        <th>Differenz</th>
       </tr>
       </thead>
       <tbody>
       <tr>
           <?php
           $income = convertValue($service->getIncomeFromAll(), 1);
-          $costs = convertValue($service->getCostsFromAll(), 0);
+          $costs = convertValue(abs($service->getCostsFromAll()), 0);
 
           $balance = 0;
           $temp_balance = $service->getBalanceFromAll();
           if ($temp_balance >= 0) {
               $balance = convertValue($temp_balance, 1);
           } else {
-              $balance = convertValue($temp_balance, 0);
+              $balance = convertValue(abs($temp_balance), 0);
           }
           $color = "negative";
           if ($temp_balance >= 0) {
@@ -212,20 +227,18 @@ balance;
             <fieldset>
               <!-- Dropdown: 'Kategorien' -->
               <div class="dropdown">
-                <input class="input" style="display: none" value="/" type="text" name="addAccounting_categoryID">
+                <input class="input" style="display: none" value="0" type="text" name="addAccounting_categoryID">
                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   Kategorien
                   <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <?php
-                    foreach ($service->categories as $c) {
-                        $categoryName = $c->getName();
-                        $categoryID = $c->getId();
-                        echo <<< Categories
-                  <li><a data-value=$categoryID>$categoryName</li>
-Categories;
-                    }
+                        foreach ($service->categories as $c) {
+                            $categoryName = $c->getName();
+                            $categoryID = $c->getId();
+                            echo "<li><a data-value=$categoryID>$categoryName</li>";
+                        }
                     ?>
                 </ul>
               </div>
@@ -245,7 +258,7 @@ Categories;
               </ul>
             </div>
           </td>
-          <td><input class="form-control input" type="number" name="addAccounting_value" min="0.01" step="0.01" value="0.01" style="width:100px"></td>
+          <td><input class="form-control input" type="number" name="addAccounting_value" min="0.01" step="0.25" value="1" style="width:100px"></td>
           <td><button type="button" class="btn btn-dark" onclick="addAccounting(this.form)">Add</button></td>
         </tr>
         </tbody>
@@ -261,13 +274,9 @@ Categories;
 <script src="../js/frontend.js"></script>
 <!-- JS: Accounting -->
 <script src="../js/accounting.js"></script>
-
+<?php echo $startDate == null ? '<script language="JavaScript">setDatesMonth()</script>' : '<script language="JavaScript">enableDates()</script>';?>
 <!-- Set dates to current -->
-<script language="JavaScript">
-    document.getElementById("date_1").valueAsDate = new Date();
-    document.getElementById("date_2").valueAsDate = new Date();
-    document.getElementById("date_3").valueAsDate = new Date();
-</script>
+<script language="JavaScript">document.getElementById("date_3").valueAsDate = new Date();</script>
 
 </body>
 </html>

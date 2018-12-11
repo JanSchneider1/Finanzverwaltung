@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     //Convert -> Get isPositive (0 or 1)
     $isPositive = -1;
     if (strcmp($flag,'Einnahmen') == 0) { $isPositive = 1;}
-    else if (strcmp($flag,'Ausgaben') == 0) { $isPositive = 0;}
+    else if (strcmp($flag,'Ausgaben') == 0) { $isPositive = 0; $value *= -1;}
     if ($isPositive == -1) { return; }
 
     if ($categoryID == '/'){ $categoryID = null;}
