@@ -31,6 +31,7 @@ class ContentService
         $this->reloadAccountings($this->repo->getAccountingsByUser($this->user->getUserID()));
         $this->reloadFixa($this->repo->getFixaByUser($this->user->getUserID()));
         $this->reloadCategories($this->repo->getCategoriesByUser($this->user->getUserID()));
+        $this->generateAccountingsFromFixa();
     }
 
     /** Reloads the accountings array with the output of a repo get function
@@ -67,7 +68,7 @@ class ContentService
      * @param $fixum
      * @return bool
      */
-    function didFrequency($fixum)
+    private function didFrequency($fixum)
     {
 
         $now = new DateTime();
@@ -189,7 +190,7 @@ class ContentService
                 }
             }
         }
-        $this->reloadAccountings();
+        $this->reloadAccountings($this->repo->getAccountingsByUser($this->user->getUserID()));
     }
 
     function getIncomeFromAll() {

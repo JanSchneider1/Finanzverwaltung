@@ -89,7 +89,7 @@
                   </ul>
                 </div>
               </td>
-              <form method="post" action="accountinglist.php">
+              <form method="post" action="accountingList.php">
                   <td><input class="form-control input" id="date_1" name="start_date" value="<?php if($startDate != null){echo $startDate;}?>" type="date"></td>
                   <td><input class="form-control input" id="date_2" name="end_date" value="<?php if($endDate != null){echo $endDate;}?>" type="date"></td>
                   <td>
