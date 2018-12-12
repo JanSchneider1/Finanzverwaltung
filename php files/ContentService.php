@@ -192,8 +192,7 @@ class ContentService
         $this->reloadAccountings();
     }
 
-    function getIncomeFromAll()
-    {
+    function getIncomeFromAll() {
 
         $value = 0;
         foreach ($this->accountings as $a) {
@@ -204,13 +203,11 @@ class ContentService
         return $value;
     }
 
-    function getIncomeBetween($dateStart, $dateEnd)
-    {
+    function getIncomeBetween($dateStart, $dateEnd) {
 
     }
 
-    function getCostsFromAll()
-    {
+    function getCostsFromAll() {
 
         $value = 0;
         foreach ($this->accountings as $a) {
@@ -221,28 +218,21 @@ class ContentService
         return $value;
     }
 
-    function getCostsBetween($dateStart, $dateEnd)
-    {
+    function getCostsBetween($dateStart, $dateEnd) {
 
 
     }
 
-    function getBalanceFromAll()
-    {
+    function getBalanceFromAll() {
 
         $value = 0;
         foreach ($this->accountings as $a) {
-            if ($a->getIsPositive() == 1) {
-                $value += $a->getValue();
-            } else {
-                $value -= $a->getValue();
-            }
+            $value += $a->getValue();
         }
         return $value;
     }
 
-    function getBalanceBetween($dateStart, $dateEnd)
-    {
+    function getBalanceBetween($dateStart, $dateEnd) {
 
 
     }
