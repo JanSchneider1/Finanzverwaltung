@@ -6,8 +6,7 @@
  * Time: 14:42
  */
 session_start();
-require_once __dir__."/Repository.php";
-include __dir__."/../templates/templates.php";
+include __dir__."/../ressources/templates.php";
 require_once __dir__.'/../ressources/Repository.php';
 $repository = new Repository();
 $repository->init();
@@ -15,7 +14,8 @@ $repository->init();
 if(isset($_POST["login"])){
     if ($repository->checkPassword($_POST["email"], $_POST["password"])){
 
-        $_SESSION = $repository->getUserWithMail($_POST["email"])["UserID"];
+        $_SESSION = $repository->getUserWithMail($_POST["email"])["UserID"];?>
+        <script type="text/javascript">location.href = 'EditProfile.php';</script><?php
     }
 }
 ?>
