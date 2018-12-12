@@ -1,24 +1,6 @@
-.title {
-
-	 text-align:center;
-	 color: white;
- }
 
 .accountingValue{
 	text-align: center;
-}
-
-.value {
-	font-size: 30px;
-}
-
-.input {
-
-	background-color: #31343b;
-	color: white;
-	border: none;
-	transition: none;
-	font-size: 20px;
 }
 
 .dropdown-item:hover{
@@ -32,7 +14,7 @@
 }
 
 .hvr-underline-from-left:before{
-		background-color: #eee448;
+	background-color: #eee448;
 }
 
 .hvr-reveal:before{

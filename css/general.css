@@ -11,3 +11,22 @@
 .background {
   background-color: #17191c;
 }
+
+.title {
+
+  text-align:center;
+  color: white;
+}
+
+.input {
+
+  background-color: #31343b;
+  color: white;
+  border: none;
+  transition: none;
+  font-size: 20px;
+}
+
+.value {
+  font-size: 30px;
+}
