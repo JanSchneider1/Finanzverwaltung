@@ -33,7 +33,7 @@ button { background-color: #2f323a; color : white }
 .dropdown-item:hover { background-color: #23232c; color : white }
 
 /* Overrides standard color for 'logout' button in the header */
-.hvr-shutter-out-horizontal{ background-color: #282633; color : white }
+.hvr-shutter-out-horizontal{ background-color: #2F323A; color : white }
 
 /* Overrides hover effect color */
 .hvr-reveal:before { border-color: #00c5ff; }

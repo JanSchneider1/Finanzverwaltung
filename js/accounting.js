@@ -28,7 +28,7 @@ function insertAccountingAsTableRow(id, date, name, categoyName, isPositive, val
     $('#' + id).append('<td class="accountingName value">' + name +'</td>');
     $('#' + id).append('<td class="accountingCategory value">' + categoyName +'</td>');
     $('#' + id).append('<td class="accountingValue value ' + formatIsPositive(isPositive) + '">' + formatValue(Math.abs(value), isPositive) +'</td>');
-    $('#' + id).append('<td style="text-align: end" class="accountingRemoveBt"><button onclick="deleteAccounting(' + id + ')" class="btn btn-dark">X</button></td>');
+    $('#' + id).append('<td style="text-align: end"><button class="btn hvr-reveal" onclick="deleteAccounting(' + id + ')"><span class="fas fa-trash-alt"></button></td>');
 }
 
 function disableDates(){
