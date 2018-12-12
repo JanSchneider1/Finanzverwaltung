@@ -15,6 +15,7 @@
       <!-- My stylesheets -->
       <link rel="stylesheet" href="../css/general.css">
       <link rel="stylesheet" href="../css/accounting.css">
+      <link rel="stylesheet" href="../css/texteffects.css">
 
       <!-- PHP Includes -->
         <?php
@@ -78,11 +79,11 @@
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li id="month"><a data-value="Dieser Monat">Diesen Monat</li>
-                    <li id="day"><a data-value="Heute">Heute</li>
-                    <li id="week"><a data-value="Diese Woche">Diese Woche</li>
-                    <li id="year"><a data-value="Dieses Jahr">Dieses Jahr</li>
-                    <li id="own"><a data-value="Eigen">Eigen</li>
+                    <li id="month"><a class="dropdown-item effect-underline" data-value="Dieser Monat">Diesen Monat</a></li>
+                    <li id="day"><a class="dropdown-item effect-underline" data-value="Heute">Heute</a></li>
+                    <li id="week"><a class="dropdown-item effect-underline" data-value="Diese Woche">Diese Woche</a></li>
+                    <li id="year"><a class="dropdown-item effect-underline" data-value="Dieses Jahr">Dieses Jahr</a></li>
+                    <li id="own"><a class="dropdown-item effect-underline" data-value="Eigen">Eigen</a></li>
                   </ul>
                 </div>
               </td>
@@ -98,12 +99,12 @@
                         <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                          <li><a data-value="Alle">Alle</li>
+                        <li><a class="dropdown-item effect-underline" data-value="Alle">Alle</a></li>
                           <?php
                               foreach ($service->categories as $c) {
                                   $categoryName = $c->getName();
                                   $categoryID = $c->getId();
-                                  echo "<li><a data-value=$categoryID>$categoryName</li>";
+                                  echo "<li><a class=\"dropdown-item effect-underline\" data-value=$categoryID>$categoryName</a></li>";
                               }
                           ?>
                       </ul>
@@ -234,7 +235,7 @@ balance;
                                 foreach ($service->categories as $c) {
                                     $categoryName = $c->getName();
                                     $categoryID = $c->getId();
-                                    echo "<li><a data-value=$categoryID>$categoryName</li>";
+                                    echo "<li><a class=\"dropdown-item effect-underline\" data-value=$categoryID>$categoryName</a></li>";
                                 }
                             ?>
                         </ul>
@@ -250,8 +251,8 @@ balance;
                         <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a data-value="Einnahmen">Einnahmen</li>
-                        <li><a data-value="Ausgaben">Ausgaben</li>
+                        <li><a class="dropdown-item effect-underline" data-value="Einnahmen">Einnahmen</a></li>
+                        <li><a class="dropdown-item effect-underline" data-value="Ausgaben">Ausgaben</a></li>
                       </ul>
                     </div>
                   </td>

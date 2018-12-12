@@ -1,8 +1,8 @@
 .title {
 
-	text-align:center;
-	color: white;
-}
+	 text-align:center;
+	 color: white;
+ }
 
 .accountingValue{
 	text-align: center;
@@ -19,4 +19,14 @@
 	border: none;
 	transition: none;
 	font-size: 20px;
+}
+
+.dropdown-item:hover{
+	background-color: #2a293f;
+	background-image: none;
+}
+
+.dropdown-menu{
+	background-color: #4f4f67;
+	color: white;
 }
