@@ -18,7 +18,8 @@
       <link rel="stylesheet" href="../css/general.css">
       <link rel="stylesheet" href="../css/texteffects.css">
       <link rel="stylesheet" href="../css/hover-min.css">
-      <link rel="stylesheet" href="../css/accounting.css">
+      <link rel="stylesheet" href="../css/colorschemes/darkasmysoul.css">
+      <!--<link rel="stylesheet" href="../css/colorschemes/happyunicorn.css">-->
 
       <!-- PHP Includes -->
         <?php
@@ -61,7 +62,7 @@
 
           <!-- Filter -->
           <div class="container">
-            <table class="table table-dark table-hover">
+            <table class="table table-hover table-dark">
               <thead>
               <tr>
                 <th>Zeitraum</th>
@@ -78,7 +79,7 @@
               <td>
                 <!-- Dropdown: Zeitraum -->
                 <div class="dropdown">
-                  <button class="btn btn-dark dropdown-toggle hvr-grow" type="button" value="Alle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  <button class="btn dropdown-toggle hvr-grow" type="button" value="Alle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <?php echo $startDate != null ? "Eigen" : "Dieser Monat";?>
                     <span class="caret"></span>
                   </button>
@@ -98,7 +99,7 @@
                     <!-- Dropdown: 'Kategorien' -->
                     <div class="dropdown">
                         <input class="input" style="display: none" value="<?php echo $categoryID != null ? $categoryID : "Alle"; ?>" type="text" name="category_filter">
-                        <button class="btn btn-dark dropdown-toggle hvr-grow" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <button class="btn dropdown-toggle hvr-grow" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <?php echo ($categoryID != "Alle" && $categoryID != null) ? $service->repo->getCategoryByID($categoryID)[0]['Name'] : "Alle";?>
                         <span class="caret"></span>
                       </button>
@@ -118,7 +119,7 @@
                   <td><!-- Empty --></td>
                   <td><input class="form-control input" type="number" step="1" name="min_value" value="<?php echo $minValue != null ? $minValue : $service->repo->getLowestAccountingValue($service->user->getUserID())?>" style="width:100px"></td>
                   <td><input class="form-control input" type="number" step="1" name="max_value" value="<?php echo $maxValue != null ? $maxValue : $service->repo->getHighestAccountingValue($service->user->getUserID())?>" style="width:100px"></td>
-                  <td><button class="btn btn-dark hvr-underline-from-left" id="btn_filter" type="submit" style="width:100px">Suchen</button></td>
+                  <td><button class="btn hvr-underline-from-left" id="btn_filter" type="submit" style="width:100px">Suchen</button></td>
               </form>
               </tbody>
             </table>
@@ -127,7 +128,7 @@
 
           <!-- Accountings -->
           <div class="container">
-            <table class="table table-dark table-hover">
+            <table class="table table-hover table-dark">
               <thead>
               <tr>
                 <th>Datum</th>
@@ -155,7 +156,7 @@
                   <td class="accountingName value">$name</td>
                   <td class="accountingCategory value">$category</td>
                   <td class="accountingValue value $color">$value</td>
-                  <td style="text-align: end"><button onclick="deleteAccounting($id)" class="btn btn-dark hvr-reveal"><span class="fas fa-trash-alt"></span></button></td>
+                  <td style="text-align: end"><button onclick="deleteAccounting($id)" class="btn hvr-reveal"><span class="fas fa-trash-alt"></span></button></td>
                 </tr>
 Accounting;
                   }
@@ -167,7 +168,7 @@ Accounting;
 
           <!--Balance-->
           <div class="container">
-            <table class="table table-dark table-hover">
+            <table class="table table-hover table-dark">
               <thead>
               <tr>
                 <th>Einnahmen</th>
@@ -210,7 +211,7 @@ balance;
           <!--Add accoutings-->
           <div class="container">
             <form method="POST">
-              <table class="table table-dark table-hover">
+              <table class="table table-hover table-dark">
                 <thead>
                 <tr>
                   <th>Datum</th>
@@ -230,7 +231,7 @@ balance;
                       <!-- Dropdown: 'Kategorien' -->
                       <div class="dropdown">
                         <input class="input" style="display: none" value="0" type="text" name="addAccounting_categoryID">
-                        <button class="btn btn-dark dropdown-toggle hvr-grow" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <button class="btn dropdown-toggle hvr-grow" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                           Kategorien
                           <span class="caret"></span>
                         </button>
@@ -247,10 +248,11 @@ balance;
                     </fieldset>
                   </td>
                   <td>
+
                     <!-- Dropdown: -/+ -->
                     <div class="dropdown">
                       <input class="input" style="display: none" value="Ausgaben" type="text" name="addAccounting_isPositive">
-                      <button class="btn btn-dark dropdown-toggle hvr-grow" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      <button class="btn dropdown-toggle hvr-grow" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         Ausgaben
                         <span class="caret"></span>
                       </button>
@@ -259,9 +261,10 @@ balance;
                         <li><a class="dropdown-item effect-underline" data-value="Ausgaben">Ausgaben</a></li>
                       </ul>
                     </div>
+
                   </td>
                   <td><input class="form-control input" type="number" name="addAccounting_value" min="0.01" step="0.25" value="1" style="width:100px"></td>
-                  <td><button type="button" class="btn btn-dark hvr-reveal" onclick="addAccounting(this.form)">Add</button></td>
+                  <td><button type="button" class="btn hvr-reveal" onclick="addAccounting(this.form)">Add</button></td>
                 </tr>
                 </tbody>
               </table>

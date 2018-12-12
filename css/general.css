@@ -1,18 +1,4 @@
-﻿.positive{
-
-  background-color: #0c9745;
-}
-
-.negative{
-
-  background-color: #df4034;
-}
-
-.background {
-  background-color: #17191c;
-}
-
-.title {
+﻿.title {
 
   text-align:center;
   color: white;
@@ -20,8 +6,6 @@
 
 .input {
 
-  background-color: #31343b;
-  color: white;
   border: none;
   transition: none;
   font-size: 20px;
@@ -29,4 +13,8 @@
 
 .value {
   font-size: 30px;
+}
+
+.accountingValue{
+  text-align: center;
 }
