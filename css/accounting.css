@@ -22,19 +22,15 @@
 }
 
 .dropdown-item:hover{
-	background-color: #2a293f;
+	background-color: #30353f;
 	background-image: none;
 }
 
 .dropdown-menu{
-	background-color: #4f4f67;
+	background-color: #565e67;
 	color: white;
 }
 
-.hvr-underline-from-left:before{
-		background-color: #eee448;
-}
-
-.hvr-reveal:before{
-	border-color: #eee448;
+.nav-link.btn.btn-dark.hvr-shutter-out-horizontal{
+  background-color: #17191C;
 }
