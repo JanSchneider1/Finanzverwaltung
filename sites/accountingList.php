@@ -178,25 +178,25 @@ Accounting;
               <tbody>
               <tr>
                   <?php
-                  $income = convertValue($service->getIncomeFromAll(), 1);
-                  $costs = convertValue(abs($service->getCostsFromAll()), 0);
+                      $income = convertValue($service->getIncomeFromAll(), 1);
+                      $costs = convertValue(abs($service->getCostsFromAll()), 0);
 
-                  $balance = 0;
-                  $temp_balance = $service->getBalanceFromAll();
-                  if ($temp_balance >= 0) {
-                      $balance = convertValue($temp_balance, 1);
-                  } else {
-                      $balance = convertValue(abs($temp_balance), 0);
-                  }
-                  $color = "negative";
-                  if ($temp_balance >= 0) {
-                      $color = "positive";
-                  }
+                      $balance = 0;
+                      $temp_balance = $service->getBalanceFromAll();
+                      if ($temp_balance >= 0) {
+                          $balance = convertValue($temp_balance, 1);
+                      } else {
+                          $balance = convertValue(abs($temp_balance), 0);
+                      }
+                      $color = "negative";
+                      if ($temp_balance >= 0) {
+                          $color = "positive";
+                      }
 
-                  echo <<< balance
-                    <td class="positive value">$income</td>
-                    <td class="negative value">$costs</td>
-                    <td class="$color value">$balance</td>
+                      echo <<< balance
+                        <td class="positive value">$income</td>
+                        <td class="negative value">$costs</td>
+                        <td class="$color value">$balance</td>
 balance;
                   ?>
 
