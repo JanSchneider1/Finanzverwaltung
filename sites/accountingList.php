@@ -45,13 +45,10 @@
         ?>
 
     </head>
-    <body>
+    <body class="background">
 
         <!-- Header -->
         <?php printHeader(); ?>
-
-        <!-- Background -->
-        <div class="background">
 
           <!-- Title -->
           <h1 class="title">Ihre Finanzen</h1>
@@ -267,8 +264,6 @@ balance;
           </div>
           <!-- Footer -->
             <?php printFooter(); ?>
-
-        </div>
 
         <!-- JS: Frontend utility -->
         <script src="../js/frontend.js"></script>
