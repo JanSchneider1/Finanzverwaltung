@@ -6,7 +6,8 @@
  * Time: 14:42
  */
 session_start();
-include __dir__."/../ressources/templates.php";
+require_once __dir__."/Repository.php";
+include __dir__."/../templates/templates.php";
 require_once __dir__.'/../ressources/Repository.php';
 $repository = new Repository();
 $repository->init();
@@ -14,12 +15,9 @@ $repository->init();
 if(isset($_POST["login"])){
     if ($repository->checkPassword($_POST["email"], $_POST["password"])){
 
-        $_SESSION["userId"];
-
-        $abfrage = "select UserID from User where mail=".$_POST["email"]." and password=".$_POST["password"];
+        $_SESSION = $repository->getUserWithMail($_POST["email"])["UserID"];
     }
 }
-
 ?>
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
