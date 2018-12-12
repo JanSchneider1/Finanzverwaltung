@@ -95,9 +95,9 @@
                   <td>
                     <!-- Dropdown: 'Kategorien' -->
                     <div class="dropdown">
-                        <input class="input" style="display: none" value="<?php if($categoryID != null){echo $categoryID;}?>" type="text" name="category_filter">
+                        <input class="input" style="display: none" value="<?php echo $categoryID != null ? $categoryID : "Alle"; ?>" type="text" name="category_filter">
                         <button class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <?php echo $categoryID != null ? $service->repo->getCategoryByID($categoryID)[0]["Name"] : "Alle" ;?>
+                            <?php echo ($categoryID != "Alle" && $categoryID != null) ? $service->repo->getCategoryByID($categoryID)[0]['Name'] : "Alle";?>
                         <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -109,6 +109,7 @@
                                   echo "<li><a data-value=$categoryID>$categoryName</li>";
                               }
                           ?>
+                          <li><a data-value="0"> Nicht zugeordnet</li>
                       </ul>
                     </div>
                   </td>
@@ -142,7 +143,7 @@
                   $id = $a->getAccountingID();
                   $name = $a->getName();
                   $date = $a->getDate();
-                  $category = '/';
+                  $category = 'Nicht zugeordnet';
                   if ($a->getCategoryID() != null) { $category = $service->repo->getCategoryByID($a->getCategoryID())[0]["Name"]; }
                   $value = convertValue(abs($a->getValue()), $a->getIsPositive());
                   $color = getValueColor($a->getIsPositive());
