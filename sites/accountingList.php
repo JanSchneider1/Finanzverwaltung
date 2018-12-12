@@ -11,6 +11,8 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <!-- glyphicons -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
 
       <!-- My stylesheets -->
       <link rel="stylesheet" href="../css/general.css">
@@ -137,16 +139,15 @@
               <tbody id="list_bills">
               <!-- Add accountings to table -->
               <?php
+                  foreach ($service->accountings as $a) {
 
-              foreach ($service->accountings as $a) {
-
-                  $id = $a->getAccountingID();
-                  $name = $a->getName();
-                  $date = $a->getDate();
-                  $category = 'Nicht zugeordnet';
-                  if ($a->getCategoryID() != null) { $category = $service->repo->getCategoryByID($a->getCategoryID())[0]["Name"]; }
-                  $value = convertValue(abs($a->getValue()), $a->getIsPositive());
-                  $color = getValueColor($a->getIsPositive());
+                      $id = $a->getAccountingID();
+                      $name = $a->getName();
+                      $date = $a->getDate();
+                      $category = 'Nicht zugeordnet';
+                      if ($a->getCategoryID() != null) { $category = $service->repo->getCategoryByID($a->getCategoryID())[0]["Name"]; }
+                      $value = convertValue(abs($a->getValue()), $a->getIsPositive());
+                      $color = getValueColor($a->getIsPositive());
 
                   echo <<< Accounting
                 <tr id="$id">
@@ -154,10 +155,10 @@
                   <td class="accountingName value">$name</td>
                   <td class="accountingCategory value">$category</td>
                   <td class="accountingValue value $color">$value</td>
-                  <td style="text-align: end"><button onclick="deleteAccounting($id)" class="btn btn-dark hvr-reveal">X</button></td>
+                  <td style="text-align: end"><button onclick="deleteAccounting($id)" class="btn btn-dark hvr-reveal"><span class="fas fa-trash-alt"></span></button></td>
                 </tr>
 Accounting;
-              }
+                  }
               ?>
               </tbody>
             </table>
