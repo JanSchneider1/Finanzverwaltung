@@ -1,17 +1,13 @@
 ﻿.positive{
 
-  background-color: green;
+  background-color: #0f975a;
 }
 
 .negative{
 
-  background-color: red;
+  background-color: #df4034;
 }
 
 .background {
   background-color: #17191c;
-}
-
-.dashed_hr{
-  border: 0; border-bottom: 3px dashed #ccc; background: white; background-color: #212529; width: 60%
 }

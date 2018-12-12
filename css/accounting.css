@@ -30,3 +30,11 @@
 	background-color: #4f4f67;
 	color: white;
 }
+
+.hvr-underline-from-left:before{
+		background-color: #eee448;
+}
+
+.hvr-reveal:before{
+	border-color: #eee448;
+}
