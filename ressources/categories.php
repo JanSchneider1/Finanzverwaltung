@@ -8,7 +8,7 @@
 
 <?php
 
-include __DIR__ . "/../Php files/ContentService.php";
+include __DIR__ . "/ContentService.php";
 
 $service = new ContentService('derflo@mail.de');
 foreach ($service->categories as $c){

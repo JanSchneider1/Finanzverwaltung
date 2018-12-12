@@ -1,7 +1,7 @@
 <?php
 
 //Setup
-require __DIR__ . "/ContentService.php";
+require __DIR__ . "/../ressources/ContentService.php";
 $service = new ContentService('derflo@mail.de');
 
 //POST REQUEST
@@ -67,5 +67,4 @@ else if($_SERVER['REQUEST_METHOD'] == 'DELETE') {
 
     //Try deleting accounting with specific id
     echo var_dump($service->repo->deleteAccounting($id));
-
 }

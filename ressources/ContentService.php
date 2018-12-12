@@ -1,10 +1,10 @@
 <?php
 
-require_once __dir__."/Repository.php";
-require_once __dir__."/User.php";
-require_once __dir__."/Accounting.php";
-require_once __dir__."/Category.php";
-require_once __dir__."/Fixum.php";
+require_once __dir__ . "/Repository.php";
+require_once __dir__."/../entities/User.php";
+require_once __dir__."/../entities/Accounting.php";
+require_once __dir__."/../entities/Category.php";
+require_once __dir__."/../entities/Fixum.php";
 
 /**
  * Class ContentService
@@ -31,6 +31,7 @@ class ContentService
         $this->reloadAccountings($this->repo->getAccountingsByUser($this->user->getUserID()));
         $this->reloadFixa($this->repo->getFixaByUser($this->user->getUserID()));
         $this->reloadCategories($this->repo->getCategoriesByUser($this->user->getUserID()));
+        $this->generateAccountingsFromFixa();
     }
 
     /** Reloads the accountings array with the output of a repo get function
@@ -67,7 +68,7 @@ class ContentService
      * @param $fixum
      * @return bool
      */
-    function didFrequency($fixum)
+    private function didFrequency($fixum)
     {
 
         $now = new DateTime();
@@ -189,7 +190,7 @@ class ContentService
                 }
             }
         }
-        $this->reloadAccountings();
+        $this->reloadAccountings($this->repo->getAccountingsByUser($this->user->getUserID()));
     }
 
     function getIncomeFromAll() {
@@ -203,10 +204,6 @@ class ContentService
         return $value;
     }
 
-    function getIncomeBetween($dateStart, $dateEnd) {
-
-    }
-
     function getCostsFromAll() {
 
         $value = 0;
@@ -218,11 +215,6 @@ class ContentService
         return $value;
     }
 
-    function getCostsBetween($dateStart, $dateEnd) {
-
-
-    }
-
     function getBalanceFromAll() {
 
         $value = 0;
@@ -230,11 +222,6 @@ class ContentService
             $value += $a->getValue();
         }
         return $value;
-    }
-
-    function getBalanceBetween($dateStart, $dateEnd) {
-
-
     }
 }
 /*$cs = new ContentService('derflo@mail.de');
