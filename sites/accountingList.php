@@ -54,6 +54,7 @@
         <div class="background">
 
           <!-- Title -->
+          <br/>
           <h1 class="title">Ihre Finanzen</h1>
           <br/>
 
