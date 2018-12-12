@@ -23,25 +23,25 @@ function printHeader()
           <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link hvr-underline-from-center" style="color: white" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Buchungen</a>
+                <a class="nav-link hvr-underline-from-center" style="color: white; margin-left: 30px;" href="#">Buchungen</a>
               </li>
-              <a class="nav-link" href="/categories.php">Kategorien</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Fixa</a>
+              <a class="nav-link hvr-underline-from-center" style="color: white ;margin-left: 30px;" href="/categories.php">Kategorien</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Analyse</a>
+                <a class="nav-link hvr-underline-from-center" style="color: white ;margin-left: 30px;" href="#">Fixa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link hvr-underline-from-center" style="color: white ;margin-left: 30px;" href="#">Analyse</a>
               </li>
             </ul>
           </div>
           <ul class="nav navbar-nav navbar-right">
             <a class="nav-link" href="#"><span class="navbar-text" style="color: white">Eingeloggt als: Jan Schneider</span></a>
             <a class="nav-link" href="#">
-              <button class="nav-link bg-dark btn btn-primary" style="color: white">Ausloggen</button>
+              <button class="nav-link btn btn-dark hvr-shutter-out-horizontal" style="color: white">Ausloggen</button>
             </a>
           </ul>
         </nav>
