@@ -14,6 +14,8 @@
 
       <!-- My stylesheets -->
       <link rel="stylesheet" href="../css/general.css">
+      <link rel="stylesheet" href="../css/texteffects.css">
+      <link rel="stylesheet" href="../css/hover-min.css">
       <link rel="stylesheet" href="../css/accounting.css">
 
       <!-- PHP Includes -->
@@ -45,15 +47,13 @@
         ?>
 
     </head>
-    <body>
+    <body class="background">
 
         <!-- Header -->
         <?php printHeader(); ?>
 
-        <!-- Background -->
-        <div class="background">
-
           <!-- Title -->
+          <br/>
           <h1 class="title">Ihre Finanzen</h1>
           <br/>
 
@@ -76,16 +76,16 @@
               <td>
                 <!-- Dropdown: Zeitraum -->
                 <div class="dropdown">
-                  <button class="btn btn-dark dropdown-toggle" type="button" value="Alle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  <button class="btn btn-dark dropdown-toggle hvr-grow" type="button" value="Alle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <?php echo $startDate != null ? "Eigen" : "Dieser Monat";?>
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li id="month"><a data-value="Dieser Monat">Diesen Monat</li>
-                    <li id="day"><a data-value="Heute">Heute</li>
-                    <li id="week"><a data-value="Diese Woche">Diese Woche</li>
-                    <li id="year"><a data-value="Dieses Jahr">Dieses Jahr</li>
-                    <li id="own"><a data-value="Eigen">Eigen</li>
+                    <li id="month"><a class="dropdown-item effect-underline" data-value="Dieser Monat">Diesen Monat</a></li>
+                    <li id="day"><a class="dropdown-item effect-underline" data-value="Heute">Heute</a></li>
+                    <li id="week"><a class="dropdown-item effect-underline" data-value="Diese Woche">Diese Woche</a></li>
+                    <li id="year"><a class="dropdown-item effect-underline" data-value="Dieses Jahr">Dieses Jahr</a></li>
+                    <li id="own"><a class="dropdown-item effect-underline" data-value="Eigen">Eigen</a></li>
                   </ul>
                 </div>
               </td>
@@ -95,34 +95,35 @@
                   <td>
                     <!-- Dropdown: 'Kategorien' -->
                     <div class="dropdown">
-                        <input class="input" style="display: none" value="<?php if($categoryID != null){echo $categoryID;}?>" type="text" name="category_filter">
-                        <button class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <?php echo $categoryID != null ? $service->repo->getCategoryByID($categoryID)[0]["Name"] : "Alle" ;?>
+                        <input class="input" style="display: none" value="<?php echo $categoryID != null ? $categoryID : "Alle"; ?>" type="text" name="category_filter">
+                        <button class="btn btn-dark dropdown-toggle hvr-grow" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <?php echo ($categoryID != "Alle" && $categoryID != null) ? $service->repo->getCategoryByID($categoryID)[0]['Name'] : "Alle";?>
                         <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                          <li><a data-value="Alle">Alle</li>
+                        <li><a class="dropdown-item effect-underline" data-value="Alle">Alle</a></li>
                           <?php
                               foreach ($service->categories as $c) {
                                   $categoryName = $c->getName();
                                   $categoryID = $c->getId();
-                                  echo "<li><a data-value=$categoryID>$categoryName</li>";
+                                  echo "<li><a class=\"dropdown-item effect-underline\" data-value=$categoryID>$categoryName</a></li>";
                               }
                           ?>
+                        <li><a class="dropdown-item effect-underline" data-value="0"> Nicht zugeordnet</a></li>
                       </ul>
                     </div>
                   </td>
                   <td><!-- Empty --></td>
                   <td><input class="form-control input" type="number" step="1" name="min_value" value="<?php echo $minValue != null ? $minValue : $service->repo->getLowestAccountingValue($service->user->getUserID())?>" style="width:100px"></td>
                   <td><input class="form-control input" type="number" step="1" name="max_value" value="<?php echo $maxValue != null ? $maxValue : $service->repo->getHighestAccountingValue($service->user->getUserID())?>" style="width:100px"></td>
-                  <td><button class="btn btn-dark" id="btn_filter" type="submit" style="width:100px">Sortieren</button></td>
+                  <td><button class="btn btn-dark hvr-underline-from-left" id="btn_filter" type="submit" style="width:100px">Suchen</button></td>
               </form>
               </tbody>
             </table>
           </div>
           <br/>
 
-          <!--Bills-->
+          <!-- Accountings -->
           <div class="container">
             <table class="table table-dark table-hover">
               <thead>
@@ -142,7 +143,7 @@
                   $id = $a->getAccountingID();
                   $name = $a->getName();
                   $date = $a->getDate();
-                  $category = '/';
+                  $category = 'Nicht zugeordnet';
                   if ($a->getCategoryID() != null) { $category = $service->repo->getCategoryByID($a->getCategoryID())[0]["Name"]; }
                   $value = convertValue(abs($a->getValue()), $a->getIsPositive());
                   $color = getValueColor($a->getIsPositive());
@@ -153,7 +154,7 @@
                   <td class="accountingName value">$name</td>
                   <td class="accountingCategory value">$category</td>
                   <td class="accountingValue value $color">$value</td>
-                  <td style="text-align: end" class="accountingRemoveBt"><button onclick="deleteAccounting($id)" class="btn btn-dark"">X</button></td>
+                  <td style="text-align: end"><button onclick="deleteAccounting($id)" class="btn btn-dark hvr-reveal">X</button></td>
                 </tr>
 Accounting;
               }
@@ -176,25 +177,25 @@ Accounting;
               <tbody>
               <tr>
                   <?php
-                  $income = convertValue($service->getIncomeFromAll(), 1);
-                  $costs = convertValue(abs($service->getCostsFromAll()), 0);
+                      $income = convertValue($service->getIncomeFromAll(), 1);
+                      $costs = convertValue(abs($service->getCostsFromAll()), 0);
 
-                  $balance = 0;
-                  $temp_balance = $service->getBalanceFromAll();
-                  if ($temp_balance >= 0) {
-                      $balance = convertValue($temp_balance, 1);
-                  } else {
-                      $balance = convertValue(abs($temp_balance), 0);
-                  }
-                  $color = "negative";
-                  if ($temp_balance >= 0) {
-                      $color = "positive";
-                  }
+                      $balance = 0;
+                      $temp_balance = $service->getBalanceFromAll();
+                      if ($temp_balance >= 0) {
+                          $balance = convertValue($temp_balance, 1);
+                      } else {
+                          $balance = convertValue(abs($temp_balance), 0);
+                      }
+                      $color = "negative";
+                      if ($temp_balance >= 0) {
+                          $color = "positive";
+                      }
 
-                  echo <<< balance
-                    <td class="positive value">$income</td>
-                    <td class="negative value">$costs</td>
-                    <td class="$color value">$balance</td>
+                      echo <<< balance
+                        <td class="positive value">$income</td>
+                        <td class="negative value">$costs</td>
+                        <td class="$color value">$balance</td>
 balance;
                   ?>
 
@@ -228,7 +229,7 @@ balance;
                       <!-- Dropdown: 'Kategorien' -->
                       <div class="dropdown">
                         <input class="input" style="display: none" value="0" type="text" name="addAccounting_categoryID">
-                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <button class="btn btn-dark dropdown-toggle hvr-grow" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                           Kategorien
                           <span class="caret"></span>
                         </button>
@@ -237,7 +238,7 @@ balance;
                                 foreach ($service->categories as $c) {
                                     $categoryName = $c->getName();
                                     $categoryID = $c->getId();
-                                    echo "<li><a data-value=$categoryID>$categoryName</li>";
+                                    echo "<li><a class=\"dropdown-item effect-underline\" data-value=$categoryID>$categoryName</a></li>";
                                 }
                             ?>
                         </ul>
@@ -248,18 +249,18 @@ balance;
                     <!-- Dropdown: -/+ -->
                     <div class="dropdown">
                       <input class="input" style="display: none" value="Ausgaben" type="text" name="addAccounting_isPositive">
-                      <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      <button class="btn btn-dark dropdown-toggle hvr-grow" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         Ausgaben
                         <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a data-value="Einnahmen">Einnahmen</li>
-                        <li><a data-value="Ausgaben">Ausgaben</li>
+                        <li><a class="dropdown-item effect-underline" data-value="Einnahmen">Einnahmen</a></li>
+                        <li><a class="dropdown-item effect-underline" data-value="Ausgaben">Ausgaben</a></li>
                       </ul>
                     </div>
                   </td>
                   <td><input class="form-control input" type="number" name="addAccounting_value" min="0.01" step="0.25" value="1" style="width:100px"></td>
-                  <td><button type="button" class="btn btn-dark" onclick="addAccounting(this.form)">Add</button></td>
+                  <td><button type="button" class="btn btn-dark hvr-reveal" onclick="addAccounting(this.form)">Add</button></td>
                 </tr>
                 </tbody>
               </table>
@@ -267,8 +268,6 @@ balance;
           </div>
           <!-- Footer -->
             <?php printFooter(); ?>
-
-        </div>
 
         <!-- JS: Frontend utility -->
         <script src="../js/frontend.js"></script>
