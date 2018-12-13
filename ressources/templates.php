@@ -1,4 +1,6 @@
 <?php
+
+
 /**
  * Created by PhpStorm.
  * User: albers
@@ -18,6 +20,7 @@ Footer;
 
 function printHeader()
 {
+    $user=$_SESSION["userId"];
     echo <<< Header
         <nav class="navbar navbar-expand-sm bg-dark">
           <div class="collapse navbar-collapse">
@@ -39,7 +42,11 @@ function printHeader()
             </ul>
           </div>
           <ul class="nav navbar-nav navbar-right">
-            <a class="nav-link" href="#"><span class="navbar-text" style="color: white">Eingeloggt als: Jan Schneider</span></a>
+            <a class="nav-link" href="#"><span class="navbar-text" style="color: white">
+            <?php
+                echo "Eingeloggt als".$user;
+                ?>
+                </span></a>
             <a class="nav-link" href="#">
               <button class="nav-link btn btn-dark hvr-shutter-out-horizontal" style="color: white">Ausloggen</button>
             </a>
@@ -49,3 +56,4 @@ function printHeader()
 Header;
 }
 
+?>

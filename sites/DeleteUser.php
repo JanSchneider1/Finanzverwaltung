@@ -8,31 +8,30 @@
 
 session_start();
 include __dir__."/../ressources/templates.php";
+require_once __dir__."/../ressources/Repository.php";
+
+$repository = new Repository();
+$repository->init();
+
+if(isset($_POST["deleteUser"])){
+    if ($repository->checkPassword($_POST["email"], $_POST["password"])){
+            $repository->deleteUser($_SESSION["userId"]);
+            session_destroy();
+            //Weiterleitung auf entsprechende Seite sowie Mitteilung
+        }
+        else{
+            //Falsche Daten
+        }
+}
 ?>
 <script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
+
 </script>
 
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="/../js/form.js"></script>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <title>Email ändern</title>
@@ -64,7 +63,7 @@ include __dir__."/../ressources/templates.php";
                 <div class="row">
                     <div class="col">
                         <label for="email" style="color: #FEFEFE;">Passwort</label>
-                        <input type="password" class="form-control" id="email" name="email" placeholder="" required>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="" required>
                         <div class="invalid-feedback">
                             Bitte ihr Passwort eingeben.
                         </div>
@@ -72,7 +71,7 @@ include __dir__."/../ressources/templates.php";
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-success float-right" name="login">Bestätigen</button>
+            <button type="submit" class="btn btn-success float-right" name="deleteUser">Bestätigen</button>
     </div>
 </div>
 </form>
