@@ -1,0 +1,59 @@
+/*
+AUTHOR: Jan Schneider
+ */
+
+@import "colorschemes/darkasmysoul.less";
+@import "colorschemes/happyunicorn.less";
+
+@colorScheme: @darkasmysoul;
+
+.positive { background-color: @colorScheme[positive]; color: @colorScheme[text] }
+
+.negative { background-color: @colorScheme[negativeC]; color : @colorScheme[text] }
+
+.background { background-color: @colorScheme[background]; color : @colorScheme[text] }
+
+.input { background-color: @colorScheme[input]; color : @colorScheme[text] }
+
+button { background-color: @colorScheme[buttons]; color : @colorScheme[text] }
+
+.table { background-color: @colorScheme[table]; color : @colorScheme[text] }
+
+.footer { background-color: @colorScheme[background]; color : @colorScheme[text] }
+
+.header { background-color: @colorScheme[background]; color : @colorScheme[text] }
+
+.header a {color : @colorScheme[text] }
+
+.dropdown-menu{ background-color: @colorScheme[dropdown-menu]; color : @colorScheme[text] }
+
+/* Applies if hovering over an element on drop down menu */
+.dropdown-item:hover { background-color: @colorScheme[dropdown-item-hover]; color : @colorScheme[text] }
+
+/* Overrides standard color for 'logout' button in the header */
+.hvr-shutter-out-horizontal{ background-color: @colorScheme[logout-bt]; color : @colorScheme[text] }
+
+/* Overrides hover effect color */
+.hvr-reveal:before { border-color: @colorScheme[hover-effect]; }
+.hvr-underline-from-left:before , .hvr-shutter-out-horizontal:before , .hvr-underline-from-center:before { background-color: @colorScheme[hover-effect]; }
+
+.title {
+
+  text-align:center;
+  color: white;
+}
+
+.input {
+
+  border: none;
+  transition: none;
+  font-size: 20px;
+}
+
+.value {
+  font-size: 30px;
+}
+
+.accountingValue{
+  text-align: center;
+}

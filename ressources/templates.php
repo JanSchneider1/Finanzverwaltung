@@ -43,9 +43,7 @@ function printHeader()
           </div>
           <ul class="nav navbar-nav navbar-right">
             <a class="nav-link" href="#"><span class="navbar-text" style="color: white">
-            <?php
-                echo "Eingeloggt als".$user;
-                ?>
+                Eingeloggt als $user
                 </span></a>
             <a class="nav-link" href="#">
               <button class="nav-link btn hvr-shutter-out-horizontal">Ausloggen</button>
