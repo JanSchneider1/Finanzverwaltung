@@ -1,6 +1,35 @@
 <?php
 session_start();
 include __dir__."/../ressources/templates.php";
+include __dir__."/../ressources/Repository.php";
+$repository = new Repository();
+$repository->init();
+if(isset($_POST["changeEmail"])){
+    if ($repository->checkPassword($_SESSION["email"], $_POST["password"])){
+        echo "<script type='text/javascript'>alert('Richtige Daten');</script>";
+
+        if ($repository->getUserWithMail($_POST["newEmail"])) {
+            echo "<script type='text/javascript'>alert('Email wird bereits genutzt');</script>";
+        }
+        else {
+            if ($_POST["newEmail"]==$_POST["newEmail2"]){
+                echo "<script type='text/javascript'>alert('Erfolgreich');</script>";
+                $repository->alterUserMail($_SESSION["userId"], $_POST["newEmail"]);
+                session_destroy();
+                echo "<script type='text/javascript'>location.href = 'Login.php'</script>";
+                //ausgeloggt
+            }
+            else{
+                echo "<script type='text/javascript'>alert('Emails nicht identisch');</script>";
+            }
+        }
+    }
+    else {
+        echo "<script type='text/javascript'>alert('Falsche Daten');</script>";
+
+    }
+}
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,7 +64,7 @@ include __dir__."/../ressources/templates.php";
                     <div class="col">
                         <br>
                         <label for="email" style="color: #FEFEFE;">Neue E-Mail</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="E-Mail" required>
+                        <input type="email" class="form-control" id="newEmail" name="newEmail" placeholder="E-Mail" required>
                         <div class="invalid-feedback">
                             Bitte Ihre neue Email eingeben.
                         </div>
@@ -44,7 +73,7 @@ include __dir__."/../ressources/templates.php";
                 <div class="row">
                     <div class="col">
                         <label for="email" style="color: #FEFEFE;">Neue E-Mail bestätigen</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="E-Mail" required>
+                        <input type="email" class="form-control" id="newEmail" name="newEmail2" placeholder="E-Mail" required>
                         <div class="invalid-feedback">
                             Bitte Wiederholen Sie die Email.
                         </div>
@@ -54,14 +83,14 @@ include __dir__."/../ressources/templates.php";
                 <div class="row">
                     <div class="col">
                         <label for="email" style="color: #FEFEFE;">Passwort</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Passwort" required>
+                        <input type="email" class="form-control" id="password" name="password" placeholder="Passwort" required>
                         <div class="invalid-feedback">
                             Bitte Ihr Passwort eingeben.
                         </div>
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-success float-right" name="login">Bestätigen</button>
+            <button type="submit" class="btn btn-success float-right" name="changeEmail">Bestätigen</button>
     </div>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 </div>

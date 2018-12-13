@@ -14,14 +14,15 @@ $repository = new Repository();
 $repository->init();
 
 if(isset($_POST["deleteUser"])){
-    if ($repository->checkPassword($_POST["email"], $_POST["password"])){
-            $repository->deleteUser($_SESSION["userId"]);
-            session_destroy();
-            //Weiterleitung auf entsprechende Seite sowie Mitteilung
-        }
-        else{
-            //Falsche Daten
-        }
+    if ($repository->checkPassword($_POST["email"], $_POST["password"]) && $repository->getUserWithMail($_POST["email"])["UserID"]==$_SESSION["userId"]){
+        $repository->deleteUser($_SESSION["userId"]);
+        session_destroy();
+        //Weiterleitung auf entsprechende Seite sowie Mitteilung
+        echo "<script type='text/javascript'>location.href = 'Registration.php'</script>";
+    }
+    else{
+        //Falsche Daten
+    }
 }
 ?>
 <script>

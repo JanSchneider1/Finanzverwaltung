@@ -8,6 +8,31 @@
 
 session_start();
 include __dir__."/../ressources/templates.php";
+include __dir__."/../ressources/Repository.php";
+$repository = new Repository();
+
+
+if (isset($_POST["changePassword"])) {
+    if ($repository->checkPassword($_SESSION["email"], $_POST["currentPassword"])){
+        echo "<script type='text/javascript'>alert('Richtige Daten');</script>";
+        if ($_POST["newPassword"]==$_POST["newPassword2"]){
+            echo "<script type='text/javascript'>alert('Erfolgreich');</script>";
+            $repository->alterUserPassword($_SESSION["userId"], $_POST["newPassword"]);
+            session_destroy();
+            echo "<script type='text/javascript'>location.href = 'Login.php'</script>";
+            //ausgeloggt
+        }
+        else{
+            echo "<script type='text/javascript'>alert('Emails nicht identisch');</script>";
+        }
+    }
+}
+else {
+
+    echo "<script type='text/javascript'>alert('Falsche Daten');</script>";
+
+}
+
 ?>
 <script src="/../js/form.js"></script>
 <!DOCTYPE html>
@@ -34,7 +59,7 @@ include __dir__."/../ressources/templates.php";
                     <div class="col">
                         <br>
                         <label for="currentpassword" style="color: #FEFEFE;">Altes Passwort</label>
-                        <input type="password" class="form-control" id="currentpassword" name="currentpassword" placeholder="" required>
+                        <input type="password" class="form-control" id="currentPassword" name="currentPassword" placeholder="" required>
 
                         <div class="invalid-feedback">
                             Bitte Ihr Passwort eingeben.
@@ -44,7 +69,7 @@ include __dir__."/../ressources/templates.php";
                 <div class="row">
                     <div class="col">
                         <label for="newpassword" style="color: #FEFEFE;">Neues Passwort</label>
-                        <input type="password" class="form-control" id="newpassword" name="newpassword" placeholder="" required>
+                        <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="" required>
 
                         <div class="invalid-feedback">
                             Bitte Ihr neues Passwort eingeben.
@@ -52,7 +77,7 @@ include __dir__."/../ressources/templates.php";
                     </div>
                 </div>
                 <label for="newpassword2" style="color: #FEFEFE;">Neues Passwort bestätigen</label>
-                <input type="password" class="form-control" id="newpassword2" name="newpassword2" placeholder="" required>
+                <input type="password" class="form-control" id="newPassword2" name="newPassword2" placeholder="" required>
             </div>
             <button type="submit" class="btn btn-success float-right" name="changePassword">Bestätigen</button>
     </div>
