@@ -18,49 +18,70 @@
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/hover-min.css">
         <?php
-            include __DIR__ . "/../ressources/ContentService.php";
-            include __DIR__ . "/../ressources/util.php";
-            include __DIR__ . "/../ressources/templates.php";
-            $service = new ContentService('derflo@mail.de');
+        include __DIR__ . "/../ressources/ContentService.php";
+        include __DIR__ . "/../ressources/util.php";
+        include __DIR__ . "/../ressources/templates.php";
+        $service = new ContentService('derflo@mail.de');
         ?>
     </head>
-    <body>
+    <body class="background">
         <!-- Header -->
-        <?php printHeader()?>
-        <!-- Background -->
-        <div class="background">
-            <!-- Title -->
-            <br/>
-            <h1 class="title">Kategorien</h1>
-            <br/>
+        <?php printHeader() ?>
+        <!-- Title -->
+        <br/>
+        <h1 class="title">Kategorien</h1>
+        <br/>
 
-            <!-- Categories -->
-            <div class="container">
-                <table class="table table-dark table-hover">
+        <!-- Categories -->
+        <div class="container">
+            <div class="row">
+            <div class="col-lg-4"></div>
+                <table class="table table-dark table-hover col-lg-4">
                     <thead>
-                        <tr>
-                            <th>Name</th>
-                        </tr>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
                     </thead>
                     <tbody id="list_categories">
-                        <?php
-                            foreach ($service->categories as $c) {
-                                $id = $c->getID();
-                                $name = $c->getName();
+                    <?php
+                    foreach ($service->categories as $c) {
+                        $id = $c->getID();
+                        $name = $c->getName();
 
-                                echo <<< Category
-                                <tr id="$id">
-                                    <td class="categoryName value">$name</td>
-                                    <td style="text-align: end"><button class="btn btn-dark hvr-reveal" onclick="alterCategory($id)"><span class="fas fa-check"></span></button> <button class="btn btn-dark hvr-reveal" onclick="deleteCategory($id)"><span class="fas fa-trash-alt"></span></button></td>
-                                </tr>
+                        echo <<< Category
+                        <tr id="$id">
+                            <th class="value"><input class="input-group-text" style="background: #31343b; color: white;" id="category_$id" type="text" value="$name"></th>
+                            <th style="text-align: end"><button class="btn btn-dark hvr-reveal" onclick="updateCategory($id)"><span class="fas fa-check"></span></button> <button class="btn btn-dark hvr-reveal" onclick="deleteCategory($id)"><span class="fas fa-trash-alt"></span></button></th>
+                        </tr>
 Category;
-                            }
-                        ?>
+                    }
+                    ?>
                     </tbody>
                 </table>
             </div>
-            <?php printFooter(); ?>
         </div>
 
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <table class="table table-dark table-hover col-lg-4">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <form method="POST">
+                        <tr>
+                            <th class="value"><input class="input-group-text" style="background: #31343b; color: white;" type="text" name="addCategory_name"></th>
+                            <th style="text-align: end"><button type="button" class="btn btn-dark hvr-reveal" onclick="addCategory(this.form)">Add</button></th>
+                        </tr>
+                    </form>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <?php printFooter(); ?>
+        <script src="../js/category.js"></script>
     </body>
 </html>

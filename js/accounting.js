@@ -120,7 +120,7 @@ function deleteAccounting(accountingID) {
             $('#' + accountingID).remove();
         }
     };
-    xhttp.open("DELETE", "../controller/AccountingController.php/?id=" + accountingID, false);
+    xhttp.open("DELETE", "../php%20files/AccountingController.php/?id=" + accountingID, false);
     xhttp.send();
     return false;
 }
