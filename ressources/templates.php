@@ -1,6 +1,4 @@
 <?php
-
-
 /**
  * Created by PhpStorm.
  * User: albers
@@ -26,15 +24,15 @@ function printHeader()
           <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link hvr-underline-from-center" href="#">Home</a>
+                <a class="nav-link hvr-underline-from-center" style="color: white" href="../sites/home.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link hvr-underline-from-center" style="margin-left: 30px;" href="#">Buchungen</a>
+                <a class="nav-link hvr-underline-from-center" style="color: white; margin-left: 30px;" href="../sites/accountingList.php">Buchungen</a>
               </li>
-              <a class="nav-link hvr-underline-from-center" style="margin-left: 30px;" href="/categories.php">Kategorien</a>
+              <a class="nav-link hvr-underline-from-center" style="color: white ;margin-left: 30px;" href="../sites/categoryList.php">Kategorien</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link hvr-underline-from-center" style="margin-left: 30px;" href="#">Fixa</a>
+                <a class="nav-link hvr-underline-from-center" style="color: white ;margin-left: 30px;" href="../sites/fixumList.php">Fixa</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link hvr-underline-from-center" style="margin-left: 30px;" href="#">Analyse</a>
@@ -42,16 +40,18 @@ function printHeader()
             </ul>
           </div>
           <ul class="nav navbar-nav navbar-right">
-            <a class="nav-link" href="#"><span class="navbar-text" style="color: white">
-                Eingeloggt als $user
-                </span></a>
-            <a class="nav-link" href="#">
-              <button class="nav-link btn hvr-shutter-out-horizontal">Ausloggen</button>
-            </a>
+            <li></li>
+                <span class="navbar-text" style="color: white">Eingeloggt als:</span>
+            </li>   
+            <li>
+                <a class="nav-link" href="#"><span>$user</span> <span class="fas fa-cog"></span></a>
+            </li>
+            <li>
+                <a class="nav-link" href="#"><button class="nav-link btn btn-dark hvr-shutter-out-horizontal" style="color: white">Ausloggen</button></a>
+            </li>
           </ul>
         </nav>
         </div>
 Header;
 }
 
-?>
