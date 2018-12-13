@@ -4,7 +4,7 @@ function addAccounting(accountingForm) {
     var formData = new FormData(accountingForm);
     $.ajax({
 
-        url: "../php%20files/AccountingController.php",
+        url: "../controller/AccountingController.php",
         type: "POST",
         data: formData,
         processData: false,

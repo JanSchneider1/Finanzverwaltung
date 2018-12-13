@@ -33,53 +33,55 @@
         <br/>
 
         <!-- Categories -->
-        <div class="container row">
-            <div class="col-lg-6"></div>
-            <table class="table table-dark table-hover" style="width: 40%">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                </tr>
-                </thead>
-                <tbody id="list_categories">
-                <?php
-                foreach ($service->categories as $c) {
-                    $id = $c->getID();
-                    $name = $c->getName();
+        <div class="container">
+            <div class="row">
+            <div class="col-lg-4"></div>
+                <table class="table table-dark table-hover col-lg-4">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                    </thead>
+                    <tbody id="list_categories">
+                    <?php
+                    foreach ($service->categories as $c) {
+                        $id = $c->getID();
+                        $name = $c->getName();
 
-                    echo <<< Category
-                                        <tr id="$id" style="width: 30%">
-                                            <th class="value"><input class="input-group-text" style="background: #31343b; color: white;" id="category_$id" type="text" value="$name"></th>
-                                            <th style="text-align: end"><button class="btn btn-dark hvr-reveal" onclick="alterCategory($id)"><span class="fas fa-check"></span></button> <button class="btn btn-dark hvr-reveal" onclick="deleteCategory($id)"><span class="fas fa-trash-alt"></span></button></th>
-                                        </tr>
+                        echo <<< Category
+                        <tr id="$id">
+                            <th class="value"><input class="input-group-text" style="background: #31343b; color: white;" id="category_$id" type="text" value="$name"></th>
+                            <th style="text-align: end"><button class="btn btn-dark hvr-reveal" onclick="updateCategory($id)"><span class="fas fa-check"></span></button> <button class="btn btn-dark hvr-reveal" onclick="deleteCategory($id)"><span class="fas fa-trash-alt"></span></button></th>
+                        </tr>
 Category;
-                }
-                ?>
-                </tbody>
-            </table>
+                    }
+                    ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="container">
-            <table class="table table-dark table-hover">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                </tr>
-                </thead>
-                <tbody>
-                <form method="POST">
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <table class="table table-dark table-hover col-lg-4">
+                    <thead>
                     <tr>
-                        <th class="value"><input class="input-group-text" style="background: #31343b; color: white;" type="text"
-                                                 name="addcategory_categoryName"></th>
-                        <th style="text-align: end">
-                            <button type="button" class="btn btn-dark hvr-reveal" onclick="addAccounting(this.form)">Add
-                            </button>
-                        </th>
+                        <th>Name</th>
                     </tr>
-                </form>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    <form method="POST">
+                        <tr>
+                            <th class="value"><input class="input-group-text" style="background: #31343b; color: white;" type="text" name="addCategory_name"></th>
+                            <th style="text-align: end"><button type="button" class="btn btn-dark hvr-reveal" onclick="addCategory(this.form)">Add</button></th>
+                        </tr>
+                    </form>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <?php printFooter(); ?>
+        <script src="../js/category.js"></script>
     </body>
 </html>
