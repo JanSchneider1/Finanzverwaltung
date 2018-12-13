@@ -18,65 +18,68 @@
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/hover-min.css">
         <?php
-            include __DIR__ . "/../ressources/ContentService.php";
-            include __DIR__ . "/../ressources/util.php";
-            include __DIR__ . "/../ressources/templates.php";
-            $service = new ContentService('derflo@mail.de');
+        include __DIR__ . "/../ressources/ContentService.php";
+        include __DIR__ . "/../ressources/util.php";
+        include __DIR__ . "/../ressources/templates.php";
+        $service = new ContentService('derflo@mail.de');
         ?>
     </head>
     <body class="background">
         <!-- Header -->
-        <?php printHeader()?>
-            <!-- Title -->
-            <br/>
-            <h1 class="title">Kategorien</h1>
-            <br/>
+        <?php printHeader() ?>
+        <!-- Title -->
+        <br/>
+        <h1 class="title">Kategorien</h1>
+        <br/>
 
-            <!-- Categories -->
-            <div class="container row">
-                <div class="col-lg-6"></div>
-                <table class="table table-dark table-hover col-lg-5">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                        </tr>
-                    </thead>
-                    <tbody id="list_categories">
-                        <?php
-                            foreach ($service->categories as $c) {
-                                $id = $c->getID();
-                                $name = $c->getName();
+        <!-- Categories -->
+        <div class="container row">
+            <div class="col-lg-6"></div>
+            <table class="table table-dark table-hover" style="width: 40%">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+                </thead>
+                <tbody id="list_categories">
+                <?php
+                foreach ($service->categories as $c) {
+                    $id = $c->getID();
+                    $name = $c->getName();
 
-                                echo <<< Category
-                                <tr id="$id">
-                                    <td class="value"><input class="input-group-text" style="background: #31343b; color: white;" id="category_$id" type="text" value="$name"></td>
-                                    <td style="text-align: end"><button class="btn btn-dark hvr-reveal" onclick="alterCategory($id)"><span class="fas fa-check"></span></button> <button class="btn btn-dark hvr-reveal" onclick="deleteCategory($id)"><span class="fas fa-trash-alt"></span></button></td>
-                                </tr>
+                    echo <<< Category
+                                        <tr id="$id" style="width: 30%">
+                                            <th class="value"><input class="input-group-text" style="background: #31343b; color: white;" id="category_$id" type="text" value="$name"></th>
+                                            <th style="text-align: end"><button class="btn btn-dark hvr-reveal" onclick="alterCategory($id)"><span class="fas fa-check"></span></button> <button class="btn btn-dark hvr-reveal" onclick="deleteCategory($id)"><span class="fas fa-trash-alt"></span></button></th>
+                                        </tr>
 Category;
-                            }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
+                }
+                ?>
+                </tbody>
+            </table>
+        </div>
 
-            <div class="container row">
-                <div class="col-lg-6"></div>
+        <div class="container">
+            <table class="table table-dark table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+                </thead>
+                <tbody>
                 <form method="POST">
-                    <table class="table table-dark table-hover col-lg-5">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="value"><input class="input-group-text" style="background: #31343b; color: white;" type="text" name="addcategory_categoryName"></td>
-                                <td style="text-align: end"><button type="button" class="btn btn-dark hvr-reveal" onclick="addAccounting(this.form)">Add</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <tr>
+                        <th class="value"><input class="input-group-text" style="background: #31343b; color: white;" type="text"
+                                                 name="addcategory_categoryName"></th>
+                        <th style="text-align: end">
+                            <button type="button" class="btn btn-dark hvr-reveal" onclick="addAccounting(this.form)">Add
+                            </button>
+                        </th>
+                    </tr>
                 </form>
-            </div>
-            <?php printFooter(); ?>
+                </tbody>
+            </table>
+        </div>
+        <?php printFooter(); ?>
     </body>
 </html>
