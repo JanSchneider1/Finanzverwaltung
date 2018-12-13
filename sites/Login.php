@@ -14,8 +14,10 @@ $repository->init();
 if(isset($_POST["login"])){
     if ($repository->checkPassword($_POST["email"], $_POST["password"])){
 
-        $_SESSION["userId"] = $repository->getUserWithMail($_POST["email"])["UserID"];?>
-        <script type="text/javascript">location.href = 'ChangeEmail.php';</script><?php
+        $_SESSION["userId"] = $repository->getUserWithMail($_POST["email"])["UserID"];
+        $_SESSION["email"] = $repository->getUserWithMail($_POST["email"])["Mail"];
+
+        echo "<script type='text/javascript'>location.href = 'ChangeEmail.php'</script>";
     }
 }
 ?>
