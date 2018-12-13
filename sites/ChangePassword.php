@@ -9,27 +9,7 @@
 session_start();
 include __dir__."/../ressources/templates.php";
 ?>
-<script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
-</script>
-
+<script src="/../js/form.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,8 +33,8 @@ include __dir__."/../ressources/templates.php";
                 <div class="row">
                     <div class="col">
                         <br>
-                        <label for="email" style="color: #FEFEFE;">Altes Passwort</label>
-                        <input type="password" class="form-control" id="email" name="email" placeholder="" required>
+                        <label for="currentpassword" style="color: #FEFEFE;">Altes Passwort</label>
+                        <input type="password" class="form-control" id="currentpassword" name="currentpassword" placeholder="" required>
 
                         <div class="invalid-feedback">
                             Bitte Ihr Passwort eingeben.
@@ -63,18 +43,18 @@ include __dir__."/../ressources/templates.php";
                 </div>
                 <div class="row">
                     <div class="col">
-                        <label for="email" style="color: #FEFEFE;">Neues Passwort</label>
-                        <input type="password" class="form-control" id="email" name="email" placeholder="" required>
+                        <label for="newpassword" style="color: #FEFEFE;">Neues Passwort</label>
+                        <input type="password" class="form-control" id="newpassword" name="newpassword" placeholder="" required>
 
                         <div class="invalid-feedback">
                             Bitte Ihr neues Passwort eingeben.
                         </div>
                     </div>
                 </div>
-                <label for="email" style="color: #FEFEFE;">Neues Passwort bestätigen</label>
-                <input type="password" class="form-control" id="email" name="email" placeholder="" required>
+                <label for="newpassword2" style="color: #FEFEFE;">Neues Passwort bestätigen</label>
+                <input type="password" class="form-control" id="newpassword2" name="newpassword2" placeholder="" required>
             </div>
-            <button type="submit" class="btn btn-success float-right" name="login">Bestätigen</button>
+            <button type="submit" class="btn btn-success float-right" name="changePassword">Bestätigen</button>
     </div>
 </div>
 </form>

@@ -3,7 +3,6 @@
 //require_once verhindert mehrfach Inkludierung wodurch ein Fatal-Error enstehen würde . PHP merkt sich, dass die Datei bereits eingebunden wurde.
 //include kriegt man nur ein Error und die PHP-Datei wird weiter geladen.
 
-
 /**
  * Created by IntelliJ IDEA.
  * User: caylak
@@ -17,6 +16,7 @@ $repository = new Repository();
 $repository->init();
 if (isset($_POST["register"]))
     if ($repository->createUser($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password'])){
+        //Weiterleitung zum Login
         echo "Hah";
     }
     else {
@@ -29,24 +29,7 @@ if (isset($_POST["register"]))
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <title>Register</title>
-    <script>
-        (function() {
-            "use strict";
-            window.addEventListener("load", function() {
-                var forms = document.getElementsByClassName("needs-validation");
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener("submit", function(event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add("was-validated");
-                    }, false);
-                });
-            }, false);
-        })();
-    </script>
-
+    <script src="/../js/form.js"></script>
     <script>
         function hasUpperCase(string) {
             return (/[A-Z]/.test(string));
