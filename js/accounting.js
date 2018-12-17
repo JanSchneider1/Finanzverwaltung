@@ -58,7 +58,7 @@ $("#day").click(function(){
 
 $("#week").click(function(){
     var curr = new Date();
-    var firstday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 1));
+    var firstday = new Date(curr.setDate(curr.getDate() - (curr.getDay() == 0 ? 6 : curr.getDay() - 1 )));
     var lastday = new Date(curr.setDate(curr.getDate() - curr.getDay()+7));
     $("#date_1").val(firstday.toISOString().slice(0,10));
     $("#date_2").val(lastday.toISOString().slice(0,10));
