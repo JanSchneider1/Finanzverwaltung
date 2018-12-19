@@ -19,7 +19,7 @@ if (isset($_POST["changePassword"])) {
             echo "<script type='text/javascript'>alert('Erfolgreich');</script>";
             $repository->alterUserPassword($_SESSION["userId"], $_POST["newPassword"]);
             session_destroy();
-            echo "<script type='text/javascript'>location.href = 'Login.php'</script>";
+            echo "<script type='text/javascript'>location.href = 'login.php'</script>";
             //ausgeloggt
         }
         else{
@@ -49,9 +49,9 @@ else {
 <div class="card mx-auto" style="width: 50%; background-color: #333333;">
     <div class="card-body">
         <nav class="nav nav-pills nav-justified">
-            <a class="nav-item nav-link" href="ChangeEmail.php" style="color: black;">Email ändern</a>
-            <a class="nav-item nav-link active" href="ChangePassword.php" style="color: black;">Passwort ändern</a>
-            <a class="nav-item nav-link" href="DeleteUser.php" style=" color: black;">Profil löschen</a>
+            <a class="nav-item nav-link" href="changeEmail.php" style="color: black;">Email ändern</a>
+            <a class="nav-item nav-link active" href="changePassword.php" style="color: black;">Passwort ändern</a>
+            <a class="nav-item nav-link" href="deleteUser.php" style=" color: black;">Profil löschen</a>
         </nav>
         <form method="post" class="needs-validation" novalidate>
             <div class="form-group mx-auto" style="width: 50%;">

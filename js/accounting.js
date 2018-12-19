@@ -4,7 +4,7 @@ function addAccounting(accountingForm) {
     var formData = new FormData(accountingForm);
     $.ajax({
 
-        url: "../controller/AccountingController.php",
+        url: "../controller/accountingController.php",
         type: "POST",
         data: formData,
         processData: false,
@@ -120,7 +120,7 @@ function deleteAccounting(accountingID) {
             $('#' + accountingID).remove();
         }
     };
-    xhttp.open("DELETE", "../controller/AccountingController.php/?id=" + accountingID, false);
+    xhttp.open("DELETE", "../controller/accountingController.php/?id=" + accountingID, false);
     xhttp.send();
     return false;
 }
