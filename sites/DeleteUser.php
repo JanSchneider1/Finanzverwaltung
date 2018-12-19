@@ -6,7 +6,6 @@
  * Time: 14:47
  */
 
-session_start();
 include __dir__."/../ressources/templates.php";
 require_once __dir__."/../ressources/Repository.php";
 
@@ -17,8 +16,8 @@ if(isset($_POST["deleteUser"])){
     if ($repository->checkPassword($_POST["email"], $_POST["password"]) && $repository->getUserWithMail($_POST["email"])["UserID"]==$_SESSION["userId"]){
         $repository->deleteUser($_SESSION["userId"]);
         session_destroy();
-        //Weiterleitung auf entsprechende Seite sowie Mitteilung
         echo "<script type='text/javascript'>location.href = 'Registration.php'</script>";
+        //Weiterleitung auf entsprechende Seite sowie Mitteilung
     }
     else{
         //Falsche Daten
@@ -35,7 +34,11 @@ if(isset($_POST["deleteUser"])){
     <script src="/../js/form.js"></script>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <title>Email ändern</title>
+    <title>Nutzer löschen</title>
+    <link rel="stylesheet" href="../css/general.less">
+    <link rel="stylesheet" href="../css/assets/hover-min.css">
+    <link rel="stylesheet/less" type="text/css" href="../css/general.less">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 </head>
 
 <body style="background-color: #000000;">

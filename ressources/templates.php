@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 /**
  * Created by PhpStorm.
@@ -20,7 +20,12 @@ Footer;
 
 function printHeader()
 {
-    $user=$_SESSION["userId"];
+    if (!$_SESSION["userId"]) {
+        echo "<script type='text/javascript'>location.href = 'Login.php'</script>";
+    }
+    else {
+        $user=$_SESSION["userId"];
+    }
     echo <<< Header
         <nav class="header navbar navbar-expand-sm">
           <div class="collapse navbar-collapse">
@@ -29,9 +34,9 @@ function printHeader()
                 <a class="nav-link hvr-underline-from-center" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link hvr-underline-from-center" style="margin-left: 30px;" href="#">Buchungen</a>
+                <a class="nav-link hvr-underline-from-center" style="margin-left: 30px;" href="../sites/accountingList.php">Buchungen</a>
               </li>
-              <a class="nav-link hvr-underline-from-center" style="margin-left: 30px;" href="/categories.php">Kategorien</a>
+              <a class="nav-link hvr-underline-from-center" style="margin-left: 30px;" href="../sites/categoryList.php">Kategorien</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link hvr-underline-from-center" style="margin-left: 30px;" href="#">Fixa</a>
@@ -46,7 +51,11 @@ function printHeader()
                 Eingeloggt als $user
                 </span></a>
             <a class="nav-link" href="#">
-              <button class="nav-link btn hvr-shutter-out-horizontal">Ausloggen</button>
+              <form action="../ressources/logout.php">
+              <button class="nav-link btn hvr-shutter-out-horizontal">
+              Ausloggen
+              </button>
+              </form>
             </a>
           </ul>
         </nav>
