@@ -1,30 +1,32 @@
 <?php
+session_start();
 include __dir__."/../ressources/templates.php";
 include __dir__."/../ressources/Repository.php";
 $repository = new Repository();
 $repository->init();
 if(isset($_POST["changeEmail"])){
     if ($repository->checkPassword($_SESSION["email"], $_POST["password"])){
+        echo "<script type='text/javascript'>alert('Richtige Daten');</script>";
 
         if ($repository->getUserWithMail($_POST["newEmail"])) {
             echo "<script type='text/javascript'>alert('Email wird bereits genutzt');</script>";
-            //Entsprechende Fehlermeldung
         }
         else {
             if ($_POST["newEmail"]==$_POST["newEmail2"]){
+                echo "<script type='text/javascript'>alert('Erfolgreich');</script>";
                 $repository->alterUserMail($_SESSION["userId"], $_POST["newEmail"]);
                 session_destroy();
-                echo "<script type='text/javascript'>location.href = 'Login.php'</script>";
+                echo "<script type='text/javascript'>location.href = 'login.php'</script>";
+                //ausgeloggt
             }
             else{
                 echo "<script type='text/javascript'>alert('Emails nicht identisch');</script>";
-                //Emails nicht identisch
             }
         }
     }
     else {
         echo "<script type='text/javascript'>alert('Falsche Daten');</script>";
-        //Falsche Daten
+
     }
 }
 
@@ -44,10 +46,6 @@ if(isset($_POST["changeEmail"])){
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <title>Email ändern</title>
     <script src="/../js/form.js"></script>
-    <link rel="stylesheet" href="../css/general.less">
-    <link rel="stylesheet" href="../css/assets/hover-min.css">
-    <link rel="stylesheet/less" type="text/css" href="../css/general.less">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 </head>
 
 <body style="background-color: #000000;">
@@ -56,16 +54,16 @@ if(isset($_POST["changeEmail"])){
 <div class="card mx-auto" style="width: 50%; background-color: #333333;">
     <div class="card-body">
         <nav class="nav nav-pills nav-justified">
-            <a class="nav-item nav-link active" href="ChangeEmail.php" style="color: black;">Email ändern</a>
-            <a class="nav-item nav-link" href="ChangePassword.php" style="color: black;">Passwort ändern</a>
-            <a class="nav-item nav-link" href="DeleteUser.php" style=" color: black;">Profil löschen</a>
+            <a class="nav-item nav-link active" href="changeEmail.php" style="color: black;">Email ändern</a>
+            <a class="nav-item nav-link" href="changePassword.php" style="color: black;">Passwort ändern</a>
+            <a class="nav-item nav-link" href="deleteUser.php" style=" color: black;">Profil löschen</a>
         </nav>
         <form method="post" class="needs-validation" novalidate>
             <div class="form-group mx-auto" style="width: 50%;">
                 <div class="row">
                     <div class="col">
                         <br>
-                        <label for="newEmail" style="color: #FEFEFE;">Neue E-Mail</label>
+                        <label for="email" style="color: #FEFEFE;">Neue E-Mail</label>
                         <input type="email" class="form-control" id="newEmail" name="newEmail" placeholder="E-Mail" required>
                         <div class="invalid-feedback">
                             Bitte Ihre neue Email eingeben.
@@ -74,8 +72,8 @@ if(isset($_POST["changeEmail"])){
                 </div>
                 <div class="row">
                     <div class="col">
-                        <label for="newEmail2" style="color: #FEFEFE;">Neue E-Mail bestätigen</label>
-                        <input type="email" class="form-control" id="newEmail2" name="newEmail2" placeholder="E-Mail" required>
+                        <label for="email" style="color: #FEFEFE;">Neue E-Mail bestätigen</label>
+                        <input type="email" class="form-control" id="newEmail" name="newEmail2" placeholder="E-Mail" required>
                         <div class="invalid-feedback">
                             Bitte Wiederholen Sie die Email.
                         </div>
@@ -84,8 +82,8 @@ if(isset($_POST["changeEmail"])){
 
                 <div class="row">
                     <div class="col">
-                        <label for="password" style="color: #FEFEFE;">Passwort</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Passwort" required>
+                        <label for="email" style="color: #FEFEFE;">Passwort</label>
+                        <input type="email" class="form-control" id="password" name="password" placeholder="Passwort" required>
                         <div class="invalid-feedback">
                             Bitte Ihr Passwort eingeben.
                         </div>

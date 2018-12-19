@@ -6,6 +6,7 @@
  * Time: 14:47
  */
 
+session_start();
 include __dir__."/../ressources/templates.php";
 require_once __dir__."/../ressources/Repository.php";
 
@@ -16,8 +17,8 @@ if(isset($_POST["deleteUser"])){
     if ($repository->checkPassword($_POST["email"], $_POST["password"]) && $repository->getUserWithMail($_POST["email"])["UserID"]==$_SESSION["userId"]){
         $repository->deleteUser($_SESSION["userId"]);
         session_destroy();
-        echo "<script type='text/javascript'>location.href = 'Registration.php'</script>";
         //Weiterleitung auf entsprechende Seite sowie Mitteilung
+        echo "<script type='text/javascript'>location.href = 'registration.php'</script>";
     }
     else{
         //Falsche Daten
@@ -34,11 +35,7 @@ if(isset($_POST["deleteUser"])){
     <script src="/../js/form.js"></script>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <title>Nutzer löschen</title>
-    <link rel="stylesheet" href="../css/general.less">
-    <link rel="stylesheet" href="../css/assets/hover-min.css">
-    <link rel="stylesheet/less" type="text/css" href="../css/general.less">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+    <title>Email ändern</title>
 </head>
 
 <body style="background-color: #000000;">
@@ -47,9 +44,9 @@ if(isset($_POST["deleteUser"])){
 <div class="card mx-auto" style="width: 50%; background-color: #333333;">
     <div class="card-body">
         <nav class="nav nav-pills nav-justified">
-            <a class="nav-item nav-link" href="ChangeEmail.php" style="color: black;">Email ändern</a>
-            <a class="nav-item nav-link" href="ChangePassword.php" style="color: black;">Passwort ändern</a>
-            <a class="nav-item nav-link active" href="DeleteUser.php" style=" color: black;">Profil löschen</a>
+            <a class="nav-item nav-link" href="changeEmail.php" style="color: black;">Email ändern</a>
+            <a class="nav-item nav-link" href="changePassword.php" style="color: black;">Passwort ändern</a>
+            <a class="nav-item nav-link active" href="deleteUser.php" style=" color: black;">Profil löschen</a>
         </nav>
         <form method="post" class="needs-validation" novalidate>
             <div class="form-group mx-auto" style="width: 50%;">

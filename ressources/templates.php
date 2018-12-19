@@ -12,17 +12,13 @@ function printFooter(){
             <div class="footer title" style="text-align: center;">
               <a href="#">Impressum</a><br/>
               <span style="color:#969696">&copy;Copyright 2018 Florian Albers, Cem Caylak, Jan Schneider, Niklas Firnges</span>
+              <br/><br/>
             </div> 
 Footer;
 }
 
 function printHeader(){
-    if (!$_SESSION["userId"]) {
-        echo "<script type='text/javascript'>location.href = 'Login.php'</script>";
-    }
-    else {
-        $user=$_SESSION["userId"];
-    }
+    $user=$_SESSION["userId"];
     echo <<< Header
         <nav class="header navbar navbar-expand-sm">
           <div class="collapse navbar-collapse">
