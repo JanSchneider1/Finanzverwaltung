@@ -4,7 +4,7 @@ function addAccounting(accountingForm) {
     var formData = new FormData(accountingForm);
     $.ajax({
 
-        url: "../controller/AccountingController.php",
+        url: "../controller/accountingController.php",
         type: "POST",
         data: formData,
         processData: false,
@@ -58,7 +58,7 @@ $("#day").click(function(){
 
 $("#week").click(function(){
     var curr = new Date();
-    var firstday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 1));
+    var firstday = new Date(curr.setDate(curr.getDate() - (curr.getDay() == 0 ? 6 : curr.getDay() - 1 )));
     var lastday = new Date(curr.setDate(curr.getDate() - curr.getDay()+7));
     $("#date_1").val(firstday.toISOString().slice(0,10));
     $("#date_2").val(lastday.toISOString().slice(0,10));
@@ -120,7 +120,7 @@ function deleteAccounting(accountingID) {
             $('#' + accountingID).remove();
         }
     };
-    xhttp.open("DELETE", "../controller/AccountingController.php/?id=" + accountingID, false);
+    xhttp.open("DELETE", "../controller/accountingController.php/?id=" + accountingID, false);
     xhttp.send();
     return false;
 }

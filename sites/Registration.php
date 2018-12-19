@@ -117,7 +117,7 @@ if (isset($_POST["register"]))
                             <div class="invalid-feedback">Bitte ein Passwort.</div>
                             <br>
                             <div id="message"></div>
-                            <span style="color: #FEFEFE;">Bereits registriert? <a href="Login.php">Einloggen</a></span>
+                            <span style="color: #FEFEFE;">Bereits registriert? <a href="login.php">Einloggen</a></span>
                     <button type="submit" class="btn btn-success float-right" name="register">Registrieren</button>
                 </div>
             </div>

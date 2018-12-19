@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 /**
  * Created by PhpStorm.
  * User: albers
@@ -18,8 +16,7 @@ function printFooter(){
 Footer;
 }
 
-function printHeader()
-{
+function printHeader(){
     if (!$_SESSION["userId"]) {
         echo "<script type='text/javascript'>location.href = 'Login.php'</script>";
     }
@@ -31,36 +28,41 @@ function printHeader()
           <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link hvr-underline-from-center" href="#">Home</a>
+                <a class="nav-link hvr-underline-from-center" style="color: white" href="../sites/home.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link hvr-underline-from-center" style="margin-left: 30px;" href="../sites/accountingList.php">Buchungen</a>
+                <a class="nav-link hvr-underline-from-center" style="color: white; margin-left: 30px;" href="../sites/accountingList.php">Buchungen</a>
               </li>
-              <a class="nav-link hvr-underline-from-center" style="margin-left: 30px;" href="../sites/categoryList.php">Kategorien</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link hvr-underline-from-center" style="margin-left: 30px;" href="#">Fixa</a>
+              <a class="nav-link hvr-underline-from-center" style="color: white ;margin-left: 30px;" href="../sites/categoryList.php">Kategorien</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link hvr-underline-from-center" style="margin-left: 30px;" href="#">Analyse</a>
+                <a class="nav-link hvr-underline-from-center" style="color: white ;margin-left: 30px;" href="../sites/fixumList.php">Fixa</a>
+              </li>
+              <li class="nav-item">
+                  <div class="dropdown btn">
+                    <button class="hvr-grow btn" type="button" value="Alle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Analyse</button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                      <li><a class="dropdown-item effect-underline" href="../sites/analyticBars.php">Balken</a></li>
+                      <li><a class="dropdown-item effect-underline">Kreis</a></li>
+                      <li><a class="dropdown-item effect-underline">Kalender</a></li>
+                      <li><a class="dropdown-item effect-underline">Graph</a></li>
+                    </ul>
+                  </div>
               </li>
             </ul>
           </div>
           <ul class="nav navbar-nav navbar-right">
-            <a class="nav-link" href="#"><span class="navbar-text" style="color: white">
-                Eingeloggt als $user
-                </span></a>
-            <a class="nav-link" href="#">
-              <form action="../ressources/logout.php">
-              <button class="nav-link btn hvr-shutter-out-horizontal">
-              Ausloggen
-              </button>
-              </form>
-            </a>
+            <li></li>
+                <span class="navbar-text" style="color: white">Eingeloggt als:</span>
+            </li>   
+            <li>
+                <a class="nav-link" href="#"><span>$user</span> <span class="fas fa-cog"></span></a>
+            </li>
+            <li>
+                <a class="nav-link" href="#"><button class="nav-link btn btn-dark hvr-shutter-out-horizontal" style="color: white">Ausloggen</button></a>
+            </li>
           </ul>
         </nav>
         </div>
 Header;
 }
-
-?>

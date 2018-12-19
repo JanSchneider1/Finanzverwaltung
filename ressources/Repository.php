@@ -557,9 +557,9 @@ class Repository {
 //$Repo->alterFixumValue(1, 50);
 //$Repo->alterFixumName(1, 'Spielo');
 //var_dump($Repo->getUserWithMail('derFlo@mail.de'));
-//var_dump($Repo->checkPassword("derflo@mail.de", 'pass'));
+//var_dump($Repo->checkPassword("derguy@mail.de", 'pass'));
 //var_dump($Repo->createUser('Der', 'Typ', 'DerFo@mail.de', 'pass'));
-//$Repo->deleteUser(1);
-//$Repo->alterUserPassword(1, 'pass');
+//$Repo->deleteUser(2);
+//$Repo->alterUserPassword(7, 'pass');
 //$Repo->alterUserMail(1, 'derFlo@mail.de');
 //$Repo->relateFixumAccounting(1, 1);
