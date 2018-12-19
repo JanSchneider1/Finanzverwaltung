@@ -16,8 +16,7 @@ function printFooter(){
 Footer;
 }
 
-function printHeader()
-{
+function printHeader(){
     $user=$_SESSION["userId"];
     echo <<< Header
         <nav class="header navbar navbar-expand-sm">
@@ -35,7 +34,15 @@ function printHeader()
                 <a class="nav-link hvr-underline-from-center" style="color: white ;margin-left: 30px;" href="../sites/fixumList.php">Fixa</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link hvr-underline-from-center" style="margin-left: 30px;" href="#">Analyse</a>
+                  <div class="dropdown btn">
+                    <button class="hvr-grow btn" type="button" value="Alle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Analyse</button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                      <li><a class="dropdown-item effect-underline" href="../sites/analyticBars.php">Balken</a></li>
+                      <li><a class="dropdown-item effect-underline">Kreis</a></li>
+                      <li><a class="dropdown-item effect-underline">Kalender</a></li>
+                      <li><a class="dropdown-item effect-underline">Graph</a></li>
+                    </ul>
+                  </div>
               </li>
             </ul>
           </div>
@@ -54,4 +61,3 @@ function printHeader()
         </div>
 Header;
 }
-
