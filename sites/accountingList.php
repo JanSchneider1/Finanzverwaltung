@@ -306,75 +306,6 @@ balance;
 <!-- Set dates to current -->
 <script language="JavaScript">document.getElementById("date_3").valueAsDate = new Date();</script>
 
-<!--Add accoutings-->
-<div class="container">
-  <form method="POST">
-    <table class="table table-hover table-dark">
-      <thead>
-      <tr>
-        <th>Datum</th>
-        <th>Name</th>
-        <th>Kategorien</th>
-        <th>+/-</th>
-        <th>Wert</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td><input class="form-control input" id="date_3" type=date value="" onsubmit="addAccounting()"
-                   name="addAccounting_date"></td>
-        <td><input class="form-control input" type="text" value="Rechnung" name="addAccounting_name"></td>
-        <td>
-          <fieldset>
-            <!-- Dropdown: 'Kategorien' -->
-            <div class="dropdown">
-              <input class="input" style="display: none" value="0" type="text" name="addAccounting_categoryID">
-              <button class="btn dropdown-toggle hvr-grow" type="button" id="dropdownMenu2" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="true">
-                Kategorien
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <?php
-                  foreach ($service->categories as $c) {
-                      $categoryName = $c->getName();
-                      $categoryID = $c->getId();
-                      echo "<li><a class=\"dropdown-item effect-underline\" data-value=$categoryID>$categoryName</a></li>";
-                  }
-                  ?>
-              </ul>
-            </div>
-          </fieldset>
-        </td>
-        <td>
-
-          <!-- Dropdown: -/+ -->
-          <div class="dropdown">
-            <input class="input" style="display: none" value="Ausgaben" type="text" name="addAccounting_isPositive">
-            <button class="btn dropdown-toggle hvr-grow" type="button" id="dropdownMenu2" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="true">
-              Ausgaben
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              <li><a class="dropdown-item effect-underline" data-value="Einnahmen">Einnahmen</a></li>
-              <li><a class="dropdown-item effect-underline" data-value="Ausgaben">Ausgaben</a></li>
-            </ul>
-          </div>
-
-        </td>
-        <td><input class="form-control input" type="number" name="addAccounting_value" min="0.01" step="0.25" value="1"
-                   style="width:100px"></td>
-        <td>
-          <button type="button" class="btn hvr-reveal" onclick="addAccounting(this.form)">Add</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </form>
-</div>
-
 <!-- Footer -->
 <?php printFooter(); ?>
 
@@ -383,7 +314,7 @@ balance;
 
 <!-- JS: Accounting -->
 <script src="../js/accounting.js"></script>
-<script src="./js/timespanDropdown.js"></script>
+<script src="../js/timespanDropdown.js"></script>
 
 <!-- Set dates -->
 <?php echo $startDate == null ? '<script language="JavaScript">setDatesMonth()</script>' : '<script language="JavaScript">enableDates()</script>'; ?>

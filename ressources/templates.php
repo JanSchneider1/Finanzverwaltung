@@ -39,7 +39,7 @@ function printHeader(){
                     <button class="hvr-grow btn" type="button" value="Alle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Analyse</button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                       <li><a class="dropdown-item effect-underline" href="../sites/analyticBars.php">Balken</a></li>
-                      <li><a class="dropdown-item effect-underline">Kreis</a></li>
+                      <li><a class="dropdown-item effect-underline" href="../sites/analyticDoughnut.php">Kreis</a></li>
                       <li><a class="dropdown-item effect-underline">Kalender</a></li>
                       <li><a class="dropdown-item effect-underline">Graph</a></li>
                     </ul>

@@ -135,7 +135,7 @@ chartjs;
                 $service->reloadAccountings($service->repo->getAccountingsByCategory($service->user->getUserID(), $service->categories[$i]->getId()));
             }
             $names[$i] = $service->categories[$i]->getName();
-            $costs[$i] = abs($service->getCosts($service->accountings));
+            $costs[$i] = abs($service->getCostsFromAll());
 
             if($i == sizeof($service->categories)-1){
 
@@ -145,7 +145,7 @@ chartjs;
                     $service->reloadAccountings($service->repo->getAccountingsByCategory($service->user->getUserID(), 0));
                 }
                 $names[$i + 1] = 'Nicht zugeordnet';
-                $costs[$i + 1] = abs($service->getCosts($service->accountings));
+                $costs[$i + 1] = abs($service->getCostsFromAll());
             }
         }
 
