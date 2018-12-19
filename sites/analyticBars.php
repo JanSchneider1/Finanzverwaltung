@@ -34,11 +34,9 @@
             $startDate = null;
             $endDate = null;
 
-
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $startDate = htmlspecialchars($_POST['start_date']);
                 $endDate = htmlspecialchars($_POST['end_date']);
-                $service->reloadAccountings($service->repo->getAccountingsBetweenDates($service->user->getUserID(), $startDate, $endDate));
             }
         ?>
 
@@ -97,34 +95,52 @@
     </body>
 
     <footer>
-    <script type='text/javascript'>
-                var ctx = $('#outChart');
-                var chart = new Chart(ctx, {
-
-                    type: 'horizontalBar',
-
-                    data: {
-                        datasets: [
         <?php
 
-            $values = array();
+        echo <<< chartjs
+        <script type='text/javascript'>
+                    var ctx = $('#outChart');
+                    var chart = new Chart(ctx, {
 
-            for($i = 0; $i < sizeof($service->accountings); $i++) {
+                        type: 'horizontalBar',
 
-                @$values[$service->accountings[$i]->getCategoryID()] += $service->accountings[$i]->getValue();
+                        data: {
+                            datasets: [
+chartjs;
+
+        $names = array();
+        $costs = array();
+
+        for($i = 0; $i < sizeof($service->categories); $i++) {
+
+            if($startDate != null){
+                $service->reloadAccountings($service->repo->getAccountingsByCategoryBetweenDates($service->user->getUserID(), $service->categories[$i]->getId(), $startDate, $endDate));
+            } else{
+                $service->reloadAccountings($service->repo->getAccountingsByCategory($service->user->getUserID(), $service->categories[$i]->getId()));
             }
+            $names[$i] = $service->categories[$i]->getName();
+            $costs[$i] = abs($service->getCosts($service->accountings));
 
+            if($i == sizeof($service->categories)-1){
 
+                if($startDate != null){
+                    $service->reloadAccountings($service->repo->getAccountingsByCategoryBetweenDates($service->user->getUserID(), 0, $startDate, $endDate));
+                } else{
+                    $service->reloadAccountings($service->repo->getAccountingsByCategory($service->user->getUserID(), 0));
+                }
+                $names[$i + 1] = 'Nicht zugeordnet';
+                $costs[$i + 1] = abs($service->getCosts($service->accountings));
+            }
+        }
 
-        for($i = 0; $i < sizeof($service->accountings); $i++) {
+        for($i = 0; $i < sizeof($service->categories) + 1; $i++) {
 
-            if($values[$i] != null){
-                $catName = $service->repo->getCategoryByID($i)['Name'];
+            if($costs[$i] != 0){
 
                 echo "{
-                        label: $catName,
+                        label: '$names[$i]',
                         backgroundColor: ['rgb(255,99,71)'],
-                        data: [$values[$i]]
+                        data: [$costs[$i]]
                       },";
             }
         }
@@ -155,11 +171,11 @@
                             }
                         }
                     }
-                });
-            </script>
+                });</script>
 chartjs;
             printFooter();
         ?>
+
         <script src="../js/timespanDropdown.js"></script>
         <script src="../js/frontend.js"></script>
 
