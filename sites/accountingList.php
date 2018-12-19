@@ -135,7 +135,7 @@
                  value="<?php echo $maxValue != null ? $maxValue : $service->repo->getHighestAccountingValue($service->user->getUserID()) ?>"
                  style="width:100px"></td>
       <td>
-        <button class="btn hvr-underline-from-left" id="btn_filter" type="submit" style="width:100px">Suchen</button>
+        <button class="btn hvr-underline-from-left" id="btn_filter" type="submit" style="width:100px">Filtern</button>
       </td>
     </form>
     </tbody>
@@ -383,6 +383,7 @@ balance;
 
 <!-- JS: Accounting -->
 <script src="../js/accounting.js"></script>
+<script src="./js/timespanDropdown.js"></script>
 
 <!-- Set dates -->
 <?php echo $startDate == null ? '<script language="JavaScript">setDatesMonth()</script>' : '<script language="JavaScript">enableDates()</script>'; ?>
