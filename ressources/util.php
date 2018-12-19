@@ -22,3 +22,17 @@ function getValueColor($isPositive){
         return "negative";
     }
 }
+
+function toCharJSLabels($array){
+
+    //Add more ' , because else they don't survive implode()
+    for($i = 0, $size = count($array); $i < $size; ++$i) {
+        $array[$i] = "'".$array[$i]."'";
+    }
+    return "[".implode(",",$array)."]";
+}
+
+function toCharJSData($array){
+
+    return "[".implode(",",$array)."]";
+}

@@ -204,6 +204,17 @@ class ContentService
         return $value;
     }
 
+    function getIncome($accountings) {
+
+        $value = 0;
+        foreach ($accountings as $a) {
+            if ($a->getIsPositive() == 1) {
+                $value += $a->getValue();
+            }
+        }
+        return $value;
+    }
+
     function getCostsFromAll() {
 
         $value = 0;
@@ -215,10 +226,30 @@ class ContentService
         return $value;
     }
 
+    function getCosts($accountings) {
+
+        $value = 0;
+        foreach ($accountings as $a) {
+            if ($a->getIsPositive() == 0) {
+                $value += $a->getValue();
+            }
+        }
+        return $value;
+    }
+
     function getBalanceFromAll() {
 
         $value = 0;
         foreach ($this->accountings as $a) {
+            $value += $a->getValue();
+        }
+        return $value;
+    }
+
+    function getBalance($accountings) {
+
+        $value = 0;
+        foreach ($accountings as $a) {
             $value += $a->getValue();
         }
         return $value;
