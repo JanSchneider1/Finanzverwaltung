@@ -17,7 +17,7 @@ if(isset($_POST["login"])){
         $_SESSION["userId"] = $repository->getUserWithMail($_POST["email"])["UserID"];
         $_SESSION["email"] = $repository->getUserWithMail($_POST["email"])["Mail"];
 
-        echo "<script type='text/javascript'>location.href = 'ChangeEmail.php'</script>";
+        echo "<script type='text/javascript'>location.href = 'changeEmail.php'</script>";
     }
 }
 ?>
