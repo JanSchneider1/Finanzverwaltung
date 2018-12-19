@@ -110,6 +110,22 @@ chartjs;
 
         $names = array();
         $costs = array();
+        $ccount = 0;
+        $colors = array(
+            "'rgb(0,0,255)'",
+            "'rgb(0,255,0)'",
+            "'rgb(255,0,0)'",
+            "'rgb(255,0,255)'",
+            "'rgb(0,255,255)'",
+            "'rgb(255,255,0)'",
+            "'rgb(128,0,255)'",
+            "'rgb(0,255,128)'",
+            "'rgb(255,128,0)'",
+            "'rgb(128,64,0)'",
+            "'rgb(0,128,64)'",
+            "'rgb(64,0,128)'",
+            "'rgb(0,0,0)'",
+            );
 
         for($i = 0; $i < sizeof($service->categories); $i++) {
 
@@ -139,9 +155,10 @@ chartjs;
 
                 echo "{
                         label: '$names[$i]',
-                        backgroundColor: ['rgb(255,99,71)'],
+                        backgroundColor: [$colors[$ccount]],
                         data: [$costs[$i]]
                       },";
+                $ccount = ($ccount == 12 ? 0 : $ccount + 1);
             }
         }
         echo <<< chartjs
