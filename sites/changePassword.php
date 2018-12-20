@@ -9,6 +9,7 @@ session_start();
 include __dir__."/../ressources/templates.php";
 include __dir__."/../ressources/Repository.php";
 $repository = new Repository();
+$repository->init();
 setRedirect();
 
 if (isset($_POST["changePassword"])) {

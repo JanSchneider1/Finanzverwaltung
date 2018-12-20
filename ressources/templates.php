@@ -28,7 +28,7 @@ Footer;
 }
 
 function printHeader(){
-   // $user = $service->user->getFirstname() . " " . $service->user->getLastName();
+
     echo <<< Header
         <nav class="header navbar navbar-expand-sm">
           <div class="collapse navbar-collapse">
