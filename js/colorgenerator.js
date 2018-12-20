@@ -6,7 +6,7 @@ function randomRange(min, max){
 
 function rgb(r, g, b){
 
-    //
+    //sd
     return "rgb(" + r + "," + g + "," + b + ")";
 }
 
