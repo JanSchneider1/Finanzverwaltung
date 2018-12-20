@@ -3,10 +3,23 @@ function doughnut(canvasID, data, labels, colors){
     var chart = new Chart($('#' + canvasID), { type: 'doughnut',
         data: {
             datasets: [{
-                backgroundColor: colors,
+                backgroundColor: colors,//randomColors(data.length),
+                borderColor: $('#backgroundColor').css("background-color"),
+                borderWidth: 5,
                 data: data,
             }],
             labels: labels,
+        },
+        options: {
+            legend: {
+                labels: {
+                    fontColor: "white",
+                    fontSize: 18
+                }
+            },
+            animation: {
+                animateScale: true
+            },
         },
     });
 }
