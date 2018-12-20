@@ -6,6 +6,17 @@
  * Time: 13:22
  */
 
+function setRedirect(){
+
+    if ($_SESSION["userId"])
+    {
+        $user=$_SESSION["userId"];
+    }
+    else {
+        header('Location: ../sites/login.php');
+    }
+}
+
 function printFooter(){
     echo <<< Footer
             <div class="footer title" style="text-align: center;">
@@ -14,16 +25,6 @@ function printFooter(){
               <br/><br/>
             </div> 
 Footer;
-}
-
-function setRedirect(){
-    if ($_SESSION["userId"])
-    {
-        $user=$_SESSION["userId"];
-    }
-    else {
-        header('Location: ../sites/login.php');
-    }
 }
 
 function printHeader(){
