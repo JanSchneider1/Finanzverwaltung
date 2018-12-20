@@ -6,6 +6,17 @@
  * Time: 13:22
  */
 
+function setRedirect(){
+
+    if ($_SESSION["userId"])
+    {
+        $user=$_SESSION["userId"];
+    }
+    else {
+        header('Location: ../sites/login.php');
+    }
+}
+
 function printFooter(){
     echo <<< Footer
             <div class="footer title" style="text-align: center;">
@@ -17,13 +28,7 @@ Footer;
 }
 
 function printHeader(){
-    if ($_SESSION["userId"])
-    {
-        $user=$_SESSION["userId"];
-    }
-    else {
-        echo "<script type='text/javascript'>location.href = 'login.php'</script>";
-    }
+
     echo <<< Header
         <nav class="header navbar navbar-expand-sm">
           <div class="collapse navbar-collapse">

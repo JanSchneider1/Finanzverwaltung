@@ -4,6 +4,7 @@ include __dir__."/../ressources/templates.php";
 require_once __dir__."/../ressources/Repository.php";
 $repository = new Repository();
 $repository->init();
+setRedirect();
 if(isset($_POST["changeEmail"])){
     if ($repository->checkPassword($_SESSION["email"], $_POST["password"])){
         echo "<script type='text/javascript'>alert('Richtige Daten');</script>";
