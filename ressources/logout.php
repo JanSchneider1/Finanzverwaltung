@@ -5,7 +5,6 @@
  * Date: 13.12.2018
  * Time: 14:52
  */
-
 session_start();
 session_destroy();
-echo 'You have been logged out. <a href="/">Go back</a>';
+echo "<script type='text/javascript'>location.href = '../sites/login.php'</script>";

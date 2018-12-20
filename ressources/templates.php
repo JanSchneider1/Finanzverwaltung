@@ -17,7 +17,6 @@ Footer;
 }
 
 function printHeader(){
-    session_start();
     if ($_SESSION["userId"])
     {
         $user=$_SESSION["userId"];

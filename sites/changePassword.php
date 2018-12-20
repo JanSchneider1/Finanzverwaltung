@@ -5,6 +5,7 @@
  * Date: 12.12.2018
  * Time: 14:42
  */
+session_start();
 include __dir__."/../ressources/templates.php";
 include __dir__."/../ressources/Repository.php";
 $repository = new Repository();
@@ -30,7 +31,6 @@ else {
 }
 
 ?>
-<script src="/../js/form.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,6 +41,7 @@ else {
     <link rel="stylesheet" href="../css/assets/hover-min.css">
     <link rel="stylesheet/less" type="text/css" href="../css/general.less">
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+    <script type="text/javascript" src="../js/form.js"></script>
 </head>
 
 <body style="background-color: #000000;">

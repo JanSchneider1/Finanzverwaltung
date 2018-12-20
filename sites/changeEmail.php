@@ -1,6 +1,7 @@
 <?php
+session_start();
 include __dir__."/../ressources/templates.php";
-include __dir__."/../ressources/Repository.php";
+require_once __dir__."/../ressources/Repository.php";
 $repository = new Repository();
 $repository->init();
 if(isset($_POST["changeEmail"])){
@@ -44,7 +45,7 @@ if(isset($_POST["changeEmail"])){
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <title>Email ändern</title>
-    <script src="/../js/form.js"></script>
+    <script type="text/javascript" src="../js/form.js"></script>
 </head>
 
 <body style="background-color: #000000;">
@@ -82,7 +83,7 @@ if(isset($_POST["changeEmail"])){
                 <div class="row">
                     <div class="col">
                         <label for="email" style="color: #FEFEFE;">Passwort</label>
-                        <input type="email" class="form-control" id="password" name="password" placeholder="Passwort" required>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Passwort" required>
                         <div class="invalid-feedback">
                             Bitte Ihr Passwort eingeben.
                         </div>

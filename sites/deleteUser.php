@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Created by IntelliJ IDEA.
  * User: caylak
@@ -30,10 +31,10 @@ if(isset($_POST["deleteUser"])){
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="/../js/form.js"></script>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <title>Email ändern</title>
+    <script type="text/javascript" src="../js/form.js"></script>
 </head>
 
 <body style="background-color: #000000;">
