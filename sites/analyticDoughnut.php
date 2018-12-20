@@ -45,7 +45,6 @@
 <body>
 
 <!-- Analytics JS -->
-<script src="../js/analytics.js"></script>
 
 <!-- Header -->
 <?php printHeader(); ?>
@@ -161,6 +160,7 @@ category2;
 <!-- Analytics JS -->
 <script src="../js/frontend.js"></script>
 
+<script src="../js/analytic.js"></script>
 <!-- Create charts on start -->
 <script>
     doughnut("chart",income,labels,colorsPositive);
