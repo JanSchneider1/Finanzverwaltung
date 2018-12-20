@@ -28,7 +28,7 @@ Footer;
 }
 
 function printHeader(){
-
+   // $user = $service->user->getFirstname() . " " . $service->user->getLastName();
     echo <<< Header
         <nav class="header navbar navbar-expand-sm">
           <div class="collapse navbar-collapse">
@@ -65,7 +65,7 @@ function printHeader(){
                 <a class="nav-link" href="#"><span>$user</span> <span class="fas fa-cog"></span></a>
             </li>
             <li>
-                <a class="nav-link" href="#"><button class="nav-link btn btn-dark hvr-shutter-out-horizontal" style="color: white">Ausloggen</button></a>
+                <a class="nav-link" href="../ressources/logout.php"><button class="nav-link btn btn-dark hvr-shutter-out-horizontal" style="color: white">Ausloggen</button></a>
             </li>
           </ul>
         </nav>

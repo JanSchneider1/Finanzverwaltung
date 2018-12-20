@@ -2,7 +2,11 @@
 
 //Setup
 require __DIR__ . "/../ressources/ContentService.php";
-$service = new ContentService('derflo@mail.de');
+session_start();
+if (!$_SESSION["userId"]) {
+    die;
+}
+$service = new ContentService($_SESSION["email"]);
 
 //POST REQUEST
 if($_SERVER['REQUEST_METHOD'] == 'POST') {

@@ -2,9 +2,9 @@
 include __DIR__ . "/../ressources/ContentService.php";
 include __DIR__ . "/../ressources/util.php";
 include __DIR__ . "/../ressources/templates.php";
-$service = new ContentService('derflo@mail.de');
 session_start();
 setRedirect();
+$service = new ContentService($_SESSION["email"]);
 ?>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
