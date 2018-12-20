@@ -62,9 +62,12 @@ if(isset($_POST["login"])){
                     echo $error;
                 }
                 ?>
+                <br>
                 <div class="row">
-                    <div class="col">
+                    <div class="col-6">
                         <span style="color: #FEFEFE;">Noch nicht registriert? Registriere dich <a href="registration.php">hier</a></span>
+                    </div>
+                    <div class="col">
                         <button type="submit" class="btn btn-success float-right" name="login">Einloggen</button>
                     </div>
                 </div>
