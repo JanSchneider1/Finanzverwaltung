@@ -16,8 +16,10 @@ if(isset($_POST["login"])){
 
         $_SESSION["userId"] = $repository->getUserWithMail($_POST["email"])["UserID"];
         $_SESSION["email"] = $repository->getUserWithMail($_POST["email"])["Mail"];
-
         echo "<script type='text/javascript'>location.href = 'changeEmail.php'</script>";
+    }
+    else{
+        $error = "<br><div class='alert alert-danger' role='alert'>Die Kombination aus Mail und Passwort ist nicht korrekt.</div>";
     }
 }
 ?>
@@ -55,10 +57,14 @@ if(isset($_POST["login"])){
                         </div>
                     </div>
                 </div>
+                <?php
+                if ((isset($error))) {
+                    echo $error;
+                }
+                ?>
                 <div class="row">
                     <div class="col">
-                        <br>
-                        <input type="checkbox" name="cookie" value="logged"><span style="color: white;">Eingeloggt bleiben</span>
+                        <span style="color: #FEFEFE;">Noch nicht registriert? Registriere dich <a href="registration.php">hier</a></span>
                         <button type="submit" class="btn btn-success float-right" name="login">Einloggen</button>
                     </div>
                 </div>

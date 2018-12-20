@@ -1,15 +1,13 @@
 <?php
-//Durch require wird die gesamte php-Datei nicht mehr geladen (Essentielle Bestandteile wie Funktionen sollten daher mit require eingebunden werden)
-//require_once verhindert mehrfach Inkludierung wodurch ein Fatal-Error enstehen würde . PHP merkt sich, dass die Datei bereits eingebunden wurde.
-//include kriegt man nur ein Error und die PHP-Datei wird weiter geladen.
-
 /**
  * Created by IntelliJ IDEA.
  * User: caylak
  * Date: 16.11.2018
  * Time: 14:44
  */
-
+//Durch require wird die gesamte php-Datei nicht mehr geladen (Essentielle Bestandteile wie Funktionen sollten daher mit require eingebunden werden)
+//require_once verhindert mehrfach Inkludierung wodurch ein Fatal-Error enstehen würde . PHP merkt sich, dass die Datei bereits eingebunden wurde.
+//include kriegt man nur ein Error und die PHP-Datei wird weiter geladen.
 require_once __dir__."/../ressources/Repository.php";
 require_once __dir__."/../ressources/templates.php";
 $repository = new Repository();
@@ -31,47 +29,24 @@ if (isset($_POST["register"]))
     <title>Register</title>
     <script src="/../js/form.js"></script>
     <script>
-        function hasUpperCase(string) {
-            return (/[A-Z]/.test(string));
-        }
-
-        function hasNumber(myString) {
-            return /\d/.test(myString);
-        }
-
-        function enoughChars(myString) {
-            return myString.length>=8;
-        }
-
         function validPassword(password) {
-            return (hasUpperCase(password) && hasNumber(password) && enoughChars(password));
+            var re = new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$");
+            return re.test(password);
+            //Min eine Ziffer, ein Großbuchstabe und mindestens 8 Zeichen lang
         }
     </script>
     <script>
-        /*
         var check = function() {
             var password = document.getElementById("password").value;
             var confirmedPassword = document.getElementById("confirmPassword").value;
-            if (password != "" && confirmedPassword != "") {
-                if (password != confirmedPassword && !validPassword(password) && !validPassword(confirmedPassword)) {
-                    document.getElementById("checker").className = "alert alert-danger";
-                    document.getElementById("checker").innerHTML = "Bitte geben Sie identische Passwörter ein. Bitte mindestens 8 Zeichen lang, ein Großbuchstabe und eine Zahl.";
+            if (validPassword(password) && validPassword(confirmedPassword)) {
+                if () {
+                    alert("Toll gemacht");
                 }
                 else{
-                    document.getElementById("checker").className = "alert alert-success";
-                    document.getElementById("checker").innerHTML = "Die Passwörter sind identisch und entsprechen den Vorgaben.";
+                    document.getElementById("message").className = "alert alert-success";
+                    document.getElementById("message").innerHTML = "Die Passwörter sind identisch und entsprechen den Vorgaben.";
                 }
-            }
-        }
-        */
-        var check = function() {
-            if (document.getElementById('password').value ==
-                document.getElementById('confirmPassword').value) {
-                document.getElementById('message').style.color = 'green';
-                document.getElementById('message').innerHTML = 'matching';
-            } else {
-                document.getElementById('message').style.color = 'red';
-                document.getElementById('message').innerHTML = 'not matching';
             }
         }
     </script>
@@ -112,8 +87,8 @@ if (isset($_POST["register"]))
                 <div class="row">
                         <span class="col">
                             <label for="password" style="color: #FEFEFE;">Passwort</label>
-                            <input type="text" class="form-control" id="password" name="password" placeholder="Passwort" onkeydown="check();" required>
-                            <input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Passwort wiederholen"  required>
+                            <input type="text" class="form-control" id="password" name="password" placeholder="Passwort" onkeypress="check();" required>
+                            <input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Passwort wiederholen" required>
                             <div class="invalid-feedback">Bitte ein Passwort.</div>
                             <br>
                             <div id="message"></div>

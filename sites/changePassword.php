@@ -5,8 +5,6 @@
  * Date: 12.12.2018
  * Time: 14:42
  */
-
-session_start();
 include __dir__."/../ressources/templates.php";
 include __dir__."/../ressources/Repository.php";
 $repository = new Repository();
@@ -28,9 +26,7 @@ if (isset($_POST["changePassword"])) {
     }
 }
 else {
-
-    echo "<script type='text/javascript'>alert('Falsche Daten');</script>";
-
+//Falsche daten
 }
 
 ?>
@@ -40,7 +36,11 @@ else {
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <title>Email ändern</title>
+    <title>Passwort ändern</title>
+    <link rel="stylesheet" href="../css/general.less">
+    <link rel="stylesheet" href="../css/assets/hover-min.css">
+    <link rel="stylesheet/less" type="text/css" href="../css/general.less">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 </head>
 
 <body style="background-color: #000000;">
