@@ -22,6 +22,7 @@
 
         <!-- LESS -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+
         <!-- ChartJS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
@@ -33,11 +34,9 @@
             $startDate = null;
             $endDate = null;
 
-
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $startDate = htmlspecialchars($_POST['start_date']);
                 $endDate = htmlspecialchars($_POST['end_date']);
-                $service->reloadAccountings($service->repo->getAccountingsBetweenDates($service->user->getUserID(), $startDate, $endDate));
             }
         ?>
 
@@ -96,35 +95,70 @@
     </body>
 
     <footer>
-    <script type='text/javascript'>
-                var ctx = $('#outChart');
-                var chart = new Chart(ctx, {
-
-                    type: 'horizontalBar',
-
-                    data: {
-                        datasets: [
         <?php
 
-            $values = array();
+        echo <<< chartjs
+        <script type='text/javascript'>
+                    var ctx = $('#outChart');
+                    var chart = new Chart(ctx, {
 
-            for($i = 0; $i < sizeof($service->accountings); $i++) {
+                        type: 'horizontalBar',
 
-                @$values[$service->accountings[$i]->getCategoryID()] += $service->accountings[$i]->getValue();
+                        data: {
+                            datasets: [
+chartjs;
+
+        $names = array();
+        $costs = array();
+        $ccount = 0;
+        $colors = array(
+            "'rgb(0,0,255)'",
+            "'rgb(0,255,0)'",
+            "'rgb(255,0,0)'",
+            "'rgb(255,0,255)'",
+            "'rgb(0,255,255)'",
+            "'rgb(255,255,0)'",
+            "'rgb(128,0,255)'",
+            "'rgb(0,255,128)'",
+            "'rgb(255,128,0)'",
+            "'rgb(128,64,0)'",
+            "'rgb(0,128,64)'",
+            "'rgb(64,0,128)'",
+            "'rgb(0,0,0)'",
+            );
+
+        for($i = 0; $i < sizeof($service->categories); $i++) {
+
+            if($startDate != null){
+                $service->reloadAccountings($service->repo->getAccountingsByCategoryBetweenDates($service->user->getUserID(), $service->categories[$i]->getId(), $startDate, $endDate));
+            } else{
+                $service->reloadAccountings($service->repo->getAccountingsByCategory($service->user->getUserID(), $service->categories[$i]->getId()));
             }
+            $names[$i] = $service->categories[$i]->getName();
+            $costs[$i] = abs($service->getCostsFromAll());
 
+            if($i == sizeof($service->categories)-1){
 
+                if($startDate != null){
+                    $service->reloadAccountings($service->repo->getAccountingsByCategoryBetweenDates($service->user->getUserID(), 0, $startDate, $endDate));
+                } else{
+                    $service->reloadAccountings($service->repo->getAccountingsByCategory($service->user->getUserID(), 0));
+                }
+                $names[$i + 1] = 'Nicht zugeordnet';
+                $costs[$i + 1] = abs($service->getCostsFromAll());
+            }
+        }
 
-        for($i = 0; $i < sizeof($service->accountings); $i++) {
+        for($i = 0; $i < sizeof($service->categories) + 1; $i++) {
 
-            if($values[$i] != null){
-                $catName = $service->repo->getCategoryByID($i)['Name'];
+            if($costs[$i] != 0){
 
                 echo "{
-                        label: $catName,
-                        backgroundColor: ['rgb(255,99,71)'],
-                        data: [$values[$i]]
+                        label: '$names[$i]',
+                        backgroundColor: [$colors[$ccount]],
+                        data: [$costs[$i]]
                       },";
+                $ccount = ($ccount == 12 ? 0 : $ccount + 1);
             }
         }
         echo <<< chartjs
@@ -154,11 +188,11 @@
                             }
                         }
                     }
-                });
-            </script>
+                });</script>
 chartjs;
             printFooter();
         ?>
+
         <script src="../js/timespanDropdown.js"></script>
         <script src="../js/frontend.js"></script>
 
