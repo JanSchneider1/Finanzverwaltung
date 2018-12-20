@@ -15,7 +15,7 @@ if(isset($_POST["login"])){
 
         $_SESSION["userId"] = $repository->getUserWithMail($_POST["email"])["UserID"];
         $_SESSION["email"] = $repository->getUserWithMail($_POST["email"])["Mail"];
-        echo "<script type='text/javascript'>location.href = 'changeEmail.php'</script>";
+        header('Location: ../sites/home.php');
     }
     else{
         $error = "<br><div class='alert alert-danger' role='alert'>Die Kombination aus Mail und Passwort ist nicht korrekt.</div>";

@@ -28,7 +28,9 @@ Footer;
 }
 
 function printHeader(){
-
+    $namespace = new Repository();
+    $namespace->init();
+    $user = $namespace->getUserWithMail($_SESSION["email"])["Firstname"]." ".$namespace->getUserWithMail($_SESSION["email"])["Lastname"];
     echo <<< Header
         <nav class="header navbar navbar-expand-sm">
           <div class="collapse navbar-collapse">
@@ -57,12 +59,9 @@ function printHeader(){
               </li>
             </ul>
           </div>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right"> 
             <li>
-                <span class="navbar-text" style="color: white">Eingeloggt als:</span>
-            </li>   
-            <li>
-                <a class="nav-link" href="#"><span>$user</span> <span class="fas fa-cog"></span></a>
+                <a class="nav-link" href="#"><span> Eingeloggt als $user</span> <span class="fas fa-cog"></span></a>
             </li>
             <li>
                 <a class="nav-link" href="../ressources/logout.php"><button class="nav-link btn btn-dark hvr-shutter-out-horizontal" style="color: white">Ausloggen</button></a>
