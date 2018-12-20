@@ -22,11 +22,17 @@
   <link rel="stylesheet" href="../css/assets/hover-min.css">
   <link rel="stylesheet/less" type="text/css" href="../css/general.less">
 
+  <!-- Get the LESS color attribute -->
+  <span id="backgroundColor" class="background" style="background-color: #17191c"></span>
+
   <!-- LESS -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 
   <!-- ChartJS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+  <!-- Color-Generator -->
+  <script src="../js/colorgenerator.js"></script>
 
   <!-- PHP Includes -->
     <?php
@@ -42,7 +48,7 @@
     ?>
 
 </head>
-<body>
+<body class="background">
 
 <!-- Analytics JS -->
 <script src="../js/analytics.js"></script>
@@ -90,7 +96,6 @@ echo <<< cache
 <script>
   var income = $income;
   var costs = $costs;
-  var names = $names;
   var labels = $labels;
   var colorsNegative = $colorsNegative;
   var colorsPositive = $colorsPositive;
