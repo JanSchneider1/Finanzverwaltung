@@ -12,6 +12,8 @@ require_once __dir__."/../ressources/Repository.php";
 $repository = new Repository();
 $repository->init();
 
+setRedirect();
+
 if(isset($_POST["deleteUser"])){
     if ($repository->checkPassword($_POST["email"], $_POST["password"]) && $repository->getUserWithMail($_POST["email"])["UserID"]==$_SESSION["userId"]){
         $repository->deleteUser($_SESSION["userId"]);

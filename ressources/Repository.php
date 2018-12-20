@@ -518,6 +518,19 @@ class Repository {
         $stmt->bind_param("ii", $accountingID, $fixumID);
         $stmt->execute();
     }
+
+    /** Returns an array that contains accounting data arrays
+     * accountings where generetad by fixa
+     * @param $userID
+     * @return mixed
+     */
+    function getAccountingsFromFixa($userID){
+
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND AccountingID IN (SELECT AccountingID FROM accounting_fixum);");
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
 }
 
 //-----------Tests----------------
@@ -560,3 +573,4 @@ class Repository {
 //$Repo->alterUserPassword(7, 'pass');
 //$Repo->alterUserMail(1, 'derFlo@mail.de');
 //$Repo->relateFixumAccounting(1, 1);
+//var_dump($Repo->getAccountingsFromFixa(1));

@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿<?php
+include __DIR__ . "/../ressources/ContentService.php";
+include __DIR__ . "/../ressources/util.php";
+include __DIR__ . "/../ressources/templates.php";
+$service = new ContentService('derflo@mail.de');
+session_start();
+setRedirect();
+?>
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
@@ -27,11 +35,6 @@
 
   <!-- PHP Includes -->
     <?php
-    include __DIR__ . "/../ressources/ContentService.php";
-    include __DIR__ . "/../ressources/util.php";
-    include __DIR__ . "/../ressources/templates.php";
-    $service = new ContentService('derflo@mail.de');
-
     $startDate = null;
     $endDate = null;
     $categoryID = null;

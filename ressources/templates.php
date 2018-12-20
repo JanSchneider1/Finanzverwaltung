@@ -16,14 +16,18 @@ function printFooter(){
 Footer;
 }
 
-function printHeader(){
+function setRedirect(){
     if ($_SESSION["userId"])
     {
         $user=$_SESSION["userId"];
     }
     else {
-        echo "<script type='text/javascript'>location.href = 'login.php'</script>";
+        header('Location: ../sites/login.php');
     }
+}
+
+function printHeader(){
+
     echo <<< Header
         <nav class="header navbar navbar-expand-sm">
           <div class="collapse navbar-collapse">

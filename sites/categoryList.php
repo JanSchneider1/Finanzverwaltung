@@ -1,3 +1,11 @@
+<?php
+include __DIR__ . "/../ressources/ContentService.php";
+include __DIR__ . "/../ressources/util.php";
+include __DIR__ . "/../ressources/templates.php";
+$service = new ContentService('derflo@mail.de');
+session_start();
+setRedirect();
+?>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -21,12 +29,6 @@
 
   <!-- LESS -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
-    <?php
-        include __DIR__ . "/../ressources/ContentService.php";
-        include __DIR__ . "/../ressources/util.php";
-        include __DIR__ . "/../ressources/templates.php";
-        $service = new ContentService('derflo@mail.de');
-    ?>
 </head>
 <body class="background">
 <!-- Header -->
