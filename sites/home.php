@@ -37,12 +37,15 @@ $service = new ContentService($_SESSION["email"]);
     <header>
          <!-- Header -->
         <?php printHeader(); ?>
+    </header>
+
+    <body>
         <!-- Title -->
         <br/>
         <h1 class="title">Willkommen</h1>
         <br/>
 
-        <div class="row">
+        <div class="row" style="margin: 0px;">
 
             <div class="container col-lg-4" style="border: white 3px solid;  padding: 0px; background-color: #2F323A">
                 <table class="table table-hover table-dark" style="margin: 0px;">
@@ -90,10 +93,6 @@ $service = new ContentService($_SESSION["email"]);
             </div>
 
         </div>
-
-    </header>
-
-    <body>
 
     </body>
 
