@@ -7,7 +7,6 @@
  */
 
 function printFooter(){
-
     echo <<< Footer
             <div class="footer title" style="text-align: center;">
               <a href="#">Impressum</a><br/>
@@ -18,7 +17,14 @@ Footer;
 }
 
 function printHeader(){
-    $user=$_SESSION["userId"];
+    session_start();
+    if ($_SESSION["userId"])
+    {
+        $user=$_SESSION["userId"];
+    }
+    else {
+        echo "<script type='text/javascript'>location.href = 'login.php'</script>";
+    }
     echo <<< Header
         <nav class="header navbar navbar-expand-sm">
           <div class="collapse navbar-collapse">
@@ -48,7 +54,7 @@ function printHeader(){
             </ul>
           </div>
           <ul class="nav navbar-nav navbar-right">
-            <li></li>
+            <li>
                 <span class="navbar-text" style="color: white">Eingeloggt als:</span>
             </li>   
             <li>

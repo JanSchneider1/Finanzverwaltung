@@ -5,8 +5,6 @@
  * Date: 12.12.2018
  * Time: 14:47
  */
-
-session_start();
 include __dir__."/../ressources/templates.php";
 require_once __dir__."/../ressources/Repository.php";
 

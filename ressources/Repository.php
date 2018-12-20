@@ -463,13 +463,10 @@ class Repository {
 
             $hash = $stmt->get_result()->fetch_array(MYSQLI_ASSOC)['Password'];
             if (!password_verify($pass, $hash)) {
-                echo "falsches passwort";
                 return false;
             }
-            echo "Eingeloggt";
             return true;
         }
-        echo "Existiert nicht";
         return false;
     }
 
