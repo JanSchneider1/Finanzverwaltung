@@ -149,11 +149,11 @@ $service = new ContentService($_SESSION["email"]);
                     data: {
                         datasets: [
                           {
-                            label: 'Einnahmen',
+                            label: 'Einnahmen diesen Monats',
                             backgroundColor: ['rgb(0,255,0)'],
                             data: [$in]
                           },{
-                            label: 'Ausgaben',
+                            label: 'Ausgaben diesen Monats',
                             backgroundColor: ['rgb(255,0,0)'],
                             data: [$out]
                           }]
@@ -171,7 +171,7 @@ $service = new ContentService($_SESSION["email"]);
                             padding: {
                                 left: 0,
                                 right: 0,
-                                top: 20,
+                                top: 0,
                                 bottom: 0,
                             }
                         }, 
