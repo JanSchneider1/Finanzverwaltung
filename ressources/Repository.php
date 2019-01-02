@@ -62,7 +62,7 @@ class Repository {
      */
     function getDaysTotalBetweenAccountings($userID){
 
-        $stmt = mysqli_prepare($this->con, "SELECT datediff((SELECT MAX(Date) FROM accounting WHERE UserID = ?), (SELECT MIN(Date) FROM accounting WHERE UserID = ?)) AS Days FROM Accounting;");
+        $stmt = mysqli_prepare($this->con, "SELECT DISTINCT datediff((SELECT MAX(Date) FROM accounting WHERE UserID = ?), (SELECT MIN(Date) FROM accounting WHERE UserID = ?)) AS Days FROM Accounting;");
         $stmt->bind_param("ii", $userID, $userID);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);

@@ -57,7 +57,7 @@ if(isset($_POST["deleteUser"])){
     <script type="text/javascript" src="../js/form.js"></script>
 </head>
 
-<body style="background-color: #000000;">
+<body class="background">
 <?php printheader();?>
 
 <div class="card mx-auto" style="width: 50%; background-color: #333333;">

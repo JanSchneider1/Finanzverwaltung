@@ -51,12 +51,14 @@ if (isset($_POST["changePassword"])) {
 
     <!-- LESS -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+    <!-- Glyphicons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
 
     <title>Passwort ändern</title>
     <script type="text/javascript" src="../js/form.js"></script>
 </head>
 
-<body style="background-color: #000000;">
+<body class="background">
 <?php printheader();?>
 
 <div class="card mx-auto" style="width: 50%; background-color: #333333;">

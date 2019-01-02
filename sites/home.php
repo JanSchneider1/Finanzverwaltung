@@ -101,8 +101,9 @@ $service = new ContentService($_SESSION["email"]);
 
             <div class="conatiner col-lg-4" style="border: white 3px solid; padding: 0px; background-color: #212529; margin: auto;">
                 <?php
+
                     $service->reloadAccountings($service->repo->getAccountingsByUser($service->user->getUserID()));
-                    $day = abs($service->getCostsFromAll() /(float)$service->repo->getDaysTotalBetweenAccountings($service->user->getUserID()[0]["Days"]));
+                    $day = round(abs($service->getCostsFromAll() /(float)$service->repo->getDaysTotalBetweenAccountings($service->user->getUserID())[0]["Days"]), 2);
                     $week = $day * 7;
                     $month = $week * 4;
 
