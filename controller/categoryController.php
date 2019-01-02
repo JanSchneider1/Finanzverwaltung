@@ -44,7 +44,7 @@ else if($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $service->repo->deleteCategory($id);
 }
 //PUT REQUEST
-else if($SERVER['REQUEST_METHOD'] == 'PUT') {
+else if($_SERVER['REQUEST_METHOD'] == 'PUT') {
 
     //Get URL
     $url = $_SERVER['REQUEST_URI'];
