@@ -46,6 +46,7 @@ $service = new ContentService($_SESSION["email"]);
         <!-- Title -->
         <br/>
         <h1 class="title">Willkommen</h1>
+        <div style="text-align: center"><a href="anleitung.html">Anleitung</a></div>
         <br/>
 
         <div class="row" style="margin: 0px;">
@@ -171,7 +172,7 @@ $service = new ContentService($_SESSION["email"]);
                             padding: {
                                 left: 0,
                                 right: 0,
-                                top: 0,
+                                top: 10,
                                 bottom: 0,
                             }
                         }, 
