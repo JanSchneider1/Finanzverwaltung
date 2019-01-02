@@ -32,6 +32,9 @@ $service = new ContentService($_SESSION["email"]);
 
         <!-- LESS -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+        <!-- ChartJS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
     </head>
 
     <header>
@@ -46,7 +49,6 @@ $service = new ContentService($_SESSION["email"]);
         <br/>
 
         <div class="row" style="margin: 0px;">
-
             <div class="container col-lg-4" style="border: white 3px solid;  padding: 0px; background-color: #2F323A">
                 <table class="table table-hover table-dark" style="margin: 0px;">
                     <thead>
@@ -57,11 +59,11 @@ $service = new ContentService($_SESSION["email"]);
                     <tbody>
                         <?php
                             if(sizeof($service->accountings) == 0){
-                                echo "<tr><td style='text-align: center'>Noch keine Buchungen</td></tr>";
+                                echo "<tr><td style='text-align: center'>Noch keine Buchungen erstellt</td></tr>";
                             } else {
                                 for ($i = 0; $i < (sizeof($service->accountings) > 5 ? 5 : sizeof($service->accountings)); $i++) {
                                     $color = getValueColor($service->accountings[sizeof($service->accountings) - ($i + 1)]->getIsPositive());
-                                    echo "<tr><td style='width: 40%'>" . $service->accountings[sizeof($service->accountings) - ($i + 1)]->getDate() . "</td><td style='text-align: left'>" . $service->accountings[sizeof($service->accountings) - ($i + 1)]->getName() . "</td><td class='$color'>" . $service->accountings[sizeof($service->accountings) - ($i + 1)]->getValue() . "</td></tr>";
+                                    echo "<tr><td style='width: 40%'>" . $service->accountings[sizeof($service->accountings) - ($i + 1)]->getDate() . "</td><td style='text-align: left'>" . $service->accountings[sizeof($service->accountings) - ($i + 1)]->getName() . "</td><td class='$color'>" . convertValue(abs($service->accountings[sizeof($service->accountings) - ($i + 1)]->getValue()), $service->accountings[sizeof($service->accountings) - ($i + 1)]->getIsPositive()) . "</td></tr>";
                                 }
                             }
                         ?>
@@ -84,16 +86,105 @@ $service = new ContentService($_SESSION["email"]);
                             } else {
                                 for ($i = 0; $i < (sizeof($service->accountings) > 5 ? 5 : sizeof($service->accountings)); $i++) {
                                     $color = getValueColor($service->accountings[sizeof($service->accountings) - ($i + 1)]->getIsPositive());
-                                    echo "<tr><td style='width: 40%'>" . $service->accountings[sizeof($service->accountings) - ($i + 1)]->getDate() . "</td><td style='text-align: left'>" . $service->accountings[sizeof($service->accountings) - ($i + 1)]->getName() . "</td><td class='$color'>" . $service->accountings[sizeof($service->accountings) - ($i + 1)]->getValue() . "</td></tr>";
+                                    echo "<tr><td style='width: 40%'>" . $service->accountings[sizeof($service->accountings) - ($i + 1)]->getDate() . "</td><td style='text-align: left'>" . $service->accountings[sizeof($service->accountings) - ($i + 1)]->getName() . "</td><td class='$color'>" . convertValue(abs($service->accountings[sizeof($service->accountings) - ($i + 1)]->getValue()), $service->accountings[sizeof($service->accountings) - ($i + 1)]->getIsPositive()) . "</td></tr>";
                                 }
                             }
                         ?>
                     </tbody>
                 </table>
             </div>
+        </div>
 
+        <br/>
+
+        <div class="row" style="margin: 0px;">
+
+            <div class="conatiner col-lg-4" style="border: white 3px solid; padding: 0px; background-color: #212529; margin: auto;">
+                <?php
+                    $service->reloadAccountings($service->repo->getAccountingsByUser($service->user->getUserID()));
+                    $day = abs($service->getCostsFromAll() /(float)$service->repo->getDaysTotalBetweenAccountings($service->user->getUserID()[0]["Days"]));
+                    $week = $day * 7;
+                    $month = $week * 4;
+
+                    echo "  <div class='row' style='margin: 10px;'>
+                                <h3 class='col-lg-12' style='color: white; text-align: center;'>Durchschnittliche Ausgaben</h3>
+                            </div>
+                            <div class='row' style='margin: 10px;'>
+                                <h2 class='col-lg-12' style='color: white; text-align: left;'>$day €/Tag</h2>
+                            </div>
+                            <div class='row' style='margin: 10px;'>
+                                <h2 class='col-lg-12' style='color: white; text-align: center;'>$week €/Woche</h2>
+                            </div>
+                            <div class='row' style='margin: 10px;'>
+                                <h2 class='col-lg-12'style='color: white; text-align: right;'>$month €/Monat</h2>
+                            </div>";
+                ?>
+            </div>
+
+            <div class="conatiner col-lg-4" style="border: white 3px solid; padding: 0px; background-color: #212529; margin: auto; height: 230px">
+                <canvas id="chart" style="height: 250px;"></canvas>
+            </div>
         </div>
 
     </body>
+
+    <br/>
+    <footer>
+        <?php
+
+        $startDate = new DateTime('first day of this month');
+        $endDate = new DateTime('last day of this month');
+        $service->reloadAccountings($service->repo->getAccountingsBetweenDates($service->user->getUserID(), $startDate->format("y-m-d"), $endDate->format("y-m-d")));
+        $out = abs($service->getCostsFromAll());
+        $in = $service->getIncomeFromAll();
+
+        echo <<< chartjs
+            <script type='text/javascript'>
+                    var ctx = $('#chart');
+                    var chart = new Chart(ctx, {
+
+                    type: 'horizontalBar',
+                    
+                    data: {
+                        datasets: [
+                          {
+                            label: 'Einnahmen',
+                            backgroundColor: ['rgb(0,255,0)'],
+                            data: [$in]
+                          },{
+                            label: 'Ausgaben',
+                            backgroundColor: ['rgb(255,0,0)'],
+                            data: [$out]
+                          }]
+                      },
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                }
+                            }]
+                        },
+
+                        layout: {
+                            padding: {
+                                left: 0,
+                                right: 0,
+                                top: 20,
+                                bottom: 0,
+                            }
+                        }, 
+                        legend: {
+                            labels: {
+                                fontColor: 'white',
+                                fontFamily: 'Segoe UI',
+                            }
+                        }
+                    }
+                });</script>
+chartjs;
+        printFooter();
+        ?>
+    </footer>
 
 </html>

@@ -32,6 +32,10 @@ class Repository {
         return true;
     }
 
+    /**
+     * @param $categoryID
+     * @return mixed
+     */
     function getCategoryByID($categoryID) {
 
         $stmt = mysqli_prepare($this->con, "SELECT * FROM Category WHERE CategoryID = ?;");
@@ -48,6 +52,18 @@ class Repository {
 
         $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ?;");
         $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /** Returns the Number of Days between the first and the last accounting
+     * @param $userID
+     * @return mixed
+     */
+    function getDaysTotalBetweenAccountings($userID){
+
+        $stmt = mysqli_prepare($this->con, "SELECT datediff((SELECT MAX(Date) FROM accounting WHERE UserID = ?), (SELECT MIN(Date) FROM accounting WHERE UserID = ?)) AS Days FROM Accounting;");
+        $stmt->bind_param("ii", $userID, $userID);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
@@ -574,3 +590,4 @@ class Repository {
 //$Repo->alterUserMail(1, 'derFlo@mail.de');
 //$Repo->relateFixumAccounting(1, 1);
 //var_dump($Repo->getAccountingsFromFixa(1));
+//var_dump($Repo->getDaysTotalBetweenAccountings(1));

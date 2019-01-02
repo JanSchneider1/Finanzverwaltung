@@ -61,7 +61,7 @@ function printHeader(){
           </div>
           <ul class="nav navbar-nav navbar-right"> 
             <li>
-                <a class="nav-link" href="../sites/changeEmail.php"><span> Eingeloggt als $user</span> <span class="fas fa-cog"></span></a>
+                <a class="nav-link" href="../sites/changeEmail.php" style="margin-top: 10px;">Eingeloggt als<span style="color: lightskyblue;"> $user</span> <span class="fas fa-cog" style="color: dodgerblue;"></span></a>
             </li>
             <li>
                 <a class="nav-link" href="../ressources/logout.php"><button class="nav-link btn btn-dark hvr-shutter-out-horizontal" style="color: white">Ausloggen</button></a>
