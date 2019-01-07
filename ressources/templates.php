@@ -52,7 +52,7 @@ function printHeader(){
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                       <li><a class="dropdown-item effect-underline" href="../sites/analyticBars.php">Balken</a></li>
                       <li><a class="dropdown-item effect-underline" href="../sites/analyticDoughnut.php">Kreis</a></li>
-                      <li><a class="dropdown-item effect-underline">Kalender</a></li>
+                      <li><a class="dropdown-item effect-underline" href="../sites/analyticCalendar.php">Kalender</a></li>
                       <li><a class="dropdown-item effect-underline">Graph</a></li>
                     </ul>
                   </div>
