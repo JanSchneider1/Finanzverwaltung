@@ -121,8 +121,79 @@ $service = new ContentService($_SESSION["email"]);
         </form>
     </div>
 
+
     <div>
-        <div class="container" style="text-align: center; padding-top: 10px; background-color: #212529;">
+        <div class="container" style="text-align: center; padding: 5px; background-color: #212529; color: black;">
+
+            <table class="table table-hover table-dark table-bordered">
+                <thead>
+                    <tr>
+                        <th>Mo</th>
+                        <th>Di</th>
+                        <th>Mi</th>
+                        <th>Do</th>
+                        <th>Fr</th>
+                        <th>Sa</th>
+                        <th>So</th>
+                    </tr>
+                </thead>
+                <tbody style="color: black; font-size: 30px;">
+                    <?php
+
+                        $costs = array();
+                        $sum = 0;
+                        $colors = [
+                                0 => "#31343b",
+                                1 => "#008000",
+                                2 => "#8bc000",
+                                3 => "#ffec00",
+                                4 => "#e59a00",
+                                5 => "#e53e00",
+                        ];
+
+                        $color;
+                        $first = $startDate->format("w");
+                        $now = new DateTime();
+                        $last = ($lastDate < $now ? $lastDate->format("d") : $now->format("d"));
+
+                        for($i = clone $startDate; $i <= $lastDate; $i->modify("+1 day")){
+                            $service->reloadAccountings($service->repo->getAccountingsBetweenDates($service->user->getUserID(),$i->format("Y-m-d"),$i->format("Y-m-d")));
+                            array_push($costs, abs($service->getCostsFromAll()));
+                            $sum += abs($service->getCostsFromAll());
+                        }
+                        @$percent = 100 / $sum;
+                        for($i = 0; $i < 35; $i++){
+                            $color = 1;
+
+                            if($i % 7 == 0){
+                                echo "<tr style='height: 70px;'>";
+                            }
+
+                            if($i + 1 < $first || $i > $last){
+                                echo "<td style='background-color: $colors[0]'></td>";
+                            }
+                            else{
+                                if($costs[$i - $first + 1] != 0){
+                                    $percentage = $costs[$i - $first + 1] * $percent;
+                                    for($x = 20; $x <= 100; $x += 20){
+                                        if($percentage < $x){
+                                            break;
+                                        }
+                                        $color++;
+                                    }
+                                } else{
+                                    $color = 1;
+                                }
+                                echo "<td style='background-color: $colors[$color]; border: lightgray 2px solid; z-index: 10;'>";
+                                echo ($costs[$i - $first + 1] != 0 ? ("- ".$costs[$i - $first + 1]." €") : "")."</td>";
+                            }
+
+                            if($i % 7 == 6){
+                                echo "</tr>";
+                            }
+                        }
+                    ?>
+            </table>
 
         </div>
     </div>
