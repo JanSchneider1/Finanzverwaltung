@@ -180,7 +180,6 @@ class ContentService
                             $this->repo->createAccountingForUser($this->user->getUserID(), $fixum->getName(), $fixum->getValue(), $fixum->getIsPositive(), $date, $fixum->getCategoryID());
                             $this->repo->relateFixumAccounting($this->repo->getLatestAccountingByUser($this->user->getUserID())['AccountingID'], $fixum->getFixumID());
                         }
-                        var_dump($lastDT);
                         $this->repo->alterFixumLastUsedDate($fixum->getFixumID(), $last);
                     }
                 }
