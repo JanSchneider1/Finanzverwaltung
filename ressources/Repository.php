@@ -223,6 +223,19 @@ class Repository {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0]['Min'];
     }
 
+    /** Returns all accountings of an user dated before the given date, excluding those dated at the given date
+     *@param $userID
+     *@param $date
+     *@return mixed
+     */
+    function getAccountingsBeforeDate($userID, $date) {
+
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND Date < ?;");
+        $stmt->bind_param("is", $userID, $date);
+        $stmt ->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
     /** Creates a new Accounting
      * Returns true on success, false on failure
      * @param $userID
@@ -591,3 +604,4 @@ class Repository {
 //$Repo->relateFixumAccounting(1, 1);
 //var_dump($Repo->getAccountingsFromFixa(1));
 //var_dump($Repo->getDaysTotalBetweenAccountings(1));
+//var_dump($Repo->getAccountingsBeforeDate(1,'2018-01-13'));
