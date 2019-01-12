@@ -139,7 +139,7 @@ class ContentService
                     $lastDT = new DateTime($fixum->getLastUsedDate());
                 }
                 //wenn startdatum in der Vergangenheit & Frequenz des fixums durchlaufen ist
-                if (!date_diff($start, $now)->invert && $this->didFrequency($fixum)) {
+                if (!date_diff($start, $now)->invert && $this->didFrequency($fixum) || !date_diff($start, $now)->invert && $fixum->getLastUsedDate() == null) {
 
                     //liste aus zu erzeugenden datum generiern
                     switch ($fixum->getFrequency()) {
