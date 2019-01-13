@@ -14,7 +14,7 @@ session_start();
 setRedirect();
 $service = new ContentService($_SESSION["email"]);
 ?>
-<!DOCTYPE 'html'>
+<!DOCTYPE html>
 <html lang='en' xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>PHP-Projekt</title>
@@ -35,18 +35,56 @@ $service = new ContentService($_SESSION["email"]);
     <link rel="stylesheet" href="../css/assets/texteffects.css">
     <link rel="stylesheet" href="../css/assets/hover-min.css">
     <link rel="stylesheet/less" type="text/css" href="../css/general.less">
+
+    !-- LESS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+
+    <!-- ChartJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
 </head>
-<header>
-    <?php printHeader(); ?>
-</header>
 <body>
+<header>
+<?php printHeader(); ?>
+</header>
     <div style="color:white">
         <canvas id='analyticGraphCanvas'></canvas>
     </div>
-</body>
 <footer>
-    <?php printFooter();
-    echo <<< ChartJS
+<?php printFooter();
+    $startDate = '2019-01-10';
+    $endDate = '2019-12-12';
+    $unit = 'day';
+    //calculate the budget to begin of specified time to display
+    $budget = 0;
+    $service->reloadAccountings($service->repo->getAccountingsBeforeDate($service->user->getUserID(),$startDate));
+    foreach($service->accountings as $accounting)
+    {
+            $budget += $accounting->getValue();
+    };
+    $service->reloadAccountings($service->repo->getAccountingsBetweenDates(1,$startDate, $endDate));
+    $dates = array();
+    $data = array();
+    $zaehler = 0;
+    $currentDate = $service->accountings[0]->getDate();
+    $currentDateTotal = 0;
+    foreach($service->accountings as $accounting)
+    {
+        if($currentDate != $accounting->getDate())
+        {
+            $dates[$zaehler] = $currentDate;
+            $budget += $currentDateTotal;
+            $data[$zaehler] = "{x: $currentDate, y: $budget},";
+            $currentDate = $accounting->getDate();
+            $currentDateTotal = 0;
+            ++$zaehler;
+        }
+        $currentDateTotal += $accounting->getValue();
+    }
+    $dates[$zaehler] = $currentDate;
+    $budget += $currentDateTotal;
+    $data[$zaehler] = "{x: $currentDate, y: $budget},";
+
+echo <<< ChartJS
     <script>
         var ctx = document.getElementById('analyticGraphCanvas').getContext('2d');
         var analyticLineGraph = new Chart(ctx,
@@ -54,7 +92,18 @@ $service = new ContentService($_SESSION["email"]);
             type: 'line',
             data:
             {
-                labels: ['2017 - 11 - 01', '2017 - 12 - 01', '2018 - 01 - 01', '2018 - 02 - 01', '2018 - 03 - 01'],
+                labels: [
+ChartJS;
+
+    //Filling labels[] with distinct dates of changes in budget
+    foreach($dates as $dateEntry)
+    {
+        echo "'$dateEntry', ";
+    }
+
+
+    echo
+    "],
                 datasets:
                 [
                     {
@@ -62,41 +111,13 @@ $service = new ContentService($_SESSION["email"]);
                         fill: false,
                         borderColor: 'rgb(255,255,255)',
                             data:
-                                [
-ChartJS;
+                                [";
 
-    $startDate = '2019-01-10';
-    $endDate = '2019-01-13';
-    //calculate the budget to begin of specified time to display
-        $budget = 0;
-        $service->reloadAccountings($service->repo->getAccountingsBeforeDate($service->user->getUserID(),$endDate));
-        foreach($service->accountings as $accounting)
-        {
-            if($accounting->getIsPositive() == 1) {
-                $budget += $accounting->getValue();
-            }
-            else
-            {
-                $budget -= $accounting->getValue();
-            }
-        };
-
-        //create the data to bei inserted into the graph by getting the date of the accounting and the budget after the accounting was added
-        $service->reloadAccountings($service->repo->getAccountingsBetweenDates(1,$startDate, $endDate));
-        foreach($service->accountings as $accounting)
-        {
-            $date = $accounting->getDate();
-            //
-            if($accounting->getIsPositive() == 1) {
-                $budget += $accounting->getValue();
-            }
-            else
-            {
-                $budget -= $accounting->getValue();
-            }
-            //
-            echo "{x: $date, y: $budget},";
-        }
+    //Filling data[] with the specific date and the budget the user had that date, after calculating in all the accountings from that date
+    foreach($data as $dataEntry)
+    {
+        echo $dataEntry;
+    }
 
     echo <<< ChartJS
                                 ],
@@ -106,37 +127,13 @@ ChartJS;
             },
             options:
             {
-                scales:
-                {
-                    xAxes:
-                    [
-                        {
-
-                            type: 'time',
-                            time:
-                            {
-                                unit: 'month'
-                            }
-                        }
-                    ],
-                    yAxes:
-                    [
-                            {
-                                type: 'linear',
-                                ticks:
-                                {
-                                    beginAtZero: true
-                                }
-                            }
-                    ]
-                }
+               
             }
         }
         );
     </script>
-
 ChartJS;
-
-    ?>
+?>
 </footer>
+</body>
 </html>
