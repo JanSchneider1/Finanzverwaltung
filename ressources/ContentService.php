@@ -219,23 +219,6 @@ class ContentService
         }
         return $value;
     }
-
-    function getDistinctDateArray()
-    {
-        $dates = array();
-        $currentDate = '';
-        $zaehler = 0;
-        foreach($this->accountings as $accounting)
-        {
-            if($accounting->getDate() != $currentDate)
-            {
-                $currentDate = $accounting->getDate();
-                $dates[$zaehler] =  $currentDate;
-                ++$zaehler;
-            }
-        }
-        return $dates;
-    }
 }
 /*$cs = new ContentService('derflo@mail.de');
 //$cs->generateAccountingsFromFixa();
