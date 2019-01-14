@@ -112,8 +112,6 @@ $service = new ContentService($_SESSION["email"]);
 </div>
 <footer>
 <?php printFooter();
-var_dump($startDate);
-var_dump($endDate);
     $service->reloadAccountings($service->repo->getAccountingsBetweenDates(1,$startDate, $endDate));
     if($service->accountings != null)
     {
@@ -137,7 +135,7 @@ var_dump($endDate);
         $budget += $currentDateTotal;
         $data[$zaehler] = "{x: $currentDate, y: $budget},";
     }
-echo <<< ChartJS
+    echo <<< ChartJS
     <script>
         var ctx = $('#outChart');
         var analyticLineGraph = new Chart(ctx,
@@ -149,11 +147,13 @@ echo <<< ChartJS
 ChartJS;
 
     //Filling labels[] with distinct dates of changes in budget
-    foreach($dates as $dateEntry)
+    if($service->accountings != null)
     {
-        echo "'$dateEntry', ";
+        foreach ($dates as $dateEntry)
+        {
+            echo "'$dateEntry', ";
+        }
     }
-
 
     echo
     "],
@@ -167,9 +167,12 @@ ChartJS;
                                 [";
 
     //Filling data[] with the specific date and the budget the user had that date, after calculating in all the accountings from that date
-    foreach($data as $dataEntry)
+    if($service->accountings != null)
     {
-        echo $dataEntry;
+        foreach ($data as $dataEntry)
+        {
+            echo $dataEntry;
+        }
     }
 
     echo <<< ChartJS
