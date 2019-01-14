@@ -112,7 +112,7 @@ $service = new ContentService($_SESSION["email"]);
 </div>
 <footer>
 <?php printFooter();
-    $service->reloadAccountings($service->repo->getAccountingsBetweenDates(1,$startDate, $endDate));
+    $service->reloadAccountings($service->repo->getAccountingsBetweenDates($service->user->getUserID(),$startDate, $endDate));
     if($service->accountings != null)
     {
         $dates = array();
