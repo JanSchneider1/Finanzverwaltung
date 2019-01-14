@@ -48,15 +48,15 @@ function printHeader(){
                 <a class="nav-link hvr-underline-from-center" style="color: white ;margin-left: 30px;" href="../sites/fixumList.php">Fixa</a>
               </li>
               <li class="nav-item">
-                  <div class="dropdown btn" style="margin-left: 30px;" >
-                    <button class="hvr-grow btn" type="button" value="Alle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Analyse</button>
+                  <span class="dropdown" style="margin-left: 30px;" >
+                    <span class="nav-link hvr-underline-from-center" value="Alle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Analyse</span>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                       <li><a class="dropdown-item effect-underline" href="../sites/analyticBars.php">Balken</a></li>
                       <li><a class="dropdown-item effect-underline" href="../sites/analyticDoughnut.php">Kreis</a></li>
                       <li><a class="dropdown-item effect-underline" href="../sites/analyticCalendar.php">Kalender</a></li>
                       <li><a class="dropdown-item effect-underline" href="../sites/analyticGraph.php">Graph</a></li>
                     </ul>
-                  </div>
+                  </span>
               </li>
             </ul>
           </div>
