@@ -183,7 +183,7 @@ $service = new ContentService($_SESSION["email"]);
                                         $color++;
                                     }
                                 } else{
-                                    $color = 1;
+                                    $color = 0;
                                 }
                                 echo "<td style='background-color: $colors[$color]; border: lightgray 2px solid; z-index: 10;'>";
                                 echo ($costs[$i - $first + 1] != 0 ? ("- ".$costs[$i - $first + 1]." €") : "")."</td>";
