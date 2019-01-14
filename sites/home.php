@@ -130,7 +130,7 @@ $service = new ContentService($_SESSION["email"]);
 
     </body>
 
-    </br></br></br></br>
+    </br></br></br>
 
     <footer>
         <?php
