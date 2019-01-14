@@ -153,8 +153,8 @@ $service = new ContentService($_SESSION["email"]);
 
                         $color;
                         $first = $startDate->format("w");
+                        $last = $lastDate->format('d');
                         $now = new DateTime();
-                        $last = ($lastDate < $now ? $lastDate->format("d") : $now->format("d"));
 
                         for($i = clone $startDate; $i <= $lastDate; $i->modify("+1 day")){
                             $service->reloadAccountings($service->repo->getAccountingsBetweenDates($service->user->getUserID(),$i->format("Y-m-d"),$i->format("Y-m-d")));
@@ -162,20 +162,19 @@ $service = new ContentService($_SESSION["email"]);
                             $sum += abs($service->getCostsFromAll());
                         }
                         @$percent = 100 / $sum;
-                        for($i = 0; $i < 35; $i++){
+                        for($i = 0; $i < 42; $i++){
                             $color = 1;
 
                             if($i % 7 == 0){
                                 echo "<tr style='height: 70px;'>";
                             }
-
                             if($i + 1 < $first || $i > $last){
                                 echo "<td style='background-color: $colors[0]'></td>";
                             }
                             else{
-                                if($costs[$i - $first + 1] != 0){
+                                if($costs[$i - ($first -1)] != 0){
                                     $percentage = $costs[$i - $first + 1] * $percent;
-                                    for($x = 20; $x <= 100; $x += 20){
+                                    for($x = 20; $x < 100; $x += 20){
                                         if($percentage < $x){
                                             break;
                                         }
