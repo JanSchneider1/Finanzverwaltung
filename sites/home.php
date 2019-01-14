@@ -123,7 +123,7 @@ $service = new ContentService($_SESSION["email"]);
                 ?>
             </div>
 
-            <div class="conatiner col-lg-4" style="border: white 3px solid; padding: 0px; background-color: #212529; margin: auto; height: 230px">
+            <div class="conatiner col-lg-4" style="border: white 3px solid; padding: 0px; background-color: #212529; margin: auto; height: 285px">
                 <canvas id="chart" style="height: 250px;"></canvas>
             </div>
         </div>
