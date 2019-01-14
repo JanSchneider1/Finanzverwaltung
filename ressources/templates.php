@@ -41,6 +41,7 @@ function printHeader(){
               <li class="nav-item">
                 <a class="nav-link hvr-underline-from-center" style="color: white; margin-left: 30px;" href="../sites/accountingList.php">Buchungen</a>
               </li>
+              <li>
               <a class="nav-link hvr-underline-from-center" style="color: white ;margin-left: 30px;" href="../sites/categoryList.php">Kategorien</a>
               </li>
               <li class="nav-item">
@@ -68,6 +69,5 @@ function printHeader(){
             </li>
           </ul>
         </nav>
-        </div>
 Header;
 }
