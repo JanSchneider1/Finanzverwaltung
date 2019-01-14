@@ -3,7 +3,7 @@ function doughnut(canvasID, data, labels, colors){
     var chart = new Chart($('#' + canvasID), { type: 'doughnut',
         data: {
             datasets: [{
-                backgroundColor: colors,//randomColors(data.length),
+                backgroundColor: randomColors(data.length),
                 borderColor: $('#backgroundColor').css("background-color"),
                 borderWidth: 5,
                 data: data,
