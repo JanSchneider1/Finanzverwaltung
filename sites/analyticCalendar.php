@@ -152,9 +152,11 @@ $service = new ContentService($_SESSION["email"]);
                         ];
 
                         $color;
-                        $first = $startDate->format("w");
+                        $first = ($startDate->format("w") == 0 ? 7 : $startDate->format("w"));
                         $last = $lastDate->format('d');
                         $now = new DateTime();
+
+                        echo $first;
 
                         for($i = clone $startDate; $i <= $lastDate; $i->modify("+1 day")){
                             $service->reloadAccountings($service->repo->getAccountingsBetweenDates($service->user->getUserID(),$i->format("Y-m-d"),$i->format("Y-m-d")));
@@ -168,7 +170,7 @@ $service = new ContentService($_SESSION["email"]);
                             if($i % 7 == 0){
                                 echo "<tr style='height: 70px;'>";
                             }
-                            if($i + 1 < $first || $i > $last){
+                            if($i + 1 < $first || $i - $first + 2> $last){
                                 echo "<td style='background-color: $colors[0]'></td>";
                             }
                             else{
