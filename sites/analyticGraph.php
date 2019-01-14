@@ -36,7 +36,7 @@ $service = new ContentService($_SESSION["email"]);
     <link rel="stylesheet" href="../css/assets/hover-min.css">
     <link rel="stylesheet/less" type="text/css" href="../css/general.less">
 
-    !-- LESS -->
+    <!-- LESS -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 
     <!-- ChartJS -->
@@ -64,10 +64,10 @@ $service = new ContentService($_SESSION["email"]);
     }
     ?>
 </head>
-<body>
 <header>
-<?php printHeader(); ?>
+    <?php printHeader(); ?>
 </header>
+<body class="background">
 <!-- Filter -->
 <div class="container" style="padding-top: 20px">
     <table class="table table-hover table-dark">
