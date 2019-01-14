@@ -27,7 +27,7 @@ if (isset($_POST["register"]))
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <title>Register</title>
-    <script src="/../js/form.js"></script>
+    <script type="text/javascript" src="../js/form.js"></script>
     <script>
         function validPassword(password) {
             var re = new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$");

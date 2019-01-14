@@ -2,7 +2,11 @@
 
 //Setup
 require __DIR__ . "/../ressources/ContentService.php";
-$service = new ContentService('derflo@mail.de');
+session_start();
+if (!$_SESSION["userId"]) {
+    die;
+}
+$service = new ContentService($_SESSION["email"]);
 
 //POST REQUEST
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -33,8 +37,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($categoryID == '/'){ $categoryID = null;}
 
     //Try to add accounting with specific values
-    $service->repo->createAccountingForUser(1, $name, $value, $isPositive, $date, $categoryID);
-    $accounting = $service->repo->getLatestAccountingByUser(1);
+    $service->repo->createAccountingForUser($service->user->getUserID(), $name, $value, $isPositive, $date, $categoryID);
+    $accounting = $service->repo->getLatestAccountingByUser($service->user->getUserID());
 
     //Build response
     $categoryName = "/";

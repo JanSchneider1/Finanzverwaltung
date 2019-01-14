@@ -1,35 +1,30 @@
 <?php
+session_start();
 include __dir__."/../ressources/templates.php";
-include __dir__."/../ressources/Repository.php";
+require_once __dir__."/../ressources/Repository.php";
 $repository = new Repository();
 $repository->init();
+setRedirect();
 if(isset($_POST["changeEmail"])){
     if ($repository->checkPassword($_SESSION["email"], $_POST["password"])){
-        echo "<script type='text/javascript'>alert('Richtige Daten');</script>";
-
         if ($repository->getUserWithMail($_POST["newEmail"])) {
-            echo "<script type='text/javascript'>alert('Email wird bereits genutzt');</script>";
+            $error = "<br><div class='alert alert-danger' role='alert'>Diese Email ist bereits vergeben.</div>";
         }
         else {
             if ($_POST["newEmail"]==$_POST["newEmail2"]){
                 echo "<script type='text/javascript'>alert('Erfolgreich');</script>";
                 $repository->alterUserMail($_SESSION["userId"], $_POST["newEmail"]);
-                session_destroy();
-                echo "<script type='text/javascript'>location.href = 'login.php'</script>";
-                //ausgeloggt
+                header('Location: ../ressources/logout.php');
             }
             else{
-                echo "<script type='text/javascript'>alert('Emails nicht identisch');</script>";
+                $error = "<br><div class='alert alert-danger' role='alert'>Die Kombination aus Mail und Passwort ist nicht korrekt.</div>";
             }
         }
     }
     else {
-        echo "<script type='text/javascript'>alert('Falsche Daten');</script>";
-
+        $error = "<br><div class='alert alert-danger' role='alert'>Die Kombination aus Mail und Passwort ist nicht korrekt.</div>";
     }
 }
-
-
 /**
  * Created by IntelliJ IDEA.
  * User: caylak
@@ -41,21 +36,41 @@ if(isset($_POST["changeEmail"])){
 <!DOCTYPE html>
 <html>
 <head>
+
+
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <!-- Glyphicons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
+
+    <!-- My stylesheets -->
+    <link rel="stylesheet" href="../css/assets/texteffects.css">
+    <link rel="stylesheet" href="../css/assets/hover-min.css">
+    <link rel="stylesheet/less" type="text/css" href="../css/general.less">
+
+    <!-- LESS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+
     <title>Email ändern</title>
-    <script src="/../js/form.js"></script>
+    <script type="text/javascript" src="../js/form.js"></script>
 </head>
 
-<body style="background-color: #000000;">
+<body class="background">
 <?php printheader();?>
 
 <div class="card mx-auto" style="width: 50%; background-color: #333333;">
     <div class="card-body">
         <nav class="nav nav-pills nav-justified">
-            <a class="nav-item nav-link active" href="changeEmail.php" style="color: black;">Email ändern</a>
-            <a class="nav-item nav-link" href="changePassword.php" style="color: black;">Passwort ändern</a>
-            <a class="nav-item nav-link" href="deleteUser.php" style=" color: black;">Profil löschen</a>
+            <a class="nav-item nav-link" href="changeEmail.php" style="background-color: #DDDDDD; color:black;">Email ändern</a>
+            <a class="nav-item nav-link" href="changePassword.php" style="color:white;">Passwort ändern</a>
+            <a class="nav-item nav-link" href="deleteUser.php" style="color:white;">Profil löschen</a>
         </nav>
         <form method="post" class="needs-validation" novalidate>
             <div class="form-group mx-auto" style="width: 50%;">
@@ -82,16 +97,20 @@ if(isset($_POST["changeEmail"])){
                 <div class="row">
                     <div class="col">
                         <label for="email" style="color: #FEFEFE;">Passwort</label>
-                        <input type="email" class="form-control" id="password" name="password" placeholder="Passwort" required>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Passwort" required>
                         <div class="invalid-feedback">
                             Bitte Ihr Passwort eingeben.
                         </div>
                     </div>
                 </div>
+                <?php
+                if ((isset($error))) {
+                    echo $error;
+                }
+                ?>
             </div>
             <button type="submit" class="btn btn-success float-right" name="changeEmail">Bestätigen</button>
     </div>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 </div>
 </form>
 

@@ -5,53 +5,68 @@
  * Date: 12.12.2018
  * Time: 14:42
  */
+session_start();
 include __dir__."/../ressources/templates.php";
 include __dir__."/../ressources/Repository.php";
 $repository = new Repository();
-
-
+$repository->init();
+setRedirect();
 if (isset($_POST["changePassword"])) {
     if ($repository->checkPassword($_SESSION["email"], $_POST["currentPassword"])){
-        echo "<script type='text/javascript'>alert('Richtige Daten');</script>";
         if ($_POST["newPassword"]==$_POST["newPassword2"]){
             echo "<script type='text/javascript'>alert('Erfolgreich');</script>";
             $repository->alterUserPassword($_SESSION["userId"], $_POST["newPassword"]);
-            session_destroy();
-            echo "<script type='text/javascript'>location.href = 'login.php'</script>";
-            //ausgeloggt
+            header('Location: ../ressources/logout.php');
         }
         else{
-            echo "<script type='text/javascript'>alert('Emails nicht identisch');</script>";
+            //Emails nicht identisch evtl noch mit JS
+            $error = "<br><div class='alert alert-danger' role='alert'>Die Emails sind nicht idetisch.</div>";
         }
     }
-}
-else {
-//Falsche daten
+    else {
+        $error = "<br><div class='alert alert-danger' role='alert'>Die Kombination aus Mail und Passwort ist nicht korrekt.</div>";
+    }
+
 }
 
+
 ?>
-<script src="/../js/form.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Required meta tags -->
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <title>Passwort ändern</title>
-    <link rel="stylesheet" href="../css/general.less">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <!-- My stylesheets -->
+    <link rel="stylesheet" href="../css/assets/texteffects.css">
     <link rel="stylesheet" href="../css/assets/hover-min.css">
     <link rel="stylesheet/less" type="text/css" href="../css/general.less">
+
+    <!-- LESS -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+    <!-- Glyphicons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
+
+    <title>Passwort ändern</title>
+    <script type="text/javascript" src="../js/form.js"></script>
 </head>
 
-<body style="background-color: #000000;">
+<body class="background">
 <?php printheader();?>
 
 <div class="card mx-auto" style="width: 50%; background-color: #333333;">
     <div class="card-body">
         <nav class="nav nav-pills nav-justified">
-            <a class="nav-item nav-link" href="changeEmail.php" style="color: black;">Email ändern</a>
-            <a class="nav-item nav-link active" href="changePassword.php" style="color: black;">Passwort ändern</a>
-            <a class="nav-item nav-link" href="deleteUser.php" style=" color: black;">Profil löschen</a>
+            <a class="nav-item nav-link" href="changeEmail.php" style="color: white;">Email ändern</a>
+            <a class="nav-item nav-link" href="changePassword.php" style="background-color: #DDDDDD; color: black;">Passwort ändern</a>
+            <a class="nav-item nav-link" href="deleteUser.php" style="color: white;">Profil löschen</a>
         </nav>
         <form method="post" class="needs-validation" novalidate>
             <div class="form-group mx-auto" style="width: 50%;">
@@ -78,6 +93,11 @@ else {
                 </div>
                 <label for="newpassword2" style="color: #FEFEFE;">Neues Passwort bestätigen</label>
                 <input type="password" class="form-control" id="newPassword2" name="newPassword2" placeholder="" required>
+                <?php
+                if ((isset($error))) {
+                    echo $error;
+                }
+                ?>
             </div>
             <button type="submit" class="btn btn-success float-right" name="changePassword">Bestätigen</button>
     </div>

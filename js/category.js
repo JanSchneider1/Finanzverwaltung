@@ -44,7 +44,7 @@ function deleteCategory(categoryID) {
     return false;
 }
 
-// XML-HTTP REQUEST (DELETE CATEGORY)
+// XML-HTTP REQUEST (UPDATE CATEGORY)
 function updateCategory(categoryID) {
 
     var name = $('#category_' + categoryID).val();
@@ -53,7 +53,7 @@ function updateCategory(categoryID) {
         if (this.readyState == 4 && this.status == 200) {
         }
     };
-    xhttp.open("PUT", "../controller/categoryController.php/?id=" + categoryID + "?name=" + name, false);
+    xhttp.open("PUT", "../controller/categoryController.php/?id=" + categoryID + "&name=" + name, false);
     xhttp.send();
     return false;
 }

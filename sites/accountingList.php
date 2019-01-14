@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿<?php
+include __DIR__ . "/../ressources/ContentService.php";
+include __DIR__ . "/../ressources/util.php";
+include __DIR__ . "/../ressources/templates.php";
+session_start();
+setRedirect();
+$service = new ContentService($_SESSION["email"]);
+?>
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
@@ -25,13 +33,10 @@
   <!-- LESS -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 
+    <script src="../js/timespanDropdown.js"></script>
+
   <!-- PHP Includes -->
     <?php
-    include __DIR__ . "/../ressources/ContentService.php";
-    include __DIR__ . "/../ressources/util.php";
-    include __DIR__ . "/../ressources/templates.php";
-    $service = new ContentService('derflo@mail.de');
-
     $startDate = null;
     $endDate = null;
     $categoryID = null;
@@ -306,15 +311,6 @@ balance;
 <!-- Set dates to current -->
 <script language="JavaScript">document.getElementById("date_3").valueAsDate = new Date();</script>
 
-<!-- Footer -->
-<?php printFooter(); ?>
-
-<!-- JS: Frontend utility -->
-<script src="../js/frontend.js"></script>
-
-<!-- JS: Accounting -->
-<script src="../js/accounting.js"></script>
-<script src="../js/timespanDropdown.js"></script>
 
 <!-- Set dates -->
 <?php echo $startDate == null ? '<script language="JavaScript">setDatesMonth()</script>' : '<script language="JavaScript">enableDates()</script>'; ?>

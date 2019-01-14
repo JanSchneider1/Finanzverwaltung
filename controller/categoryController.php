@@ -2,7 +2,11 @@
 
 //Setup
 require __DIR__ . "/../ressources/ContentService.php";
-$service = new ContentService('derflo@mail.de');
+session_start();
+if (!$_SESSION["userId"]) {
+    die;
+}
+$service = new ContentService($_SESSION["email"]);
 
 //POST REQUEST
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -40,7 +44,7 @@ else if($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $service->repo->deleteCategory($id);
 }
 //PUT REQUEST
-else if($SERVER['REQUEST_METHOD'] == 'PUT') {
+else if($_SERVER['REQUEST_METHOD'] == 'PUT') {
 
     //Get URL
     $url = $_SERVER['REQUEST_URI'];

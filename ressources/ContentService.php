@@ -139,43 +139,38 @@ class ContentService
                     $lastDT = new DateTime($fixum->getLastUsedDate());
                 }
                 //wenn startdatum in der Vergangenheit & Frequenz des fixums durchlaufen ist
-                if (!date_diff($start, $now)->invert && $this->didFrequency($fixum)) {
+                if (!date_diff($start, $now)->invert && $this->didFrequency($fixum) || !date_diff($start, $now)->invert && $fixum->getLastUsedDate() == null) {
 
                     //liste aus zu erzeugenden datum generiern
                     switch ($fixum->getFrequency()) {
                         case 'DAY':
                             $numGenerate += date_diff($lastDT, $now)->days;
-                            for ($i = sizeof($datesGenerate); $i < $numGenerate; $i++) {
-                                date_modify($lastDT, '+1 day');
-                                $last = $datesGenerate[$i] = $lastDT->format('y-m-d');
+                            for ($i = 0; $i < $numGenerate; $i++) {
+                                $fixum->getLastUsedDate() == null ? $last = $datesGenerate[$i] = $lastDT->format('y-m-d') : $last = $datesGenerate[$i] = $lastDT->modify('+1 day')->format('y-m-d');
                             }
                             break;
                         case 'WEEK':
                             $numGenerate += (int)(date_diff($lastDT, $now)->days / 7);
-                            for ($i = sizeof($datesGenerate); $i < $numGenerate; $i++) {
-                                date_modify($lastDT, '+1 week');
-                                $last = $datesGenerate[$i] = $lastDT->format('y-m-d');
+                            for ($i = 0; $i < $numGenerate; $i++) {
+                                $fixum->getLastUsedDate() == null ? $last = $datesGenerate[$i] = $lastDT->format('y-m-d') : $last = $datesGenerate[$i] = $lastDT->modify('+1 week')->format('y-m-d');
                             }
                             break;
                         case 'MONTH':
                             $numGenerate += (int)(date_diff($lastDT, $now)->m + date_diff($lastDT, $now)->y * 12);
-                            for ($i = sizeof($datesGenerate); $i < $numGenerate; $i++) {
-                                date_modify($lastDT, '+1 month');
-                                $last = $datesGenerate[$i] = $lastDT->format('y-m-d');
+                            for ($i = 0; $i < $numGenerate; $i++) {
+                                $fixum->getLastUsedDate() == null ? $last = $datesGenerate[$i] = $lastDT->format('y-m-d') : $last = $datesGenerate[$i] = $lastDT->modify('+1 month')->format('y-m-d');
                             }
                             break;
                         case 'QUARTER':
                             $numGenerate += (int)((date_diff($lastDT, $now)->m + date_diff($lastDT, $now)->y * 12) / 3);
-                            for ($i = sizeof($datesGenerate); $i < $numGenerate; $i++) {
-                                date_modify($lastDT, '+3 month');
-                                $last = $datesGenerate[$i] = $lastDT->format('y-m-d');
+                            for ($i = 0; $i < $numGenerate; $i++) {
+                                $fixum->getLastUsedDate() == null ? $last = $datesGenerate[$i] = $lastDT->format('y-m-d') : $last = $datesGenerate[$i] = $lastDT->modify('+3 month')->format('y-m-d');
                             }
                             break;
                         case 'YEAR':
                             $numGenerate += (int)date_diff($lastDT, $now)->y;
-                            for ($i = sizeof($datesGenerate); $i < $numGenerate; $i++) {
-                                date_modify($lastDT, '+1 year');
-                                $last = $datesGenerate[$i] = $lastDT->format('y-m-d');
+                            for ($i = 0; $i < $numGenerate; $i++) {
+                                $fixum->getLastUsedDate() == null ? $last = $datesGenerate[$i] = $lastDT->format('y-m-d') : $last = $datesGenerate[$i] = $lastDT->modify('+1 year')->format('y-m-d');
                             }
                             break;
                     }
@@ -185,6 +180,7 @@ class ContentService
                             $this->repo->createAccountingForUser($this->user->getUserID(), $fixum->getName(), $fixum->getValue(), $fixum->getIsPositive(), $date, $fixum->getCategoryID());
                             $this->repo->relateFixumAccounting($this->repo->getLatestAccountingByUser($this->user->getUserID())['AccountingID'], $fixum->getFixumID());
                         }
+                        var_dump($lastDT);
                         $this->repo->alterFixumLastUsedDate($fixum->getFixumID(), $last);
                     }
                 }

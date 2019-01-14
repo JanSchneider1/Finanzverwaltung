@@ -32,6 +32,10 @@ class Repository {
         return true;
     }
 
+    /**
+     * @param $categoryID
+     * @return mixed
+     */
     function getCategoryByID($categoryID) {
 
         $stmt = mysqli_prepare($this->con, "SELECT * FROM Category WHERE CategoryID = ?;");
@@ -48,6 +52,18 @@ class Repository {
 
         $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ?;");
         $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /** Returns the Number of Days between the first and the last accounting
+     * @param $userID
+     * @return mixed
+     */
+    function getDaysTotalBetweenAccountings($userID){
+
+        $stmt = mysqli_prepare($this->con, "SELECT DISTINCT datediff((SELECT MAX(Date) FROM accounting WHERE UserID = ?), (SELECT MIN(Date) FROM accounting WHERE UserID = ?)) AS Days FROM Accounting;");
+        $stmt->bind_param("ii", $userID, $userID);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
@@ -205,6 +221,19 @@ class Repository {
         $stmt->bind_param("i", $userID);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0]['Min'];
+    }
+
+    /** Returns all accountings of an user dated before the given date, excluding those dated at the given date
+     *@param $userID
+     *@param $date
+     *@return mixed
+     */
+    function getAccountingsBeforeDate($userID, $date) {
+
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND Date < ?;");
+        $stmt->bind_param("is", $userID, $date);
+        $stmt ->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
     /** Creates a new Accounting
@@ -518,6 +547,19 @@ class Repository {
         $stmt->bind_param("ii", $accountingID, $fixumID);
         $stmt->execute();
     }
+
+    /** Returns an array that contains accounting data arrays
+     * accountings where generetad by fixa
+     * @param $userID
+     * @return mixed
+     */
+    function getAccountingsFromFixa($userID){
+
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND AccountingID IN (SELECT AccountingID FROM accounting_fixum);");
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
 }
 
 //-----------Tests----------------
@@ -560,3 +602,6 @@ class Repository {
 //$Repo->alterUserPassword(7, 'pass');
 //$Repo->alterUserMail(1, 'derFlo@mail.de');
 //$Repo->relateFixumAccounting(1, 1);
+//var_dump($Repo->getAccountingsFromFixa(1));
+//var_dump($Repo->getDaysTotalBetweenAccountings(1));
+//var_dump($Repo->getAccountingsBeforeDate(1,'2018-01-13'));

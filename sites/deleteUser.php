@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Created by IntelliJ IDEA.
  * User: caylak
@@ -11,15 +12,16 @@ require_once __dir__."/../ressources/Repository.php";
 $repository = new Repository();
 $repository->init();
 
+setRedirect();
+
 if(isset($_POST["deleteUser"])){
     if ($repository->checkPassword($_POST["email"], $_POST["password"]) && $repository->getUserWithMail($_POST["email"])["UserID"]==$_SESSION["userId"]){
         $repository->deleteUser($_SESSION["userId"]);
-        session_destroy();
+        header('Location: ../ressources/logout.php');
         //Weiterleitung auf entsprechende Seite sowie Mitteilung
-        echo "<script type='text/javascript'>location.href = 'registration.php'</script>";
     }
     else{
-        //Falsche Daten
+        $error = "<br><div class='alert alert-danger' role='alert'>Die Kombination aus Mail und Passwort ist nicht korrekt.</div>";
     }
 }
 ?>
@@ -30,21 +32,40 @@ if(isset($_POST["deleteUser"])){
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="/../js/form.js"></script>
+    <!-- Required meta tags -->
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <!-- Glyphicons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
+
+    <!-- My stylesheets -->
+    <link rel="stylesheet" href="../css/assets/texteffects.css">
+    <link rel="stylesheet" href="../css/assets/hover-min.css">
+    <link rel="stylesheet/less" type="text/css" href="../css/general.less">
+
+    <!-- LESS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+
     <title>Email ändern</title>
+    <script type="text/javascript" src="../js/form.js"></script>
 </head>
 
-<body style="background-color: #000000;">
+<body class="background">
 <?php printheader();?>
 
 <div class="card mx-auto" style="width: 50%; background-color: #333333;">
     <div class="card-body">
         <nav class="nav nav-pills nav-justified">
-            <a class="nav-item nav-link" href="changeEmail.php" style="color: black;">Email ändern</a>
-            <a class="nav-item nav-link" href="changePassword.php" style="color: black;">Passwort ändern</a>
-            <a class="nav-item nav-link active" href="deleteUser.php" style=" color: black;">Profil löschen</a>
+            <a class="nav-item nav-link" href="changeEmail.php" style="color: white;">Email ändern</a>
+            <a class="nav-item nav-link" href="changePassword.php" style="color: white;">Passwort ändern</a>
+            <a class="nav-item nav-link" href="deleteUser.php" style="background-color: #DDDDDD; color: black;">Profil löschen</a>
         </nav>
         <form method="post" class="needs-validation" novalidate>
             <div class="form-group mx-auto" style="width: 50%;">
@@ -69,6 +90,11 @@ if(isset($_POST["deleteUser"])){
 
                     </div>
                 </div>
+                <?php
+                if ((isset($error))) {
+                    echo $error;
+                }
+                ?>
             </div>
             <button type="submit" class="btn btn-success float-right" name="deleteUser">Bestätigen</button>
     </div>

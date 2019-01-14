@@ -10,13 +10,12 @@ include __dir__."/../ressources/templates.php";
 require_once __dir__.'/../ressources/Repository.php';
 $repository = new Repository();
 $repository->init();
-
 if(isset($_POST["login"])){
     if ($repository->checkPassword($_POST["email"], $_POST["password"])){
 
         $_SESSION["userId"] = $repository->getUserWithMail($_POST["email"])["UserID"];
         $_SESSION["email"] = $repository->getUserWithMail($_POST["email"])["Mail"];
-        echo "<script type='text/javascript'>location.href = 'changeEmail.php'</script>";
+        header('Location: ../sites/home.php');
     }
     else{
         $error = "<br><div class='alert alert-danger' role='alert'>Die Kombination aus Mail und Passwort ist nicht korrekt.</div>";
@@ -29,7 +28,6 @@ if(isset($_POST["login"])){
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <title>Login</title>
-    <script src="/../js/form.js"></script>
 </head>
 
 <body style="background-color: #000000;">
@@ -62,9 +60,12 @@ if(isset($_POST["login"])){
                     echo $error;
                 }
                 ?>
+                <br>
                 <div class="row">
                     <div class="col">
                         <span style="color: #FEFEFE;">Noch nicht registriert? Registriere dich <a href="registration.php">hier</a></span>
+                    </div>
+                    <div class="col">
                         <button type="submit" class="btn btn-success float-right" name="login">Einloggen</button>
                     </div>
                 </div>
