@@ -48,7 +48,7 @@ $service = new ContentService($_SESSION["email"]);
     <header>
         <?php printHeader(); ?>
     </header>
-    <body>
+    <body class="background">
 
         <!-- Filter -->
         <div class="container" style="padding-top: 20px">
@@ -97,6 +97,7 @@ $service = new ContentService($_SESSION["email"]);
         </div>
 
     </body>
+    </br></br>
 
     <footer>
         <?php

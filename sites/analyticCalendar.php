@@ -54,7 +54,7 @@ $service = new ContentService($_SESSION["email"]);
         <?php printHeader(); ?>
     </header>
 
-    <body>
+    <body class="background">
 
     <!-- Filter -->
     <div class="container row" style=" background-color: #212529; margin: auto; margin-top: 20px; padding-top: 20px; width: 30%;">

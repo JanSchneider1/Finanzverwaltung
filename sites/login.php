@@ -32,6 +32,8 @@ if(isset($_POST["login"])){
 
 <body style="background-color: #000000;">
 
+</br></br></br></br></br></br>
+
 <form method="post" class="needs-validation" novalidate>
     <div class="container" style="max-width: 30%;">
         <div class="border" style="background-color: #333333; padding: 5%; border-radius: 5px;">
@@ -74,6 +76,9 @@ if(isset($_POST["login"])){
     </div>
 </form>
 </body>
+
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
 <?php printFooter(); ?>
 
 </html>

@@ -15,7 +15,7 @@ $repository->init();
 if (isset($_POST["register"]))
     if ($repository->createUser($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password'])){
         //Weiterleitung zum Login
-        echo "Hah";
+        header('Location: ../sites/login.php');
     }
     else {
         echo "profil wurde nicht erstellt";
@@ -54,6 +54,8 @@ if (isset($_POST["register"]))
 
 <body style="background-color: #000000;">
 
+</br></br></br></br></br></br>
+
 <form class="needs-validation" method="post" novalidate>
     <div class="container" style="max-width: 30%;">
         <div class="border" style="background-color: #333333; padding: 5%; border-radius: 5px;">
@@ -85,11 +87,12 @@ if (isset($_POST["register"]))
             </div>
             <div class="form-group">
                 <div class="row">
-                        <span class="col">
+                        <div class="col">
                             <label for="password" style="color: #FEFEFE;">Passwort</label>
-                            <input type="text" class="form-control" id="password" name="password" placeholder="Passwort" onkeypress="check();" required>
-                            <input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Passwort wiederholen" required>
-                            <div class="invalid-feedback">Bitte ein Passwort.</div>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Passwort" onkeypress="check();" required>
+                            </br>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Passwort wiederholen" required>
+                            <div class="invalid-feedback">Bitte ein Passwort eingeben.</div>
                             <br>
                             <div id="message"></div>
                             <span style="color: #FEFEFE;">Bereits registriert? <a href="login.php">Einloggen</a></span>
@@ -101,5 +104,6 @@ if (isset($_POST["register"]))
     </div>
 </form>
 </body>
+</br></br></br></br></br></br></br></br></br></br>
 <?php echo printFooter();?>
 </html>

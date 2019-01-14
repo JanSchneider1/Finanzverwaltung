@@ -42,7 +42,7 @@ $service = new ContentService($_SESSION["email"]);
         <?php printHeader(); ?>
     </header>
 
-    <body>
+    <body style="background-color: #17191c">
         <!-- Title -->
         <br/>
         <h1 class="title">Willkommen</h1>
@@ -130,7 +130,8 @@ $service = new ContentService($_SESSION["email"]);
 
     </body>
 
-    <br/>
+    </br></br></br></br>
+
     <footer>
         <?php
 

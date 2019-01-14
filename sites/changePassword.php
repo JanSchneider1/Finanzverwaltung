@@ -61,11 +61,13 @@ if (isset($_POST["changePassword"])) {
 <body class="background">
 <?php printheader();?>
 
+    </br></br></br></br>
+
 <div class="card mx-auto" style="width: 50%; background-color: #333333;">
     <div class="card-body">
         <nav class="nav nav-pills nav-justified">
             <a class="nav-item nav-link" href="changeEmail.php" style="color: white;">Email ändern</a>
-            <a class="nav-item nav-link" href="changePassword.php" style="background-color: #DDDDDD; color: black;">Passwort ändern</a>
+            <a class="nav-item nav-link" href="changePassword.php" style="background-color: #17191c; color: white; border: white 1px solid;">Passwort ändern</a>
             <a class="nav-item nav-link" href="deleteUser.php" style="color: white;">Profil löschen</a>
         </nav>
         <form method="post" class="needs-validation" novalidate>
@@ -105,5 +107,7 @@ if (isset($_POST["changePassword"])) {
 </form>
 
 </body>
+
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br>
 <?php printFooter();?>
 </html>
