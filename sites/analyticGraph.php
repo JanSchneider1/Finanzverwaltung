@@ -6,9 +6,7 @@
  * Time: 18:52
  */
 include __DIR__ . "/../ressources/templates.php";
-include __DIR__ . "/../ressources/Repository.php";
 include __DIR__ . "/../ressources/ContentService.php";
-include __DIR__ . "/../ressources/util.php";
 
 session_start();
 setRedirect();
