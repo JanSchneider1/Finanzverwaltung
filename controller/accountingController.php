@@ -18,15 +18,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $categoryID = htmlspecialchars($_POST['addAccounting_categoryID']);
     $flag = htmlspecialchars($_POST['addAccounting_isPositive']);
 
-    /*
-    //Debugging
-    $value = 100;
-    $name = "Debug";
-    $date = "2000-01-12";
-    $categoryID = 1;
-    $flag = "Ausgaben";
-    $isPositive = 0;
-    */
+    if($value == 0 || $name == ''){die;}
 
     //Convert -> Get isPositive (0 or 1)
     $isPositive = -1;
