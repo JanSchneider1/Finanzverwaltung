@@ -77,7 +77,7 @@ Category;
                     </tr>
                     </thead>
                     <tbody>
-                    <form method="POST">
+                    <form method="post" onsubmit="addCategory(this); return false;">
                         <tr>
                             <th class="value"><input class="input-group-text" style="background: #31343b; color: white;" type="text" name="addCategory_name"></th>
                             <th style="text-align: end"><button type="button" class="btn btn-dark hvr-reveal" onclick="addCategory(this.form)"><span class="fas fa-check"></span></button></th>
