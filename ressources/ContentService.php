@@ -128,6 +128,7 @@ class ContentService
                 $start = new DateTime($fixum->getStartDate());
                 $lastDT = null;
                 $last = null;
+                $first = false;
                 $numGenerate = 0;
                 $datesGenerate = array();
 
@@ -135,42 +136,68 @@ class ContentService
                     $lastDT = $start;
                     $numGenerate++;
                     $datesGenerate[0] = $lastDT->format('y-m-d');
+                    $first = true;
                 } else {
                     $lastDT = new DateTime($fixum->getLastUsedDate());
                 }
                 //wenn startdatum in der Vergangenheit & Frequenz des fixums durchlaufen ist
-                if (!date_diff($start, $now)->invert && $this->didFrequency($fixum) || !date_diff($start, $now)->invert && $fixum->getLastUsedDate() == null) {
+                if(!date_diff($lastDT, $now)->invert && $this->didFrequency($fixum) || !date_diff($lastDT, $now)->invert && $fixum->getLastUsedDate() == null) {
 
                     //liste aus zu erzeugenden datum generiern
                     switch ($fixum->getFrequency()) {
                         case 'DAY':
                             $numGenerate += date_diff($lastDT, $now)->days;
                             for ($i = 0; $i < $numGenerate; $i++) {
-                                $fixum->getLastUsedDate() == null ? $last = $datesGenerate[$i] = $lastDT->format('y-m-d') : $last = $datesGenerate[$i] = $lastDT->modify('+1 day')->format('y-m-d');
+                                if($first) {
+                                    $last = $datesGenerate[$i] = $lastDT->format('y-m-d');
+                                    $first=false;
+                                } else {
+                                    $last = $datesGenerate[$i] = $lastDT->modify('+1 day')->format('y-m-d');
+                                }
                             }
                             break;
                         case 'WEEK':
                             $numGenerate += (int)(date_diff($lastDT, $now)->days / 7);
                             for ($i = 0; $i < $numGenerate; $i++) {
-                                $fixum->getLastUsedDate() == null ? $last = $datesGenerate[$i] = $lastDT->format('y-m-d') : $last = $datesGenerate[$i] = $lastDT->modify('+1 week')->format('y-m-d');
+                                if($first){
+                                    $last = $datesGenerate[$i] = $lastDT->format('y-m-d');
+                                    $first = false;
+                                } else {
+                                    $last = $datesGenerate[$i] = $lastDT->modify('+1 week')->format('y-m-d');
+                                }
                             }
                             break;
                         case 'MONTH':
                             $numGenerate += (int)(date_diff($lastDT, $now)->m + date_diff($lastDT, $now)->y * 12);
                             for ($i = 0; $i < $numGenerate; $i++) {
-                                $fixum->getLastUsedDate() == null ? $last = $datesGenerate[$i] = $lastDT->format('y-m-d') : $last = $datesGenerate[$i] = $lastDT->modify('+1 month')->format('y-m-d');
+                                if($first) {
+                                    $last = $datesGenerate[$i] = $lastDT->format('y-m-d');
+                                    $first = false;
+                                } else {
+                                    $last = $datesGenerate[$i] = $lastDT->modify('+1 month')->format('y-m-d');
+                                }
                             }
                             break;
                         case 'QUARTER':
                             $numGenerate += (int)((date_diff($lastDT, $now)->m + date_diff($lastDT, $now)->y * 12) / 3);
                             for ($i = 0; $i < $numGenerate; $i++) {
-                                $fixum->getLastUsedDate() == null ? $last = $datesGenerate[$i] = $lastDT->format('y-m-d') : $last = $datesGenerate[$i] = $lastDT->modify('+3 month')->format('y-m-d');
+                                if($first) {
+                                    $last = $datesGenerate[$i] = $lastDT->format('y-m-d');
+                                    $first = false;
+                                } else {
+                                    $last = $datesGenerate[$i] = $lastDT->modify('+3 month')->format('y-m-d');
+                                }
                             }
                             break;
                         case 'YEAR':
                             $numGenerate += (int)date_diff($lastDT, $now)->y;
                             for ($i = 0; $i < $numGenerate; $i++) {
-                                $fixum->getLastUsedDate() == null ? $last = $datesGenerate[$i] = $lastDT->format('y-m-d') : $last = $datesGenerate[$i] = $lastDT->modify('+1 year')->format('y-m-d');
+                                if($first){
+                                    $last = $datesGenerate[$i] = $lastDT->format('y-m-d');
+                                    $first = false;
+                                } else{
+                                    $last = $datesGenerate[$i] = $lastDT->modify('+1 year')->format('y-m-d');
+                                }
                             }
                             break;
                     }
