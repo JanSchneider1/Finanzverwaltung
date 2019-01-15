@@ -39,7 +39,7 @@ $service = new ContentService($_SESSION["email"]);
 <?php printHeader() ?>
 <!-- Title -->
 <br/>
-<h1 class="title">Fixa</h1>
+<h1 class="title">Daueraufträge</h1>
 <br/>
 
 <!-- Categories -->

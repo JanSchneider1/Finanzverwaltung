@@ -80,7 +80,7 @@ if(isset($_POST["changeEmail"])){
                     <div class="col">
                         <br>
                         <label for="email" style="color: #FEFEFE;">Neue E-Mail</label>
-                        <input type="email" class="form-control" id="newEmail" name="newEmail" placeholder="E-Mail" required>
+                        <input type="email" class="form-control" id="newEmail" name="newEmail" required>
                         <div class="invalid-feedback">
                             Bitte Ihre neue Email eingeben.
                         </div>
@@ -89,7 +89,7 @@ if(isset($_POST["changeEmail"])){
                 <div class="row">
                     <div class="col">
                         <label for="email" style="color: #FEFEFE;">Neue E-Mail bestätigen</label>
-                        <input type="email" class="form-control" id="newEmail" name="newEmail2" placeholder="E-Mail" required>
+                        <input type="email" class="form-control" id="newEmail" name="newEmail2" required>
                         <div class="invalid-feedback">
                             Bitte Wiederholen Sie die Email.
                         </div>
@@ -99,7 +99,7 @@ if(isset($_POST["changeEmail"])){
                 <div class="row">
                     <div class="col">
                         <label for="email" style="color: #FEFEFE;">Passwort</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Passwort" required>
+                        <input type="password" class="form-control" id="password" name="password" required>
                         <div class="invalid-feedback">
                             Bitte Ihr Passwort eingeben.
                         </div>

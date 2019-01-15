@@ -196,7 +196,7 @@ Accounting;
     <thead>
     <tr>
       <th>Einnahmen</th>
-      <th>Kosten</th>
+      <th>Ausgaben</th>
       <th>Differenz</th>
     </tr>
     </thead>

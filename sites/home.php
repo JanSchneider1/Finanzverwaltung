@@ -54,7 +54,7 @@ $service = new ContentService($_SESSION["email"]);
                 <table class="table table-hover table-dark" style="margin: 0px;">
                     <thead>
                         <tr>
-                            <th>Letzte Buchungen</th>
+                            <th>Letzte Transaktionen</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,7 +76,7 @@ $service = new ContentService($_SESSION["email"]);
                 <table class="table table-hover table-dark" style="margin: 0px;">
                     <thead>
                     <tr>
-                        <th>Kürzlich getätigte Fixa</th>
+                        <th>Kürzlich getätigte Daueraufträge</th>
                     </tr>
                     </thead>
                     <tbody>
