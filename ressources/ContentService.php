@@ -218,7 +218,31 @@ class ContentService
         }
         return $value;
     }
+
+    function orderAccountingsByDate()
+    {
+        $swapped = true;
+        if($this->accountings != null)
+        {
+            while($swapped == true)
+            {
+                $swapped = false;
+                for($i = 1; $i < sizeof($this->accountings); $i++)
+                {
+                    if($this->accountings[$i-1]->getDate() > $this->accountings[$i]->getDate())
+                    {
+                        $temp = $this->accountings[$i];
+                        $this->accountings[$i] = $this->accountings[$i-1];
+                        $this->accountings[$i-1] = $temp;
+                        $swapped = true;
+                    }
+                }
+            }
+        }
+    }
 }
+
+
 /*$cs = new ContentService('derflo@mail.de');
 //$cs->generateAccountingsFromFixa();
 //$cs->reloadAccountings($cs->repo->getAccountingsByCategory(1, 5));

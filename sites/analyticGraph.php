@@ -49,6 +49,7 @@ $service = new ContentService($_SESSION["email"]);
     //calculate the budget to begin of specified time to display
     $budget = 0;
     $service->reloadAccountings($service->repo->getAccountingsBeforeDate($service->user->getUserID(),$startDate));
+    $service->orderAccountingsByDate();
     foreach($service->accountings as $accounting)
     {
         $budget += $accounting->getValue();
@@ -115,6 +116,7 @@ $service = new ContentService($_SESSION["email"]);
     $service->reloadAccountings($service->repo->getAccountingsBetweenDates($service->user->getUserID(),$startDate, $endDate));
     if($service->accountings != null)
     {
+        $service->orderAccountingsByDate();
         $dates = array();
         $data = array();
         $zaehler = 0;
