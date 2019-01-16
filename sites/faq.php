@@ -38,12 +38,16 @@ setRedirect();
 
     <title>FAQ</title>
     <script type="text/javascript" src="../js/form.js"></script>
+
+    <style>
+        img{border: white 1px solid;}
+    </style>
 </head>
 
 <body class="background">
 <?php printheader(); ?>
 <div id="accordion" style="padding: 9%;">
-    <div class="card">
+    <div class="card" style="background-color: #212529;">
         <div class="card-header" id="headingOne">
             <h5 class="mb-0">
                 <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
@@ -54,7 +58,7 @@ setRedirect();
         </div>
 
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body" style="color: black;">
+            <div class="card-body" style="color: white;">
 
                 <p>
                 <div class="text-center">
@@ -103,7 +107,7 @@ setRedirect();
 
             </div>
         </div>
-        <div class="card">
+        <div class="card" style="background-color: #212529;">
             <div class="card-header" id="headingTwo">
                 <h5 class="mb-0">
                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
@@ -113,7 +117,7 @@ setRedirect();
                 </h5>
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                <div class="card-body" style="color: black;">
+                <div class="card-body" style="color: white;">
 
                     <p>
                     <div class="text-center">
@@ -148,7 +152,7 @@ setRedirect();
                 </div>
             </div>
         </div>
-        <div class="card">
+        <div class="card" style="background-color: #212529;">
             <div class="card-header" id="headingThree">
                 <h5 class="mb-0">
                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
@@ -158,7 +162,7 @@ setRedirect();
                 </h5>
             </div>
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                <div class="card-body" style="color: black;">
+                <div class="card-body" style="color: white;">
                     <p>
                     <div class="text-center">
                         <img src="../pictures/Fixa.png" class="img-fluid" alt="Haha">
