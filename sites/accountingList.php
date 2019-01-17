@@ -10,14 +10,18 @@ $service = new ContentService($_SESSION["email"]);
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <style>
-    .footer {
-        position: fixed;
-        left: 0;
+    #page-container {
+        position: relative;
+        min-height: 100vh;
+    }
+    #content-wrap {
+        padding-bottom: 2.5rem;    /* Footer height */
+    }
+    #footer {
+        position: absolute;
         bottom: 0;
         width: 100%;
-        background-color: red;
-        color: white;
-        text-align: center;
+        height: 2.5rem;            /* Footer height */
     }
 </style>
   <title>PHP-Projekt</title>
@@ -69,8 +73,9 @@ $service = new ContentService($_SESSION["email"]);
     ?>
 
 </head>
-<body class="background" style="margin-bottom: 5%;">
-
+<body class="background">
+<div id="page-container">
+<div id="content-wrap">
 <!-- Header -->
 <?php printHeader(); ?>
 
@@ -310,13 +315,9 @@ balance;
     </table>
   </form>
 </div>
-<br>
-
-<br>
-
-<br>
+</div>
 <!-- Footer -->
-<div class="footer">
+<div id="footer">
 <?php printFooter(); ?>
 </div>
 <!-- JS: Frontend utility -->
@@ -333,6 +334,6 @@ balance;
 
 <!-- Set dates to current -->
 <script language="JavaScript">document.getElementById("date_3").valueAsDate = new Date();</script>
-
+</div>
 </body>
 </html>
