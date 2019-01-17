@@ -61,6 +61,7 @@ function deleteAccounting(accountingID) {
     };
     xhttp.open("DELETE", "../controller/accountingController.php/?id=" + accountingID, false);
     xhttp.send();
+    
     return false;
 }
 
@@ -69,6 +70,7 @@ $(document).ready(function() {
     $('.submit_on_enter').mouseover(function(event){
         this.focus();
     });
+
     $('.submit_on_enter').keydown(function(event) {
         if (event.keyCode == 13) {
             addAccounting(this.form);
