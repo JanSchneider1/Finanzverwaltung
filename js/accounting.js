@@ -18,6 +18,7 @@ function onResponse_addAccounting(accountingJSON){
 
     var accounting = $.parseJSON(accountingJSON);
     insertAccountingAsTableRow(accounting.accountingID, accounting.date, accounting.name, accounting.categoryName, accounting.isPositive, accounting.value);
+    location.href='#end';
 }
 
 // Add new table row

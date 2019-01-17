@@ -62,7 +62,7 @@ $service = new ContentService($_SESSION["email"]);
 <body class="background">
 
 <div id="page-container">
-  <div id="content-wrap">
+  <a id="content-wrap">
     <!-- Header -->
       <?php printHeader(); ?>
 
@@ -201,7 +201,7 @@ Accounting;
     </div>
 
     <!-- Placeholder for nav bottom -->
-    <div style="height:230px"></div>
+    <div style="height:250px"></div>
 
     <!-- Navbar Bottom -->
     <nav class="fixed-bottom" style="margin-bottom: -40px">
@@ -314,7 +314,7 @@ balance;
               <td>
                 <button type="button" class="btn btn-dark hvr-reveal submit_on_enter"
                         onsubmit="addAccounting(this); return false;"
-                        onclick="addAccounting(this.form)"><span
+                        onclick="addAccounting(this.form);"><span
                       class="fas fa-check"></span></button>
               </td>
             </tr>
@@ -327,8 +327,9 @@ balance;
       <div id="footer" style="margin-bottom: 55px">
           <?php printFooter(); ?>
       </div>
-
     </nav>
+
+    <a name="end"></a>
 
   </div>
 
