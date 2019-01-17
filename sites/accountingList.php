@@ -9,7 +9,17 @@ $service = new ContentService($_SESSION["email"]);
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-
+<style>
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: red;
+        color: white;
+        text-align: center;
+    }
+</style>
   <title>PHP-Projekt</title>
 
   <!-- Required meta tags -->
@@ -59,7 +69,7 @@ $service = new ContentService($_SESSION["email"]);
     ?>
 
 </head>
-<body class="background">
+<body class="background" style="margin-bottom: 5%;">
 
 <!-- Header -->
 <?php printHeader(); ?>
@@ -300,9 +310,15 @@ balance;
     </table>
   </form>
 </div>
-<!-- Footer -->
-<?php printFooter(); ?>
+<br>
 
+<br>
+
+<br>
+<!-- Footer -->
+<div class="footer">
+<?php printFooter(); ?>
+</div>
 <!-- JS: Frontend utility -->
 <script src="../js/frontend.js"></script>
 <!-- JS: Accounting -->
