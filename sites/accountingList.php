@@ -247,7 +247,7 @@ balance;
       </thead>
       <tbody>
       <tr>
-        <td><input class="form-control input" id="date_3" type=date value="" onsubmit="addAccounting()"
+        <td><input class="form-control input" id="date_3" type=date value=""
                    name="addAccounting_date"></td>
         <td><input class="form-control input-group-text input" type="text" name="addAccounting_name"></td>
         <td>
@@ -292,7 +292,7 @@ balance;
         <td><input class="form-control input" type="number" name="addAccounting_value" min="0.25" step="0.25" value="1"
                    style="width:100px"></td>
         <td>
-          <button type="button" class="btn btn-dark hvr-reveal" onclick="addAccounting(this.form)"><span
+          <button type="button" class="btn btn-dark hvr-reveal submit_on_enter" onsubmit="addAccounting(this); return false;" onclick="addAccounting(this.form)"><span
                 class="fas fa-check"></span></button>
         </td>
       </tr>

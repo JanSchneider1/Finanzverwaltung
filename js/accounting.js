@@ -63,3 +63,16 @@ function deleteAccounting(accountingID) {
     xhttp.send();
     return false;
 }
+
+//Enables Submit-Button to trigger 'AddAccoutning()' when enter is pressed while button focused
+$(document).ready(function() {
+    $('.submit_on_enter').mouseover(function(event){
+        this.focus();
+    });
+    $('.submit_on_enter').keydown(function(event) {
+        if (event.keyCode == 13) {
+            addAccounting(this.form);
+            return false;
+        }
+    });
+});
