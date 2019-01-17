@@ -48,6 +48,7 @@ if (isset($_POST["changePassword"])) {
     <link rel="stylesheet" href="../css/assets/texteffects.css">
     <link rel="stylesheet" href="../css/assets/hover-min.css">
     <link rel="stylesheet/less" type="text/css" href="../css/general.less">
+    <link rel="stylesheet" href="../css/footer.css">
 
     <!-- LESS -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>

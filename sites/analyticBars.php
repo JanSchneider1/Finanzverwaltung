@@ -8,48 +8,49 @@ $service = new ContentService($_SESSION["email"]);
 ?>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>PHP-Projekt</title>
-        <!-- Required meta tags -->
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+    <title>PHP-Projekt</title>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-        <!-- Glyphicons -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
+    <!-- Glyphicons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
 
-        <!-- My stylesheets -->
-        <link rel="stylesheet" href="../css/assets/texteffects.css">
-        <link rel="stylesheet" href="../css/assets/hover-min.css">
-        <link rel="stylesheet/less" type="text/css" href="../css/general.less">
+    <!-- My stylesheets -->
+    <link rel="stylesheet" href="../css/assets/texteffects.css">
+    <link rel="stylesheet" href="../css/assets/hover-min.css">
+    <link rel="stylesheet/less" type="text/css" href="../css/general.less">
 
-        <!-- LESS -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+    <!-- LESS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 
-        <!-- ChartJS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <!-- ChartJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
-        <?php
-            $startDate = null;
-            $endDate = null;
+    <?php
+    $startDate = null;
+    $endDate = null;
 
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $startDate = htmlspecialchars($_POST['start_date']);
-                $endDate = htmlspecialchars($_POST['end_date']);
-            }
-        ?>
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $startDate = htmlspecialchars($_POST['start_date']);
+        $endDate = htmlspecialchars($_POST['end_date']);
+    }
+    ?>
 
-    </head>
-    <header>
-        <?php printHeader(); ?>
-    </header>
-    <body class="background">
-
+</head>
+<header>
+    <?php printHeader(); ?>
+</header>
+<body class="background">
+<div id="page-container">
+    <div id="content-wrap">
         <!-- Filter -->
         <div class="container" style="padding-top: 20px">
             <table class="table table-hover table-dark">
@@ -70,19 +71,30 @@ $service = new ContentService($_SESSION["email"]);
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li id="month"><a class="dropdown-item effect-underline" data-value="Dieser Monat">Diesen Monat</a></li>
+                            <li id="month"><a class="dropdown-item effect-underline" data-value="Dieser Monat">Diesen
+                                    Monat</a></li>
                             <li id="day"><a class="dropdown-item effect-underline" data-value="Heute">Heute</a></li>
-                            <li id="week"><a class="dropdown-item effect-underline" data-value="Diese Woche">Diese Woche</a></li>
-                            <li id="year"><a class="dropdown-item effect-underline" data-value="Dieses Jahr">Dieses Jahr</a></li>
+                            <li id="week"><a class="dropdown-item effect-underline" data-value="Diese Woche">Diese
+                                    Woche</a></li>
+                            <li id="year"><a class="dropdown-item effect-underline" data-value="Dieses Jahr">Dieses
+                                    Jahr</a></li>
                             <li id="own"><a class="dropdown-item effect-underline" data-value="Eigen">Eigen</a></li>
                         </ul>
                     </div>
                 </td>
                 <form method="post" action="analyticBars.php">
-                    <td><input class="form-control input" id="date_1" name="start_date" value="<?php if ($startDate != null) {echo $startDate;} ?>" type="date"></td>
-                    <td><input class="form-control input" id="date_2" name="end_date" value="<?php if ($endDate != null) {echo $endDate;} ?>" type="date"></td>
+                    <td><input class="form-control input" id="date_1" name="start_date"
+                               value="<?php if ($startDate != null) {
+                                   echo $startDate;
+                               } ?>" type="date"></td>
+                    <td><input class="form-control input" id="date_2" name="end_date"
+                               value="<?php if ($endDate != null) {
+                                   echo $endDate;
+                               } ?>" type="date"></td>
                     <td style="text-align: end">
-                        <button class="btn hvr-underline-from-left" id="btn_filter" type="submit" style="width:100px">Filtern</button>
+                        <button class="btn hvr-underline-from-left" id="btn_filter" type="submit" style="width:100px">
+                            Filtern
+                        </button>
                     </td>
                 </form>
                 </tbody>
@@ -96,10 +108,10 @@ $service = new ContentService($_SESSION["email"]);
             </div>
         </div>
 
-    </body>
-    </br></br>
 
-    <footer>
+        </br></br>
+
+        <footer>
         <?php
 
         echo <<< chartjs
@@ -130,23 +142,23 @@ chartjs;
             "'rgb(0,128,64)'",
             "'rgb(64,0,128)'",
             "'rgb(0,0,0)'",
-            );
+        );
 
-        for($i = 0; $i < sizeof($service->categories); $i++) {
+        for ($i = 0; $i < sizeof($service->categories); $i++) {
 
-            if($startDate != null){
+            if ($startDate != null) {
                 $service->reloadAccountings($service->repo->getAccountingsByCategoryBetweenDates($service->user->getUserID(), $service->categories[$i]->getId(), $startDate, $endDate));
-            } else{
+            } else {
                 $service->reloadAccountings($service->repo->getAccountingsByCategory($service->user->getUserID(), $service->categories[$i]->getId()));
             }
             $names[$i] = $service->categories[$i]->getName();
             $costs[$i] = abs($service->getCostsFromAll());
 
-            if($i == sizeof($service->categories)-1){
+            if ($i == sizeof($service->categories) - 1) {
 
-                if($startDate != null){
+                if ($startDate != null) {
                     $service->reloadAccountings($service->repo->getAccountingsByCategoryBetweenDates($service->user->getUserID(), 0, $startDate, $endDate));
-                } else{
+                } else {
                     $service->reloadAccountings($service->repo->getAccountingsByCategory($service->user->getUserID(), 0));
                 }
                 $names[$i + 1] = 'Nicht zugeordnet';
@@ -154,9 +166,9 @@ chartjs;
             }
         }
 
-        for($i = 0; $i < sizeof($service->categories) + 1; $i++) {
+        for ($i = 0; $i < sizeof($service->categories) + 1; $i++) {
 
-            if($costs[$i] != 0){
+            if ($costs[$i] != 0) {
 
                 echo "{
                         label: '$names[$i]',
@@ -195,12 +207,16 @@ chartjs;
                     }
                 });</script>
 chartjs;
-            printFooter();
-        ?>
 
-        <script src="../js/timespanDropdown.js"></script>
-        <script src="../js/frontend.js"></script>
+
+        ?></div>
+    <div id="footer">
+        <?php printFooter(); ?>
+    </div>
+    <script src="../js/timespanDropdown.js"></script>
+    <script src="../js/frontend.js"></script>
 
     </footer>
-
+</div>
+</body>
 </html>
