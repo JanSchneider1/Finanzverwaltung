@@ -308,8 +308,8 @@ balance;
                   </ul>
                 </div>
               </td>
-              <td><input class="form-control input" type="number" name="addAccounting_value" min="0.25"
-                         step="0.25" value="1"
+              <td><input class="form-control input" type="number" name="addAccounting_value" min="0.01"
+                         step="0.01" value="1"
                          style="width:100px"></td>
               <td>
                 <button type="button" class="btn btn-dark hvr-reveal submit_on_enter"

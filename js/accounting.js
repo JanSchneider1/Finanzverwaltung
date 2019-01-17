@@ -2,6 +2,13 @@
 function addAccounting(accountingForm) {
 
     var formData = new FormData(accountingForm);
+
+    //default value name
+    if (formData.get('addAccounting_name') == ''){
+
+        formData.set("addAccounting_name", $('#dropdownMenu2').text());
+    }
+
     $.ajax({
 
         url: "../controller/accountingController.php",
