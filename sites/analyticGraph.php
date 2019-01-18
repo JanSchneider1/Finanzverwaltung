@@ -40,22 +40,7 @@ $service = new ContentService($_SESSION["email"]);
     <!-- ChartJS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
 
-    <script src="../js/timespanDropdown.js"></script>
-    <script src="../js/frontend.js"></script>
-    <script>
-        $("#budgetMode").click(function()
-        {
-            $("#mode").val('Budget');
-        });
-        $("#einnahmenMode").click(function()
-        {
-            $("#mode").val('Einnahmen');
-        });
-        $("#ausgabenMode").click(function()
-        {
-            $("#mode").val('Ausgaben');
-        });
-    </script>
+
 
     <?php
         //Default GET Settings
@@ -116,15 +101,16 @@ $service = new ContentService($_SESSION["email"]);
         <td>
             <!-- Dropdown: Zeitraum -->
             <div class="dropdown">
-                <button class="btn dropdown-toggle hvr-grow" type="button" data-toggle="dropdown"
+                <button id="timeSpanButton" class="btn dropdown-toggle hvr-grow" type="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="true">
-                    <?php echo $timeSpan; ?>
+                    <?php
+                        echo $timeSpan;
+                    ?>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li id="year"><a class="dropdown-item effect-underline" data-value="Dieses Jahr">Dieses Jahr</a></li>
                     <li id="month"><a class="dropdown-item effect-underline" data-value="Dieser Monat">Diesen Monat</a></li>
-<!--                    <li id="dayGraph"><a class="dropdown-item effect-underline" data-value="Heute">Heute</a></li>-->
                     <li id="week"><a class="dropdown-item effect-underline" data-value="Diese Woche">Diese Woche</a></li>
                     <li id="own"><a class="dropdown-item effect-underline" data-value="Eigen">Eigen</a></li>
                 </ul>
@@ -132,7 +118,7 @@ $service = new ContentService($_SESSION["email"]);
         </td>
         <td>
             <div class="dropdown">
-                <button class="btn dropdown-toggle hvr-grow" type="button" data-toggle="dropdown"
+                <button id="modeButton" class="btn dropdown-toggle hvr-grow" type="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="true">
                     <?php
                         echo $mode;
@@ -273,6 +259,8 @@ ChartJS;
     </script>
 ChartJS;
 ?>
+    <script src="../js/timespanDropdown.js"></script>
+    <script src="../js/analyticGraph.js"></script>
 </footer>
 </body>
 </html>

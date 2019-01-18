@@ -58,13 +58,3 @@ $("#year").click(function(){
     $("#date_2").val(next.toISOString().slice(0,10));
     disableDates();
 });
-
-/*$("#dayGraph").click(function()
-{
-    var cur = new Date();
-    var yesterday = new Date(curr.setDate(cur.getDate() - 1));
-    var tomorrow = new Date(curr.setDate(cur.getDate()+1));
-    $("#date_1").val(yesterday.toISOString().slice(0,10));
-    $("#date_2").val(tomorrow.toISOString().slice(0,10));
-    disableDates();
-});*/
