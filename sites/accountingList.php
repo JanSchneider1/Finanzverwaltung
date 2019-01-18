@@ -33,7 +33,6 @@ $service = new ContentService($_SESSION["email"]);
   <!-- LESS -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 
-  <script src="../js/timespanDropdown.js"></script>
 
   <!-- PHP Includes -->
     <?php
@@ -62,7 +61,7 @@ $service = new ContentService($_SESSION["email"]);
 <body class="background">
 
 <div id="page-container">
-  <a id="content-wrap">
+    <a id="content-wrap"></a>
     <!-- Header -->
       <?php printHeader(); ?>
 
@@ -88,34 +87,25 @@ $service = new ContentService($_SESSION["email"]);
         </thead>
         <tbody>
         <td>
-          <!-- Dropdown: Zeitraum -->
-          <div class="dropdown">
-            <button class="btn dropdown-toggle hvr-grow" type="button" value="Alle" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="true">
-                <?php echo $startDate != null ? "Eigen" : "Dieser Monat"; ?>
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              <li id="month"><a class="dropdown-item effect-underline" data-value="Dieser Monat">Diesen
-                  Monat</a></li>
-              <li id="day"><a class="dropdown-item effect-underline" data-value="Heute">Heute</a></li>
-              <li id="week"><a class="dropdown-item effect-underline" data-value="Diese Woche">Diese
-                  Woche</a></li>
-              <li id="year"><a class="dropdown-item effect-underline" data-value="Dieses Jahr">Dieses
-                  Jahr</a></li>
-              <li id="own"><a class="dropdown-item effect-underline" data-value="Eigen">Eigen</a></li>
-            </ul>
-          </div>
+            <!-- Dropdown: Zeitraum -->
+            <div class="dropdown">
+                <button class="btn dropdown-toggle hvr-grow" type="button" value="Alle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="true">
+                    <?php echo $startDate != null ? "Eigen" : "Alle"; ?>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li id="month"><a class="dropdown-item effect-underline" data-value="Dieser Monat">Diesen Monat</a></li>
+                    <li id="day"><a class="dropdown-item effect-underline" data-value="Heute">Heute</a></li>
+                    <li id="week"><a class="dropdown-item effect-underline" data-value="Diese Woche">Diese Woche</a></li>
+                    <li id="year"><a class="dropdown-item effect-underline" data-value="Dieses Jahr">Dieses Jahr</a></li>
+                    <li id="own"><a class="dropdown-item effect-underline" data-value="Eigen">Eigen</a></li>
+                </ul>
+            </div>
         </td>
         <form method="post" action="accountingList.php">
-          <td><input class="form-control input" id="date_1" name="start_date"
-                     value="<?php if ($startDate != null) {
-                         echo $startDate;
-                     } ?>" type="date"></td>
-          <td><input class="form-control input" id="date_2" name="end_date"
-                     value="<?php if ($endDate != null) {
-                         echo $endDate;
-                     } ?>" type="date"></td>
+          <td><input class="form-control input" id="date_1" name="start_date" value="<?php if ($startDate != null) {echo $startDate;} ?>" type="date"></td>
+          <td><input class="form-control input" id="date_2" name="end_date" value="<?php if ($endDate != null) {echo $endDate;} ?>" type="date"></td>
           <td>
             <!-- Dropdown: 'Kategorien' -->
             <div class="dropdown">
@@ -333,6 +323,7 @@ balance;
 
   </div>
 
+  <script src="../js/timespanDropdown.js"></script>
   <!-- JS: Frontend utility -->
   <script src="../js/frontend.js"></script>
   <!-- JS: Accounting -->
