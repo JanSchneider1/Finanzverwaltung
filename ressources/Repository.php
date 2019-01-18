@@ -560,6 +560,22 @@ class Repository {
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
+
+    function getEarliestAccounting($userID)
+    {
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND Date = (SELECT MIN(Date) FROM Accounting WHERE UserID = ?);");
+        $stmt->bind_param("ii", $userID,$userID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    function getLastAccounting($userID)
+    {
+        $stmt = mysqli_prepare($this->con, "SELECT * FROM Accounting WHERE UserID = ? AND Date = (SELECT MAX(Date) FROM Accounting WHERE UserID = ?);");
+        $stmt->bind_param("ii", $userID,$userID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
 }
 
 //-----------Tests----------------
