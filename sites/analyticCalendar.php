@@ -164,8 +164,6 @@ $service = new ContentService($_SESSION["email"]);
                     $last = $lastDate->format('d');
                     $now = new DateTime();
 
-                    echo $first;
-
                     for ($i = clone $startDate; $i <= $lastDate; $i->modify("+1 day")) {
                         $service->reloadAccountings($service->repo->getAccountingsBetweenDates($service->user->getUserID(), $i->format("Y-m-d"), $i->format("Y-m-d")));
                         array_push($costs, abs($service->getCostsFromAll()));

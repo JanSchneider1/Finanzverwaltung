@@ -47,7 +47,7 @@ $service = new ContentService($_SESSION["email"]);
         <!-- Title -->
         <br/>
         <h1 class="title">Willkommen</h1>
-        <div style="text-align: center"><a href="faq.html">F.A.Q</a></div>
+        <div style="text-align: center"><a href="../sites/faq.php">F.A.Q</a></div>
         <br/>
 
         <div class="row" style="margin: 0px;">
@@ -77,7 +77,7 @@ $service = new ContentService($_SESSION["email"]);
                 <table class="table table-hover table-dark" style="margin: 0px;">
                     <thead>
                     <tr>
-                        <th>Kürzlich getätigte Daueraufträge</th>
+                        <th>Letzte Daueraufträge</th>
                     </tr>
                     </thead>
                     <tbody>
