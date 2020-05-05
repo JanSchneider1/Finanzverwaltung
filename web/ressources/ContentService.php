@@ -75,7 +75,7 @@ class ContentService
         $lastDT = null;
         $bool = false;
 
-        if ($fixum->getLastUsedDate() == null) {
+        if ($fixum->getLastUsedDate() === null) {
             $lastDT = new DateTime($fixum->getStartDate());;
         } else {
             $lastDT = new DateTime($fixum->getLastUsedDate());
@@ -132,7 +132,7 @@ class ContentService
                 $numGenerate = 0;
                 $datesGenerate = array();
 
-                if ($fixum->getLastUsedDate() == null) {
+                if ($fixum->getLastUsedDate() === null) {
                     $lastDT = $start;
                     $numGenerate++;
                     $datesGenerate[0] = $lastDT->format('y-m-d');
@@ -141,7 +141,7 @@ class ContentService
                     $lastDT = new DateTime($fixum->getLastUsedDate());
                 }
                 //wenn startdatum in der Vergangenheit & Frequenz des fixums durchlaufen ist
-                if(!date_diff($lastDT, $now)->invert && $this->didFrequency($fixum) || !date_diff($lastDT, $now)->invert && $fixum->getLastUsedDate() == null) {
+                if(!date_diff($lastDT, $now)->invert && $this->didFrequency($fixum) || !date_diff($lastDT, $now)->invert && $fixum->getLastUsedDate() === null) {
 
                     //liste aus zu erzeugenden datum generiern
                     switch ($fixum->getFrequency()) {
@@ -219,7 +219,7 @@ class ContentService
 
         $value = 0;
         foreach ($this->accountings as $a) {
-            if ($a->getIsPositive() == 1) {
+            if ($a->getIsPositive() === 1) {
                 $value += $a->getValue();
             }
         }
@@ -230,7 +230,7 @@ class ContentService
 
         $value = 0;
         foreach ($this->accountings as $a) {
-            if ($a->getIsPositive() == 0) {
+            if ($a->getIsPositive() === 0) {
                 $value += $a->getValue();
             }
         }
@@ -251,7 +251,7 @@ class ContentService
         $swapped = true;
         if($this->accountings != null)
         {
-            while($swapped == true)
+            while($swapped === true)
             {
                 $swapped = false;
                 for($i = 1; $i < sizeof($this->accountings); $i++)

@@ -11,7 +11,7 @@ if(isset($_POST["changeEmail"])){
             $error = "<br><div class='alert alert-danger' role='alert'>Diese Email ist bereits vergeben.</div>";
         }
         else {
-            if ($_POST["newEmail"]==$_POST["newEmail2"]){
+            if ($_POST["newEmail"] === $_POST["newEmail2"]){
                 echo "<script type='text/javascript'>alert('Erfolgreich');</script>";
                 $repository->alterUserMail($_SESSION["userId"], $_POST["newEmail"]);
                 header('Location: ../ressources/logout.php');

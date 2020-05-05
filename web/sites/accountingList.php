@@ -42,14 +42,14 @@ $service = new ContentService($_SESSION["email"]);
     $minValue = null;
     $maxValue = null;
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $startDate = htmlspecialchars($_POST['start_date']);
         $endDate = htmlspecialchars($_POST['end_date']);
         $categoryID = htmlspecialchars($_POST['category_filter']);
         $minValue = htmlspecialchars($_POST['min_value']);
         $maxValue = htmlspecialchars($_POST['max_value']);
 
-        if ($categoryID == 'Alle') {
+        if ($categoryID === 'Alle') {
             $service->reloadAccountings($service->repo->getAccountingsBetweenValuesBetweenDates($service->user->getUserID(), $minValue, $maxValue, $startDate, $endDate));
         } else {
             $service->reloadAccountings($service->repo->getAccountingsByCategoryBetweenValuesBetweenDates($service->user->getUserID(), $categoryID, $minValue, $maxValue, $startDate, $endDate));
@@ -328,12 +328,12 @@ balance;
   <script src="../js/frontend.js"></script>
   <!-- JS: Accounting -->
   <script src="../js/accounting.js"></script>
-    <?php echo $startDate == null ? '<script language="JavaScript">setDatesMonth()</script>' : '<script language="JavaScript">enableDates()</script>'; ?>
+    <?php echo $startDate === null ? '<script language="JavaScript">setDatesMonth()</script>' : '<script language="JavaScript">enableDates()</script>'; ?>
   <!-- Set dates to current -->
   <script language="JavaScript">document.getElementById("date_3").valueAsDate = new Date();</script>
 
   <!-- Set dates -->
-    <?php echo $startDate == null ? '<script language="JavaScript">setDatesMonth()</script>' : '<script language="JavaScript">enableDates()</script>'; ?>
+    <?php echo $startDate === null ? '<script language="JavaScript">setDatesMonth()</script>' : '<script language="JavaScript">enableDates()</script>'; ?>
 
   <!-- Set dates to current -->
   <script language="JavaScript">document.getElementById("date_3").valueAsDate = new Date();</script>

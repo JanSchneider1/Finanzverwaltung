@@ -373,7 +373,7 @@ class Repository {
      */
     function createFixumForUser($userID, $name, $value, $isPositive, $startDate, $frequency, $categoryID) {
 
-        if ($frequency == "DAY" || $frequency == "WEEK" || $frequency == "MONTH" || $frequency == "QUARTER" || $frequency == "YEAR") {
+        if ($frequency === "DAY" || $frequency === "WEEK" || $frequency === "MONTH" || $frequency === "QUARTER" || $frequency === "YEAR") {
 
             $stmt = mysqli_prepare($this->con, "INSERT INTO Fixum (Value, IsPositive, StartDate, Name, Frequency, UserID, CategoryID) VALUES (?,?,?,?,?,?,?);");
             $stmt->bind_param("disssii", $value, $isPositive, $startDate, $name, $frequency, $userID, $categoryID);
@@ -450,7 +450,8 @@ class Repository {
      */
     function createUser($firstname, $lastname, $mail, $pass) {
 
-        $stmt = mysqli_prepare($this->con, "SELECT COUNT(Mail) FROM USER WHERE Mail = ?");
+        mysqli_error();
+        $stmt = mysqli_prepare($this->con, "SELECT COUNT(Mail) FROM User WHERE Mail = ?");
         $ml = mb_strtolower($mail);
         $stmt->bind_param("s", $ml);
         $stmt->execute();
@@ -486,7 +487,7 @@ class Repository {
     function checkPassword($mail, $pass) {
 
         if ($this->getUserWithMail($mail)) {
-            $stmt = mysqli_prepare($this->con, "SELECT Password FROM USER WHERE Mail = ?;");
+            $stmt = mysqli_prepare($this->con, "SELECT Password FROM User WHERE Mail = ?;");
             $stmt->bind_param("s", $mail);
             $stmt->execute();
 

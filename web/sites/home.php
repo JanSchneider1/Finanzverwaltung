@@ -47,7 +47,7 @@ $service = new ContentService($_SESSION["email"]);
         <!-- Title -->
         <br/>
         <h1 class="title">Willkommen</h1>
-        <div style="text-align: center"><a href="../sites/faq.php">F.A.Q</a></div>
+        <div style="text-align: center"><a href="/faq.php">F.A.Q</a></div>
         <br/>
 
         <div class="row" style="margin: 0px;">
@@ -60,7 +60,7 @@ $service = new ContentService($_SESSION["email"]);
                     </thead>
                     <tbody>
                         <?php
-                            if(sizeof($service->accountings) == 0){
+                            if(sizeof($service->accountings) === 0){
                                 echo "<tr><td style='text-align: center'>Noch keine Buchungen erstellt</td></tr>";
                             } else {
                                 for ($i = 0; $i < (sizeof($service->accountings) > 5 ? 5 : sizeof($service->accountings)); $i++) {
@@ -83,7 +83,7 @@ $service = new ContentService($_SESSION["email"]);
                     <tbody>
                         <?php
                             $service->reloadAccountings($service->repo->getAccountingsFromFixa($service->user->getUserID()));
-                            if(sizeof($service->accountings) == 0){
+                            if(sizeof($service->accountings) === 0){
                                 echo "<tr><td style='text-align: center'>Noch keine Fixa getätigt</td></tr>";
                             } else {
                                 for ($i = 0; $i < (sizeof($service->accountings) > 5 ? 5 : sizeof($service->accountings)); $i++) {

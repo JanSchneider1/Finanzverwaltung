@@ -1,0 +1,76 @@
+DROP SCHEMA accounting;
+CREATE SCHEMA accounting DEFAULT CHARACTER SET utf8;
+USE accounting;
+
+CREATE TABLE IF NOT EXISTS User(
+	
+	UserID INTEGER AUTO_INCREMENT,
+	Firstname VARCHAR(45),
+	Lastname VARCHAR(45),
+	Mail VARCHAR(100),
+	Password VARCHAR (100),
+	
+	PRIMARY KEY(UserID)
+	
+)Engine = InnoDb;
+
+CREATE TABLE IF NOT EXISTS Category(
+
+	CategoryID INTEGER AUTO_INCREMENT,
+	Name VARCHAR(100),
+	UserID INTEGER,
+	
+	PRIMARY KEY(CategoryID),
+	FOREIGN KEY(UserID) REFERENCES User(UserID) ON DELETE CASCADE
+	
+
+)Engine = InnoDb;
+
+CREATE TABLE IF NOT EXISTS Accounting(
+
+	AccountingID INTEGER AUTO_INCREMENT,
+	Value DOUBLE,
+	IsPositive BOOLEAN,
+	Date DATE,
+	Name VARCHAR(100),
+	UserID INTEGER,
+	CategoryID INTEGER,
+	
+	PRIMARY KEY(AccountingID),
+	FOREIGN KEY(UserID) REFERENCES User(UserID) ON DELETE CASCADE,
+	FOREIGN Key(CategoryID) REFERENCES Category(CategoryID) ON DELETE SET NULL
+
+)Engine = InnoDb;
+
+CREATE TABLE IF NOT EXISTS Fixum(
+
+	FixumID INTEGER AUTO_INCREMENT,
+	Value DOUBLE,
+	IsPositive BOOLEAN,
+	StartDate DATE,
+	LastUsedDate Date,
+	Name VARCHAR(100),
+	Frequency VARCHAR(45),
+	UserID INTEGER,
+	CategoryID INTEGER,
+	
+	CONSTRAINT check_interval CHECK (Frequency IN('DAY', 'WEEK', 'MONTH', 'QUATAL', 'YEAR')), 
+	
+	PRIMARY KEY(FixumID),
+	FOREIGN KEY(UserID) REFERENCES User(UserID) ON DELETE CASCADE,
+	FOREIGN Key(CategoryID) REFERENCES Category(CategoryID) ON DELETE SET NULL
+	
+)Engine = InnoDb;
+
+CREATE TABLE IF NOT EXISTS Accounting_Fixum(
+
+	AccountingID INTEGER,
+	FixumID INTEGER,
+	
+	PRIMARY KEY(AccountingID),
+	FOREIGN KEY(AccountingID) REFERENCES Accounting(AccountingID) ON DELETE CASCADE,
+	FOREIGN KEY(FixumID) REFERENCES Fixum(FixumID) ON DELETE CASCADE
+
+)Engine = InnoDb;
+
+INSERT INTO Category (CategoryID, Name) VALUES  (0,'Nicht zugeordnet');

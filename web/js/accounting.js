@@ -4,7 +4,7 @@ function addAccounting(accountingForm) {
     var formData = new FormData(accountingForm);
 
     //default value name
-    if (formData.get('addAccounting_name') == ''){
+    if (formData.get('addAccounting_name') === ''){
 
         formData.set("addAccounting_name", $('#dropdownMenu2').text());
     }
@@ -43,7 +43,7 @@ function insertAccountingAsTableRow(id, date, name, categoyName, isPositive, val
 function formatValue(value, isPositive){
 
     var text = "";
-    if (isPositive == 1) { text += "+ "; } else { text += "- "; }
+    if (isPositive === 1) { text += "+ "; } else { text += "- "; }
     text += value.toFixed(2) + " €";
     return text;
 }
@@ -51,7 +51,7 @@ function formatValue(value, isPositive){
 // Formats 'isPositive' to CSS class name (pass 0 or 1 for 'isPositive') -> return 'negative' or 'positive'
 function formatIsPositive(isPositive){
 
-    if (isPositive == 1){ return 'positive'; } else return 'negative';
+    if (isPositive === 1){ return 'positive'; } else return 'negative';
 }
 
 // XML-HTTP REQUEST (DELETE ACCOUNTING)
@@ -60,7 +60,7 @@ function deleteAccounting(accountingID) {
     //alert(accountingID.toString());
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
 
             //Asynch. Stuff
             //alert("Success");

@@ -38,7 +38,7 @@ $service = new ContentService($_SESSION["email"]);
     $startDate = new DateTime("first day of this month");
     $lastDate = new DateTime("last day of this month");
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $startDate = new DateTime($_POST['start_date']);
         $lastDate = new DateTime($_POST['end_date']);
     }
@@ -160,7 +160,7 @@ $service = new ContentService($_SESSION["email"]);
                     ];
 
                     $color;
-                    $first = ($startDate->format("w") == 0 ? 7 : $startDate->format("w"));
+                    $first = ($startDate->format("w") === 0 ? 7 : $startDate->format("w"));
                     $last = $lastDate->format('d');
                     $now = new DateTime();
 
@@ -173,7 +173,7 @@ $service = new ContentService($_SESSION["email"]);
                     for ($i = 0; $i < 42; $i++) {
                         $color = 1;
 
-                        if ($i % 7 == 0) {
+                        if ($i % 7 === 0) {
                             echo "<tr style='height: 70px;'>";
                         }
                         if ($i + 1 < $first || $i - $first + 2 > $last) {
@@ -194,7 +194,7 @@ $service = new ContentService($_SESSION["email"]);
                             echo ($costs[$i - $first + 1] != 0 ? ("- " . $costs[$i - $first + 1] . " €") : "") . "</td>";
                         }
 
-                        if ($i % 7 == 6) {
+                        if ($i % 7 === 6) {
                             echo "</tr>";
                         }
                     }

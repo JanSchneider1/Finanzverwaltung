@@ -8,7 +8,7 @@
 function convertValue($value, $isPositive){
 
     $valueString = (String)number_format((float)$value, 2, ',', '')." €";
-    if ($isPositive == 1){ $valueString = "+ ".$valueString; }
+    if ($isPositive === 1){ $valueString = "+ ".$valueString; }
     else{ $valueString = "- ".$valueString; }
     return $valueString;
 
@@ -16,7 +16,7 @@ function convertValue($value, $isPositive){
 
 function getValueColor($isPositive){
 
-    if ($isPositive == 1) {
+    if ($isPositive === 1) {
         return "positive";
     } else {
         return "negative";

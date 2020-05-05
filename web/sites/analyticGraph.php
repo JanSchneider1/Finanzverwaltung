@@ -190,7 +190,7 @@ $service = new ContentService($_SESSION["email"]);
                 $currentDate = $accounting->getDate();
             }
             $currentDateTotal += $accounting->getValue();
-            if($accounting->getIsPositive() == 1)
+            if($accounting->getIsPositive() === 1)
             {
                 $currentDateEinnahmen +=  $accounting->getValue();
             }

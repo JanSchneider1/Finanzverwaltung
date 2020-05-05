@@ -9,12 +9,12 @@ if (!$_SESSION["userId"]) {
 $service = new ContentService($_SESSION["email"]);
 
 //POST REQUEST
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //Get values from form
     $name = htmlspecialchars($_POST['addCategory_name']);
 
-    if ($name == ''){ die;}
+    if ($name === ''){ die;}
 
     //Try to add category with specific values
     $service->repo->createCategoryForUser($service->user->getUserID(), $name);
@@ -29,7 +29,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     print_r(json_encode($response));
 }
 //DELETE REQUEST
-else if($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+else if($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 
     //Get URL
     $url = $_SERVER['REQUEST_URI'];
@@ -44,7 +44,7 @@ else if($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $service->repo->deleteCategory($id);
 }
 //PUT REQUEST
-else if($_SERVER['REQUEST_METHOD'] == 'PUT') {
+else if($_SERVER['REQUEST_METHOD'] === 'PUT') {
 
     //Get URL
     $url = $_SERVER['REQUEST_URI'];
@@ -56,7 +56,7 @@ else if($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $id = $params['id'];
     $name = $params['name'];
 
-    if($name == ''){die;}
+    if($name === ''){die;}
     //Try updating category with id
     $service->repo->alterCategoryName($id, $name);
 }
